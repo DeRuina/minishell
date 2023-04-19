@@ -6,7 +6,7 @@ I			= inc/
 LIBFT_I		= libft/inc
 
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -O3 -lreadline
+CFLAGS		= -Wall -Werror -Wextra -O3
 INCLUDES	= -I$I -I$(LIBFT_I)
 LIBRARIES	= -L./libft -lft
 
@@ -37,7 +37,7 @@ $(OBJ): $O%.o: $S%
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(OBJ) $(LIBRARIES) -o $(NAME)
+	$(CC) $(OBJ) $(LIBRARIES) -o $(NAME) -lreadline
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
