@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/19 12:17:16 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/04/19 15:02:21 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+int main(void)
 {
-	return (1);
+	char *line;
+	printf("WELCOME TO SPOINA SHELL\n");
+	line = readline("terminal:");
+	printf("%s\n", line);
+	return (0);
 }
+
