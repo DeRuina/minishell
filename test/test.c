@@ -8,9 +8,7 @@ void tearDown(void) {
 
 int main(void)
 {
-	first_test();
-	// test_stack();
-	// test_validity();
-	// test_get_args();
+	test0();
+
 	return (0);
 }

@@ -54,3 +54,4 @@ dkms.conf
 #Our stuff
 minishell
 run_tests
+.vscode
