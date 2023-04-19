@@ -14,7 +14,7 @@ AR			= ar
 ARFLAGS		= rcs
 
 SRC = \
-$S/main.c
+$S/main.c	$S/mytest.c
 OBJ			= $(SRC:$S%=$O%.o)
 
 RM			= /bin/rm -f
@@ -54,3 +54,6 @@ fclean: clean
 re:
 	@make fclean
 	@make all
+
+run_test: $(LIBFT)
+	make MINISHELL="$(SRC)" -C ./test

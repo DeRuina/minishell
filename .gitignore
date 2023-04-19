@@ -51,5 +51,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-#
+#Our stuff
 minishell
+run_tests
