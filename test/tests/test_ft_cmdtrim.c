@@ -6,7 +6,7 @@
 void test_fd_cmdtrim_1337(void)
 {
 	char	*expected[] = {"<Makefile", "cat|", "echo", "$PWD 'hola'", "~/src", "|", "'tr'", "-d", "/", ">outfile"};
-	char	*actual[10] = tokenizer("<Makefile cat| echo \"$PWD 'hola'\" ~/src | 'tr' -d / >outfile");
+	char	**actual = fd_cmdtrim("<Makefile cat| echo \"$PWD 'hola'\" ~/src | 'tr' -d / >outfile");
 
 	TEST_ASSERT_EQUAL_MEMORY(expected, actual, sizeof(char *) * 10);
 }
