@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/19 15:01:56 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/20 13:06:34 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+# include "libft.h"
 
-
+char	*tokenizer(char **line);
 #endif

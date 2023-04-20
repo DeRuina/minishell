@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/20 13:18:03 by druina           ###   ########.fr       */
+/*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
+/*   Updated: 2023/04/20 13:22:19 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,4 @@ char	*tokenizer(char **line)
 	*(*line) = '\0';
 	(*line)++;
 	return (start);
-}
-
-int	main(void)
-{
-	char	*line;
-		char *str;
-
-	printf("WELCOME TO SPOINA SHELL\n");
-	line = readline("terminal:");
-	while (1)
-	{
-		str = tokenizer(&line);
-		printf("%s\n", str);
-		// free(str);
-		if (line == NULL)
-			break ;
-	}
-	return (0);
 }

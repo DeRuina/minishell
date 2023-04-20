@@ -34,7 +34,7 @@ $O:
 $(OBJ): | $O
 
 $(OBJ): $O%.o: $S%
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ -g
 
 $(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(OBJ) $(LIBRARIES) -o $(NAME) -lreadline
