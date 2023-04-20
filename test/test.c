@@ -8,7 +8,7 @@ void tearDown(void) {
 
 int main(void)
 {
-	test0();
+	test_tokenizer();
 
 	return (0);
 }
