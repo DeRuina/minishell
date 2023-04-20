@@ -72,8 +72,17 @@ void test_tokenizer_7(void)
 
 void test_tokenizer_8(void)
 {
-	char	*expected = "\' ' thisi ' \'";
-	char 	*test = ft_strdup("\' ' thisi ' \'");
+	char	*expected = "\' \" thisi \" \'";
+	char 	*test = ft_strdup("\' \" thisi \" \'");
+	char	*actual = get_token(&test);
+
+	TEST_ASSERT_EQUAL_STRING(expected, actual);
+}
+
+void test_tokenizer_9(void)
+{
+	char	*expected = "\' \\' thisi \" \'";
+	char 	*test = ft_strdup("\' \\' thisi \" \'");
 	char	*actual = get_token(&test);
 
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
@@ -91,5 +100,6 @@ int test_tokenizer(void)
 	RUN_TEST(test_tokenizer_6);
 	RUN_TEST(test_tokenizer_7);
 	RUN_TEST(test_tokenizer_8);
+	RUN_TEST(test_tokenizer_9);
 	return UNITY_END();
 }
