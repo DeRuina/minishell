@@ -29,7 +29,7 @@ void test_tokenizer_3(void)
 {
 	char	*expected = "this";
 	char 	*test = ft_strdup("      this     ");
-	char	*actual = tokenizer(&test);
+	char	*actual = get_token(&test);
 
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
 }
@@ -38,7 +38,7 @@ void test_tokenizer_4(void)
 {
 	char	*expected = "this";
 	char 	*test = ft_strdup("this");
-	char	*actual = tokenizer(&test);
+	char	*actual = get_token(&test);
 
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
 }
@@ -47,7 +47,7 @@ void test_tokenizer_5(void)
 {
 	char	*expected = NULL;
 	char 	*test = ft_strdup("         ");
-	char	*actual = tokenizer(&test);
+	char	*actual = get_token(&test);
 
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
 }
@@ -56,7 +56,7 @@ void test_tokenizer_6(void)
 {
 	char	*expected = NULL;
 	char 	*test = NULL;
-	char	*actual = tokenizer(&test);
+	char	*actual = get_token(&test);
 
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
 }
@@ -65,7 +65,7 @@ void test_tokenizer_7(void)
 {
 	char	*expected = "\" ' thisi ' \"";
 	char 	*test = ft_strdup("\" ' thisi ' \"");
-	char	*actual = tokenizer(&test);
+	char	*actual = get_token(&test);
 
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
 }
@@ -74,7 +74,7 @@ void test_tokenizer_8(void)
 {
 	char	*expected = "\' ' thisi ' \'";
 	char 	*test = ft_strdup("\' ' thisi ' \'");
-	char	*actual = tokenizer(&test);
+	char	*actual = get_token(&test);
 
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
 }
