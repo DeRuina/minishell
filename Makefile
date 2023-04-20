@@ -14,7 +14,7 @@ AR			= ar
 ARFLAGS		= rcs
 
 SRC = \
-$S/main.c	$S/mytest.c
+$S/main.c	$S/mytest.c $S/tokenizer.c
 OBJ			= $(SRC:$S%=$O%.o)
 
 RM			= /bin/rm -f
