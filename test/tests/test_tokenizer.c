@@ -24,7 +24,7 @@ void test_tokenizer_2(void)
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
 }
 
-int test0(void)
+int test_tokenizer(void)
 {
 	UNITY_BEGIN();
 	RUN_TEST(test_tokenizer_0);

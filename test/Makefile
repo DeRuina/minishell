@@ -5,7 +5,7 @@ INCLUDES = -I../inc -I../libft/inc -I./unity -I.
 # SANITIZE = -fsanitize=address
 TEST = ./unity/unity.c ./test.c
 TESTS = \
-$T/first_test.c
+$T/test_tokenizer.c
 MINISHELL =
 PS := $(filter-out %main.c, $(MINISHELL))
 
