@@ -6,18 +6,26 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/19 15:02:21 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/20 15:17:47 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(void)
+int	main(void)
 {
-	char *line;
+	char	*line;
+		char *str;
+
 	printf("WELCOME TO SPOINA SHELL\n");
 	line = readline("terminal:");
-	printf("%s\n", line);
+	while (1)
+	{
+		str = tokenizer(&line);
+		printf("%s\n", str);
+		// free(str);
+		if (line == NULL)
+			break ;
+	}
 	return (0);
 }
-
