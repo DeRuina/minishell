@@ -34,7 +34,7 @@ $O:
 $(OBJ): | $O
 
 $(OBJ): $O%.o: $S%
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ -g
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(OBJ) $(LIBRARIES) -o $(NAME) -lreadline
@@ -57,3 +57,7 @@ re:
 
 run_test: $(LIBFT)
 	make MINISHELL="$(SRC)" -C ./test
+
+debug: CFLAGS := $(filter-out -O3,$(CFLAGS))
+debug: CFLAGS += -g
+debug: $(NAME)

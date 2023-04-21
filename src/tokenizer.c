@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/04/20 15:34:51 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/21 15:05:07 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,64 +14,65 @@
 
 // handling double and single quotes
 
-void handle_quotes(char	*whitespace ,char **line)
-{
-	char first;
-	int flag;
+// void handle_quotes(char	*whitespace ,char **line)
+// {
+// 	char first;
+// 	int flag;
 
-	flag = 0;
-	first = 0;
-	while (1)
-	{
-		if (first == '"' && *(*line) == '"')
-				flag = 1;
-			if (first == '\'' && *(*line) == '\'')
-				flag = 1;
-		while (!ft_strchr(whitespace, *(*line)) && flag != 1)
-		{
+// 	flag = 0;
+// 	first = 0;
+// 	while (1)
+// 	{
+// 		if (first == '"' && *(*line) == '"')
+// 				flag = 1;
+// 			if (first == '\'' && *(*line) == '\'')
+// 				flag = 1;
+// 		while (!ft_strchr(whitespace, *(*line)) && flag != 1)
+// 		{
 
-			if (*(*line) == '"' && !first)
-				first = '"';
-			if (*(*line) == '\'' && !first)
-				first = '\'';
-			(*line)++;
-		}
-		if (flag == 1)
-			(*line)++;
-		if (!first || flag == 1)
-			break;
-		while (ft_strchr(whitespace, *(*line)))
-				(*line)++;
-	}
-}
+// 			if (*(*line) == '"' && !first)
+// 				first = '"';
+// 			if (*(*line) == '\'' && !first)
+// 				first = '\'';
+// 			(*line)++;
+// 		}
+// 		if (flag == 1)
+// 			(*line)++;
+// 		if (!first || flag == 1)
+// 			break;
+// 		while (ft_strchr(whitespace, *(*line)))
+// 				(*line)++;
+// 	}
+// }
 
 // Gets a token from the line, and modifies the line to a new start by the pointer
 
 char	*get_token(char **line)
 {
-	char	*start;
-	char	*end;
-	char	*whitespace;
+	char	*line_start;
+	char	*line_end;
+	// char	*whitespace;
 
-	if ((*line) == NULL)
-		return(NULL);
-	whitespace = ft_strdup(" \t\n\v\f\r");
-	while (ft_strchr(whitespace, *(*line)) && *(*line))
+	if (*line == NULL)
+		return (NULL);
+	// whitespace = ft_strdup();
+	// skips whitespaces
+	while (**line && ft_strchr(" \t\n\v\f\r", **line))
 		(*line)++;
-	if (*(*line) == '\0')
-		return ((*line) = NULL);
-	start = (*line);
-	end = (*line) + ft_strlen((*line));
-	handle_quotes(whitespace, line);
-	free(whitespace);
-	if ((*line) == end)
+	if (**line == '\0')
+		return (*line = NULL);
+	line_start = *line;
+	line_end = *line + ft_strlen(*line);
+	// handle_quotes(" \t\n\v\f\r", line);
+	// free(whitespace);
+	if (*line == line_end)
 	{
-		(*line) = NULL;
-		return (start);
+		*line = NULL;
+		return (line_start);
 	}
-	*(*line) = '\0';
+	**line = '\0';
 	(*line)++;
-	return (start);
+	return (line_start);
 }
 
 // 2D array of the tokens

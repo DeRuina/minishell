@@ -27,7 +27,7 @@
 
 void test_tokenizer_3(void)
 {
-	char	*expected = "this";
+	char	*expected = "this ";
 	char 	*test = ft_strdup("      this     ");
 	char	*actual = get_token(&test);
 
