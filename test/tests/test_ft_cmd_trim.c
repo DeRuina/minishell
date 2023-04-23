@@ -90,23 +90,25 @@
 
 void test_ft_cmd_trim_0(void)
 {
-	char	*expected[] = NULL;
-	char	**actual = fd_cmd_trim("\"");
+	char	**expected = NULL;
+	char	**actual = ft_cmd_trim("\"");
 	TEST_ASSERT_EQUAL_MESSAGE(expected, actual, "Result is not NULL");
 }
 
 // Haven't checked if this checks only the stuff it's supposed to.
-// void test_ft_cmd_trim_1337(void)
-// {
-// 	char	*expected[] = {"<Makefile", "cat|", "echo", "$PWD 'hola'", "~/src", "|", "'tr'", "-d", "/", ">outfile"};
-// 	char	**actual = fd_cmdtrim("<Makefile cat| echo \"$PWD 'hola'\" ~/src | 'tr' -d / >outfile");
+// Or if it tests anything at all.
+void test_ft_cmd_trim_1337(void)
+{
+	char	*expected[] = {"<Makefile", "cat|", "echo", "$PWD 'hola'", "~/src", "|", "'tr'", "-d", "/", ">outfile"};
+	char	**actual = fd_cmd_trim("<Makefile cat| echo \"$PWD 'hola'\" ~/src | 'tr' -d / >outfile");
 
-// 	TEST_ASSERT_EQUAL_MEMORY(expected, actual, sizeof(char *) * 10);
-// }
+	TEST_ASSERT_EQUAL_MEMORY(expected, actual, sizeof(char *) * 10);
+}
 
 int test_ft_cmd_trim(void)
 {
 	UNITY_BEGIN();
+	RUN_TEST(test_ft_cmd_trim_0);
 	// RUN_TEST(test_ft_cmd_trim_1337);
 	return UNITY_END();
 }

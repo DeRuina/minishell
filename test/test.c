@@ -8,8 +8,8 @@ void tearDown(void) {
 
 int main(void)
 {
-	test_tokenizer();
-	// test_fd_cmdtrim();
+	// test_tokenizer();
+	test_ft_cmd_trim();
 
 	return (0);
 }

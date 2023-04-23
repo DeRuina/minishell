@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/20 18:20:16 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/04/23 21:08:04 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,7 @@
 
 char	*get_token(char **line);
 char	**tokenizer(char *line);
+
+char	**ft_cmd_trim(char *line);
+
 #endif

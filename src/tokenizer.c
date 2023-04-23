@@ -6,11 +6,13 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/04/23 18:34:09 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/04/23 21:18:51 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// CONTINUE ON FT_CMD_TRIM
 
 // handling double and single quotes
 void handle_quotes(char	*whitespace ,char **line)
@@ -44,13 +46,11 @@ void handle_quotes(char	*whitespace ,char **line)
 	}
 }
 
-// char	**get_token(char *line);
+// CONTINUE ON FT_CMD_TRIM
 
 // Gets a token from the line, and modifies the line to a new start by the pointer
 char	*get_token(char **line)
 {
-	// Current implementation will most likely cause some problems with freeing
-	// and leaking.
 	char	*line_start;
 
 	if (*line == NULL)
@@ -71,8 +71,9 @@ char	*get_token(char **line)
 	return (line_start);
 }
 
-// 2D array of the tokens
+// CONTINUE ON FT_CMD_TRIM
 
+// 2D array of the tokens
 // char **tokenizer(char *line)
 // {
 
