@@ -11,6 +11,9 @@ void test_ft_cmd_trim_1(void)
 {
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(NULL, ft_cmd_trim(NULL), 1, "#0");
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(NULL, ft_cmd_trim("      "), 1, "#1");
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(NULL, ft_cmd_trim(""), 1, "#2");
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(NULL, ft_cmd_trim("\0"), 1, "#3");
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(NULL, ft_cmd_trim("  ""    "), 1, "#4");
 }
 
 void test_ft_cmd_trim_2(void)

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_trim.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/04/24 16:58:08 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/04/25 09:55:22 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 // handling double and single quotes
 void	handle_quotes(char *whitespace, char **line)
@@ -22,23 +23,43 @@ void	handle_quotes(char *whitespace, char **line)
 	first = 0;
 	while (1)
 	{
-		while (!ft_strchr(whitespace, **line) && flag != 1)
+		while (!ft_strchr(whitespace, **line))
 		{
 			if (**line == '"' && !first)
 				first = '"';
-			if (*(*line) == '\'' && !first)
+			else if (*(*line) == '\'' && !first)
 				first = '\'';
+			else
+			{
+			if (first == '"' && *(*line) == '"' && *(*line + 1) == ' ')
+			{
+				(*line)++;
+				if (!ft_strchr((*line), first))
+					flag = 1;
+				break;
+			}
+			else if (*(*line) == '"' && *(*line + 1) == '"')
+					flag = -1;
+
+			if (first == '"' && *(*line) == '"' && flag != -1)
+				flag = 1;
+			if (first == '\'' && *(*line) == '\'' && *(*line + 1) == ' ')
+			{
+				(*line)++;
+				if (!ft_strchr((*line), first))
+					flag = 1;
+				break;
+			}
+			else if (*(*line) == '\'' && *(*line + 1) == '\'')
+					flag = -1;
+			if (first == '\'' && *(*line) == '\'' && flag != -1)
+				flag = 1;
+			}
 			(*line)++;
-			if (first == '"' && *(*line) == '"' && *(*line + 1)  == ' ')
-				flag = 1;
-			if (first == '\'' && *(*line) == '\'' && *(*line + 1)  == ' ')
-				flag = 1;
 		}
 		if (*(*line) == '\0')
 			break;
-		if (flag == 1)
-			(*line)++;
-		if (!first || flag == 1)
+		if (!first || (flag == 1 && first))
 			break ;
 		while (ft_strchr(whitespace, *(*line)))
 			(*line)++;
@@ -70,8 +91,6 @@ char	*malloc_token(char *start, char *line)
 
 char	*get_token(char **line)
 {
-	// Current implementation will most likely cause some problems with freeing
-	// and leaking.
 	char	*line_start;
 
 	if ((*line) == NULL)
@@ -105,6 +124,8 @@ char	**ft_cmd_trim(char *line)
 	len = 0;
 	temp = line;
 	temp2 = get_token(&line);
+	if (temp2 == NULL)
+		return(NULL);
 	while (temp2 != NULL)
 	{
 		len++;
