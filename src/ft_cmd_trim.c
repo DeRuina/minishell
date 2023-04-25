@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/04/25 09:55:22 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/25 10:16:13 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,14 @@ char	*malloc_token(char *start, char *line)
 	int		i;
 
 	i = 0;
-	while (start[i] != line[0])
+	while (&start[i] != &line[0])
 		i++;
 	token = (char *)malloc(sizeof(char) * i + 1);
 	if (!token)
 		return (NULL);
 	token[i] = '\0';
 	i = 0;
-	while (start[i] != line[0])
+	while (&start[i] != &line[0])
 	{
 		token[i] = start[i];
 		i++;

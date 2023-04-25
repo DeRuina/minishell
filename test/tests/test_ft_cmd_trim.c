@@ -50,7 +50,7 @@ void test_ft_cmd_trim_3(void)
 // Or if it tests anything at all.
 void test_ft_cmd_trim_1337(void)
 {
-	char	*expected[] = {"<Makefile", "cat|", "echo", "$PWD 'hola'", "~/src", "|", "'tr'", "-d", "/", ">outfile"};
+	char	*expected[] = {"<Makefile", "cat|", "echo", "\"$PWD 'hola'\"", "~/src", "|", "'tr'", "-d", "/", ">outfile"};
 	char	**actual = ft_cmd_trim("<Makefile cat| echo \"$PWD 'hola'\" ~/src | 'tr' -d / >outfile");
 
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, actual, 10);
