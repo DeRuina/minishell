@@ -14,7 +14,7 @@ AR			= ar
 ARFLAGS		= rcs
 
 SRC = \
-$S/main.c	$S/ft_cmd_trim.c	$S/ft_expand.c
+$S/main.c	$S/ft_cmd_trim.c	$S/ft_expand.c	$S/ft_env.c
 OBJ			= $(SRC:$S%=$O%.o)
 
 RM			= /bin/rm -f
