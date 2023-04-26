@@ -17,10 +17,11 @@ git pull origin main
 
 ```mermaid
 flowchart TD
-    A[Main] --> B[some_function]
-    B --> C[parse_args]
-    C --> D[ft_cmd_trim]
-    C --> E[ft_expand]
-    C --> F[ft_split_operators]
-    C --> G[ft_str_trim]
+    A[Main] --> B[ft_env]
+    A --> C[some_function]
+    C --> D[parse_args]
+    D --> E[ft_cmd_trim]
+    D --> F[ft_expand]
+    D --> G[ft_split_operators]
+    D --> H[ft_str_trim]
 ```
