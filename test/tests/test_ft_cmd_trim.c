@@ -28,8 +28,8 @@ void test_ft_cmd_trim_2(void)
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected3, ft_cmd_trim("echo \"\"abc"), 2, "#3");
 	char	*expected4[] = {"echo", "abc\"\""};
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected4, ft_cmd_trim("echo abc\"\""), 2, "#4");
-	char	*expected5[] = {"ech\"o\"", "abc"};
-	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected5, ft_cmd_trim("ech\"o\" abc"), 2, "#5");
+	char	*expected5[] = {"ech'o'", "abc"};
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected5, ft_cmd_trim("ech'o' abc"), 2, "#5");
 	char	*expected6[] = {"echo\"\"", "abc"};
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected6, ft_cmd_trim("echo\"\" abc"), 2, "#6");
 	char	*expected7[] = {"\"\"echo", "abc"};
@@ -38,6 +38,8 @@ void test_ft_cmd_trim_2(void)
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected8, ft_cmd_trim("\"echo\" abc"), 2, "#8");
 	char	*expected9[] = {"\"echo\"\"\"", "abc"};
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected9, ft_cmd_trim("\"echo\"\"\" abc"), 2, "#9");
+	char	*expected10[] = {"\"   /   \"", "echo", "tr", "-d"};
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected10, ft_cmd_trim("\"   /   \"   echo   tr -d  "), 4, "#10");
 }
 
 void test_ft_cmd_trim_3(void)

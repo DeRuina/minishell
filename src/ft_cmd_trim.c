@@ -6,12 +6,29 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/04/25 10:16:13 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/26 09:54:36 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// cases of double quotes
+
+int	quotes_cases(char first, char character, int *flag, char **line)
+{
+	if (first == character && *(*line) == character && *(*line + 1) == ' ')
+	{
+		(*line)++;
+		if (!ft_strchr((*line), first))
+			(*flag) = 1;
+		return (1);
+	}
+	else if (*(*line) == character && *(*line + 1) == character)
+		(*flag) = -1;
+	if (first == character && *(*line) == character && (*flag) != -1)
+		(*flag) = 1;
+	return (0);
+}
 
 // handling double and single quotes
 void	handle_quotes(char *whitespace, char **line)
@@ -29,36 +46,12 @@ void	handle_quotes(char *whitespace, char **line)
 				first = '"';
 			else if (*(*line) == '\'' && !first)
 				first = '\'';
-			else
-			{
-			if (first == '"' && *(*line) == '"' && *(*line + 1) == ' ')
-			{
-				(*line)++;
-				if (!ft_strchr((*line), first))
-					flag = 1;
-				break;
-			}
-			else if (*(*line) == '"' && *(*line + 1) == '"')
-					flag = -1;
-
-			if (first == '"' && *(*line) == '"' && flag != -1)
-				flag = 1;
-			if (first == '\'' && *(*line) == '\'' && *(*line + 1) == ' ')
-			{
-				(*line)++;
-				if (!ft_strchr((*line), first))
-					flag = 1;
-				break;
-			}
-			else if (*(*line) == '\'' && *(*line + 1) == '\'')
-					flag = -1;
-			if (first == '\'' && *(*line) == '\'' && flag != -1)
-				flag = 1;
-			}
+			else if (quotes_cases(first, first, &flag, line) == 1)
+				break ;
 			(*line)++;
 		}
 		if (*(*line) == '\0')
-			break;
+			break ;
 		if (!first || (flag == 1 && first))
 			break ;
 		while (ft_strchr(whitespace, *(*line)))
@@ -125,7 +118,7 @@ char	**ft_cmd_trim(char *line)
 	temp = line;
 	temp2 = get_token(&line);
 	if (temp2 == NULL)
-		return(NULL);
+		return (NULL);
 	while (temp2 != NULL)
 	{
 		len++;
