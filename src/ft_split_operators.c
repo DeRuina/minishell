@@ -3,13 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_operators.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/23 19:08:03 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/04/26 12:20:13 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_split_operators();
+char	**ft_split_operators(char **array)
+{
+
+	return(array);
+}

@@ -38,8 +38,8 @@ void test_ft_cmd_trim_2(void)
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected8, ft_cmd_trim("\"echo\" abc"), 2, "#8");
 	char	*expected9[] = {"\"echo\"\"\"", "abc"};
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected9, ft_cmd_trim("\"echo\"\"\" abc"), 2, "#9");
-	char	*expected10[] = {"\"   /   \"", "echo"};
-	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected10, ft_cmd_trim("\"   /   \"   echo     "), 2, "#10");
+	char	*expected10[] = {"\"   /   \"", "echo", "tr", "-d"};
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected10, ft_cmd_trim("\"   /   \"   echo   tr -d  "), 4, "#10");
 }
 
 void test_ft_cmd_trim_3(void)
