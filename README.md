@@ -1,20 +1,5 @@
 # minishell
 
-git pull
-
-git pull origin main
-
-*work*
-commit, push
-
-git pull origin main
-git checkout main
-git pull
-git merge yourbranch
-git push
-git checkout yourbranch
-git pull origin main
-
 ```mermaid
 flowchart TD
     A[Main] --> B[ft_env]
@@ -24,4 +9,5 @@ flowchart TD
     D --> F[ft_expand]
     D --> G[ft_split_operators]
     D --> H[ft_str_trim]
+    C --> I[some_function2]
 ```
