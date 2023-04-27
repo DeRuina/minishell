@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/26 12:20:30 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/27 19:04:48 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ typedef struct s_env
 	char	*value;
 }			t_env;
 
-void		ft_env(void);
+int			ft_putenv(t_vec *envs_vec, char *str);
+char		*ft_getenv(t_vec envs_vec, char *key);
+char		*ft_getkey(char *str);
+char		*ft_getvalue(char *str);
 int			quotes_cases(char first, char character, int *flag, char **line);
 void		handle_quotes(char *whitespace, char **line);
 char		*malloc_token(char *start, char *line);
