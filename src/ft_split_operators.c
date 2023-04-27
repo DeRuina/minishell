@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/27 15:41:12 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/27 19:03:18 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,45 @@ int check_for_token(char *array)
 	return(count);
 }
 
+int len_to_token(char **array)
+{
+	int len;
 
+	len = 0;
+	while (!ft_strchr("<|>", *(*array)))
+	{
+		len++;
+		(*array)++;
+	}
+	return(len);
+}
+
+char *malloc_with_offset(char **array, int offset)
+{
+	int i;
+	char *answer;
+	char *temp;
+	int len;
+
+	temp = (*array);
+	i = 0;
+	if (offset % 2 == 0)
+		len = len_to_token(array);
+	if (offset % 2 == 1)
+		len = 1;
+	answer = (char *)malloc(sizeof(char) * len + 1);
+	if (!answer)
+		return(NULL);
+	while (i < len)
+	{
+		answer[i] = temp[i];
+		i++;
+	}
+	answer[i] = '\0';
+	return(answer);
+
+
+}
 
 char **divide_into_arr(char **array, char **answer)
 {
@@ -86,22 +124,24 @@ char **divide_into_arr(char **array, char **answer)
 	while (array[i] != 0)
 	{
 		if (check_for_token(array[i]) == 0)
-			answer[i + offset] = (char *)malloc(sizeof(char) * ft_strlen(array[i]) + 1);
+		{
+			answer[i] = (char *)malloc(sizeof(char) * ft_strlen(array[i]) + 1);
+			while (array[i][j] != '\0')
+			{
+				answer[i + offset][j] = array[i][j];
+				j++;
+			}
+			j = 0;
+			i++;
+		}
 		else
 		{
+			j = -1;
 			offset = check_for_token(array[i]);
+			while (++j <= offset)
+				answer[i + j] = malloc_with_offset(&array[i], j);
+			break;
 		}
-
-		while (array[i][j] != '\0')
-		{
-			answer[i + offset][j] = array[i][j];
-			j++;
-		}
-		j = 0;
-		i++;
-
-
-
 
 	}
 		return(answer);

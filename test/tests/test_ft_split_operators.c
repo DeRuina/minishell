@@ -12,15 +12,15 @@ void test_ft_split_operators_0(void)
 	char	*expected2[] = {"echo", "|", NULL};
 	char	*array2[] = {"echo|", NULL};
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected2, ft_split_operators(array2), 3, "#2");
-	// char	*expected3[] = {NULL , NULL};
-	// char	*array3[] = {NULL, NULL};
-	// TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected3, ft_split_operators(array3), 2, "#3");
-	// char	**expected4 = NULL;
-	// char	**array4 = NULL;
-	// TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected4, ft_split_operators(array4), 1, "#4");
-	// char	*expected5[] = {"echo", "|", "ls", NULL};
-	// char	*array5[] = {"echo", "|ls", NULL};
-	// TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected5, ft_split_operators(array5), 2, "#5");
+	char	*expected3[] = {NULL , NULL};
+	char	*array3[] = {NULL, NULL};
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected3, ft_split_operators(array3), 2, "#3");
+	char	**expected4 = NULL;
+	char	**array4 = NULL;
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected4, ft_split_operators(array4), 1, "#4");
+	char	*expected5[] = {"echo", "|", "ls", NULL};
+	char	*array5[] = {"echo", "|ls", NULL};
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected5, ft_split_operators(array5), 2, "#5");
 }
 
 void test_ft_split_operators_1(void)
