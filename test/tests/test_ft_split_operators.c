@@ -61,6 +61,12 @@ void test_ft_split_operators_1(void)
 	char	*expected11[] = {"<", "file.txt", ">", "in" ">>", "outfile"};
 	char	*array11[] = {"<", "file.txt>in>>", "outfile"};
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected11, ft_split_operators(array11), 6, "#11");
+	char	*expected12[] = {"<<", "file", ">", "outfile"};
+	char	*array12[] = {"<<file>>outfile"};
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected12, ft_split_operators(array12), 4, "#12");
+	char	*expected13[] = {"<<", "file", ">", "in" ">>", "outfile"};
+	char	*array13[] = {"<<file> in>>outfile"};
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected13, ft_split_operators(array13), 6, "#13");
 
 
 }

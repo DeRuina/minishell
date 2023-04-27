@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/04/26 09:54:36 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/27 12:44:42 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	handle_quotes(char *whitespace, char **line)
 			break ;
 		if (!first || (flag == 1 && first))
 			break ;
-		while (ft_strchr(whitespace, *(*line)))
+		while (ft_strchr(whitespace, *(*line)) && *(*line) != '\0')
 			(*line)++;
 	}
 }
@@ -101,7 +101,8 @@ char	*get_token(char **line)
 		return (line_start);
 	}
 	line_start = malloc_token(line_start, (*line));
-	(*line)++;
+	if (*(*line) != '\0')
+		(*line)++;
 	return (line_start);
 }
 
