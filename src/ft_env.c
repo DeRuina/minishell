@@ -3,30 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 11:45:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/27 11:07:56 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/27 19:06:01 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// char	*ft_getkey(char *str)
-// {
-// 	char	*str_start;
+char	*ft_getkey(char *str)
+{
+	return (ft_substr(str, 0, ft_strchr(str, '=') - str));
+}
 
-// 	str_start = str;
-// 	return (ft_substr(str, 0, ft_strchr(str, '=') - str_start));
-// }
+char	*ft_getvalue(char *str)
+{
+	char	*value_start;
 
-// char	*ft_getvalue();
+	value_start = ft_strchr(str, '=');
+	return (ft_substr(str, value_start - str + 1, ft_strlen(value_start)));
+}
 
-// void	ft_putenv(t_env **envs, char *str)
-// {
-// 	while (*envs)
-// 	{
-// 		if ((*envs)->key == "")
-// 		envs++;
-// 	}
-// }
+// Gets env string (eg. "HOME=/Users/tspoof") and stores it in an array as
+// key value pair (eg key = "HOME", value = "/Users/tspoof").
+int	ft_putenv(t_vec *envs_vec, char *str)
+{
+	t_env	*envs;
+	t_env	env;
+	size_t	i;
+
+	if (!envs_vec)
+		return (0);
+	envs = (t_env *)envs_vec->memory;
+	env.key = ft_getkey(str);
+	env.value = ft_getvalue(str);
+	if (!env.key || !env.value)
+		exit (1);
+	i = 0;
+	while (i < envs_vec->len)
+	{
+		if (!ft_strncmp(envs[i].key, env.key, ft_strlen(envs[i].key)))
+		{
+			free(envs[i].value);
+			envs[i].value = env.value;
+			return (1);
+		}
+		i++;
+	}
+	if (vec_push(envs_vec, &env) < 0)
+		exit (1);
+	return (1);
+}
+
+// Returns the keys value
+char	*ft_getenv(t_vec envs_vec, char *key)
+{
+	size_t	i;
+	t_env	*envs;
+
+	if (!envs_vec.memory)
+		return (0);
+	envs = (t_env *)envs_vec.memory;
+	i = 0;
+	while (i < envs_vec.len)
+	{
+		if (!ft_strncmp(envs[i].key, key, ft_strlen(key)))
+			return (envs[i].value);
+		i++;
+	}
+	return (NULL);
+}
