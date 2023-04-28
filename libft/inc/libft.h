@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:09:24 by tspoof            #+#    #+#             */
-/*   Updated: 2022/12/15 15:05:11 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/04/28 10:00:02 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+/**
+ * @brief Frees 2D char arrays.
+ *
+ *
+ * @param str 2D array
+ * @return void
+ */
+void	free_2d(char **str);
 /**
  * @brief ASCII to integer.
  *

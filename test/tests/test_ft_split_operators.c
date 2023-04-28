@@ -20,7 +20,7 @@ void test_ft_split_operators_0(void)
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected4, ft_split_operators(array4), 1, "#4");
 	char	*expected5[] = {"echo", "|", "ls", NULL};
 	char	*array5[] = {"echo", "|ls", NULL};
-	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected5, ft_split_operators(array5), 2, "#5");
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected5, ft_split_operators(array5), 4, "#5");
 }
 
 void test_ft_split_operators_1(void)
@@ -85,7 +85,7 @@ int test_ft_split_operators(void)
 {
 	UNITY_BEGIN();
 	RUN_TEST(test_ft_split_operators_0);
-	// RUN_TEST(test_ft_split_operators_1);
-	// RUN_TEST(test_ft_split_operators_2);
+	RUN_TEST(test_ft_split_operators_1);
+	RUN_TEST(test_ft_split_operators_2);
 	return UNITY_END();
 }

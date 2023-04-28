@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/27 19:03:18 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/28 10:02:51 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ int len_to_token(char **array)
 	int len;
 
 	len = 0;
+	if (ft_strchr("<|>", *(*array)))
+	{
+		(*array)++;
+		return(1);
+	}
 	while (!ft_strchr("<|>", *(*array)))
 	{
 		len++;
@@ -83,7 +88,7 @@ int len_to_token(char **array)
 	return(len);
 }
 
-char *malloc_with_offset(char **array, int offset)
+char *malloc_with_offset(char **array)
 {
 	int i;
 	char *answer;
@@ -92,10 +97,7 @@ char *malloc_with_offset(char **array, int offset)
 
 	temp = (*array);
 	i = 0;
-	if (offset % 2 == 0)
-		len = len_to_token(array);
-	if (offset % 2 == 1)
-		len = 1;
+	len = len_to_token(array);
 	answer = (char *)malloc(sizeof(char) * len + 1);
 	if (!answer)
 		return(NULL);
@@ -115,8 +117,6 @@ char **divide_into_arr(char **array, char **answer)
 	int j;
 	int i;
 	int offset;
-	// char *arr;
-	// char *arr1;
 
 	j = 0;
 	offset = 0;
@@ -139,7 +139,7 @@ char **divide_into_arr(char **array, char **answer)
 			j = -1;
 			offset = check_for_token(array[i]);
 			while (++j <= offset)
-				answer[i + j] = malloc_with_offset(&array[i], j);
+				answer[i + j] = malloc_with_offset(&array[i]);
 			break;
 		}
 
@@ -151,17 +151,19 @@ char	**ft_split_operators(char **array)
 {
 	int i;
 	char **answer;
+	char **temp;
 	int count;
 
 	if (array == NULL)
 		return(NULL);
 	i = 0;
+	temp = array;
 	count = find_proper_allocation(array, &i);
 	answer = (char **)malloc(sizeof(char *) * (i + count) + 1);
 	if (!answer)
 		return(answer);
 	answer[i + count] = 0;
 	answer = divide_into_arr(array, answer);
-
+	// free_2d(temp);
 	return(answer);
 }

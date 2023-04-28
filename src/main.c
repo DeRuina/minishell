@@ -6,24 +6,11 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/26 09:24:49 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/28 09:57:45 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_2d(char **str)
-{
-	char	**temp;
-
-	temp = str;
-	while (*str)
-	{
-		free(*str);
-		str++;
-	}
-	free(temp);
-}
 
 int	main(int argc, char *argv[], char *env[])
 {

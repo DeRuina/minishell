@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/26 12:20:30 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/28 09:56:40 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ char		*get_token(char **line);
 char		**ft_cmd_trim(char *line);
 void		ft_expand(char **line);
 char		**ft_split_operators(char **array);
+void		free_2d(char **str);
 
 #endif
