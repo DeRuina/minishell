@@ -6,10 +6,9 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/28 10:06:16 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/28 14:57:57 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -35,5 +34,10 @@ char		*get_token(char **line);
 char		**ft_cmd_trim(char *line);
 void		ft_expand(char **line);
 char		**ft_split_operators(char **array);
+int			check_for_operator(char *array);
+int			find_proper_allocation(char **array, int i);
+int			len_to_token(char **array, int *flag);
+char		*malloc_new_token(char **array);
+char		**divide_into_arr(char **array, char **answer);
 
 #endif
