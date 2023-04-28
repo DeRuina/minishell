@@ -2,8 +2,8 @@
 
 ```mermaid
 flowchart TD
-    A[Main] --> B[ft_env]
-    A --> C[some_function]
+    A[Main] --> C[minishell]
+    C --> B[ft_env]
     C --> D[parse_args]
     D --> E[ft_cmd_trim]
     D --> F[ft_expand]
