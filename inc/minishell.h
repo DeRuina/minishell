@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/28 14:57:57 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/28 16:15:46 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ int			find_proper_allocation(char **array, int i);
 int			len_to_token(char **array, int *flag);
 char		*malloc_new_token(char **array);
 char		**divide_into_arr(char **array, char **answer);
+void		get_allocation_num(char *array, int *count);
+void		*no_op(char **answer, char **array, int *offset, int *i);
 
 #endif

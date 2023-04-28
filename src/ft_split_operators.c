@@ -6,100 +6,11 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/28 14:57:43 by druina           ###   ########.fr       */
+/*   Updated: 2023/04/28 16:20:40 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//Find proper allocation for 2D array
-
-int	find_proper_allocation(char **array, int i)
-{
-	int		j;
-	int		count;
-	char	*temp;
-	int		offset;
-	int		flag;
-
-	count = 0;
-	offset = 0;
-	flag = 0;
-	while (array[i] != 0)
-	{
-		temp = array[i];
-		j = -1;
-		offset = check_for_operator(array[i]);
-		if (offset == 0)
-			count++;
-		else
-		{
-			while (len_to_token(&array[i], &flag))
-			{
-				count++;
-				if (!*array[i])
-					break ;
-			}
-		}
-		array[i] = temp;
-		i++;
-	}
-	return (count);
-}
-
-//Check if there is a operator
-
-int	check_for_operator(char *array)
-{
-	int		i;
-	int		count;
-	char	*token;
-
-	i = -1;
-	count = 0;
-	while (array[++i] != '\0')
-	{
-		if (ft_strchr("<|>", array[i]))
-			token = ft_strchr("<|>", array[i]);
-		else
-			token = NULL;
-		if (token != NULL)
-		{
-			if (*token == array[i] && array[i + 1] == '\0' && !array[i - 1])
-				count = 0;
-			else if (token)
-				count++;
-		}
-	}
-	return (count);
-}
-
-// len of the next token
-
-int	len_to_token(char **array, int *flag)
-{
-	int	len;
-
-	len = 0;
-	if (ft_strchr("<|>", *(*array)))
-	{
-		if (ft_strchr("<|>", *(*array + 1)) && *(*array + 1) != '\0' && *(*array
-				+ 1) != '|')
-		{
-			if ((*flag) != 0)
-				(*flag) = 1;
-			(*array)++;
-		}
-		(*array)++;
-		return (1);
-	}
-	while (!ft_strchr("<|>", *(*array)))
-	{
-		len++;
-		(*array)++;
-	}
-	return (len);
-}
 
 // finds and mallocs the next operator
 
@@ -129,32 +40,38 @@ char	*malloc_new_token(char **array)
 	return (answer);
 }
 
+//	part of divide_into_arr
+
+void	*no_op(char **answer, char **array, int *offset, int *i)
+{
+	int	j;
+
+	j = 0;
+	answer[(*i) + (*offset)] = (char *)malloc(sizeof(char)
+			* ft_strlen(array[(*i)]) + 1);
+	while (array[(*i)][j] != '\0')
+	{
+		answer[(*i) + (*offset)][j] = array[(*i)][j];
+		j++;
+	}
+	(*i)++;
+	return (answer[(*i) + (*offset)]);
+}
+
 // creates the new array and allocates
 
 char	**divide_into_arr(char **array, char **answer)
 {
-	int		j;
 	int		i;
 	int		offset;
 	char	*temp;
 
-	j = 0;
 	offset = 0;
 	i = 0;
 	while (array[i] != 0)
 	{
 		if (check_for_operator(array[i]) == 0)
-		{
-			answer[i + offset] = (char *)malloc(sizeof(char)
-					* ft_strlen(array[i]) + 1);
-			while (array[i][j] != '\0')
-			{
-				answer[i + offset][j] = array[i][j];
-				j++;
-			}
-			j = 0;
-			i++;
-		}
+			answer[i + offset] = no_op(answer, array, &offset, &i);
 		else
 		{
 			temp = array[i];
