@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_ft_expand.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/29 16:46:26 by tspoof            #+#    #+#             */
+/*   Updated: 2023/04/29 16:46:28 by tspoof           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "unity.h"
 #include "minishell.h"
 
@@ -15,15 +27,68 @@ void	set_vars(void)
 		exit (1);
 }
 
-void test_ft_expand_0(void)
+
+// $ tests
+void test_ft_expand_$0(void)
 {
-	char *expected[2];
-	char path[100];
+	char *expected[] = {"/Users/tspoof/Documents/HIVE/minishell", NULL};
 	char *line[] = {"$PWD", NULL};
 
-	getcwd(path, 100);
-	expected[0] = path;
-	expected[1] = NULL;
+	ft_expand(vars, line);
+	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
+}
+
+void test_ft_expand_$1(void)
+{
+	char *expected[] = {"$", NULL};
+	char *line[] = {"$", NULL};
+
+	ft_expand(vars, line);
+	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
+}
+
+void test_ft_expand_$2(void)
+{
+	char *expected[] = {NULL, NULL};
+	char *line[] = {"$NOTEXISTING", NULL};
+
+	ft_expand(vars, line);
+	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
+}
+
+void test_ft_expand_$3(void)
+{
+	char *expected[] = {"/Users/tspoof/Documents/HIVE/minishell$", NULL};
+	char *line[] = {"$PWD$", NULL};
+
+	ft_expand(vars, line);
+	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
+}
+
+void test_ft_expand_$4(void)
+{
+	char *expected[] = {"$", NULL};
+	char *line[] = {"$NOTEXISTING$", NULL};
+
+	ft_expand(vars, line);
+	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
+}
+
+void test_ft_expand_$5(void)
+{
+	char *expected[] = {"$ HOME", NULL};
+	char *line[] = {"$ HOME", NULL};
+
+	ft_expand(vars, line);
+	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
+}
+
+
+// ~ tests
+void test_ft_expand_0(void)
+{
+	char *expected[] = {"/Users/tspoof", NULL};
+	char *line[] = {"~", NULL};
 
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
@@ -31,17 +96,17 @@ void test_ft_expand_0(void)
 
 void test_ft_expand_1(void)
 {
-	char *expected = getenv("HOME");
-	char *line = "~";
+	char *expected[] = {"test~ hehe", NULL};
+	char *line[] = {"test~ hehe", NULL};
 
-	ft_expand(vars, &line);
-	TEST_ASSERT_EQUAL_STRING(expected, line);
+	ft_expand(vars, line);
+	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 }
 
 void test_ft_expand_2(void)
 {
-	char *expected[] = {"test~", "hehe"};
-	char *line[] = {"test~ hehe"};
+	char *expected[] = {"test /Users/tspoof hehe", NULL};
+	char *line[] = {"test ~ hehe", NULL};
 
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
@@ -49,32 +114,45 @@ void test_ft_expand_2(void)
 
 void test_ft_expand_3(void)
 {
-	char *expected[] = {"test", getenv("HOME"), "hehe"};
-	char *line[] = {"test ~ hehe"};
+	char *expected[] = {"~~", NULL};
+	char *line[] = {"~~", NULL};
 
 	ft_expand(vars, line);
-	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 3);
+	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 }
 
 void test_ft_expand_4(void)
 {
-	char expected[100];
-	chdir("..");
-	getcwd(expected, 100);
-	char *line = "$PWD";
+	char *expected[] = {"/bin/zsh", NULL};
+	char *line[] = {"~SHELL", NULL};
 
-	ft_expand(vars, &line);
-	TEST_ASSERT_EQUAL_STRING(expected, line);
+	ft_expand(vars, line);
+	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
+}
+
+void test_ft_expand_1337(void)
+{
+	char *expected[] = {"$", "/Users/tspoof", "/Users/tspoof$", NULL, "$", "/Users/tspoof", "~~", "$ HOME", NULL};
+	char *line[] = {"$", "$HOME", "$HOME$", "$NOTEXISTING", "$NOTEXISTING$", "~", "~~", "$ HOME", NULL};
+
+	ft_expand(vars, line);
+	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 }
 
 int test_ft_expand(void)
 {
 	UNITY_BEGIN();
 	set_vars();
-	RUN_TEST(test_ft_expand_0);
+	RUN_TEST(test_ft_expand_$0);
+	RUN_TEST(test_ft_expand_$1);
+	RUN_TEST(test_ft_expand_$2);
+	RUN_TEST(test_ft_expand_$3);
+	RUN_TEST(test_ft_expand_$4);
+	RUN_TEST(test_ft_expand_$5);
 	RUN_TEST(test_ft_expand_1);
 	RUN_TEST(test_ft_expand_2);
 	RUN_TEST(test_ft_expand_3);
 	RUN_TEST(test_ft_expand_4);
+	RUN_TEST(test_ft_expand_1337);
 	return UNITY_END();
 }
