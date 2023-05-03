@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/28 14:47:59 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/03 16:43:35 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	main(int argc, char *argv[]/*, char *env[]*/)
 
 	str = ft_cmd_trim(line);
 	str1 = ft_split_operators(str);
+	free_2d(str);
+	str1 = ft_str_trim(str1);
 	free_2d(str1);
 	free(temp);
 
