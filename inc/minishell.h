@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/02 20:04:25 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/03 17:36:24 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char		**ft_cmd_trim(char *line);
 
 void		ft_expand(t_vec env_vars, char **arr);
 char		*ft_var_end(char *str);
-t_vec		ft_var_expand(t_vec env_vars, char *str);
+char		*ft_var_expand(t_vec env_vars, char *str);
 
 // split_operators
 
