@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/28 16:43:28 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/03 09:08:08 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char		**ft_cmd_trim(char *line);
 void		ft_expand(t_vec vars, char **line);
 char		**ft_split_operators(char **array);
 
-
 // Let's order this stuff in some logical manner
 char		*malloc_token(char *start, char *line);
 int			quotes_cases(char first, char character, int *flag, char **line);
@@ -47,5 +46,6 @@ char		*malloc_new_token(char **array);
 char		**divide_into_arr(char **array, char **answer);
 void		get_allocation_num(char *array, int *count);
 void		*no_op(char **answer, char **array, int *offset, int *i);
+char		**ft_str_trim(char **array);
 
 #endif
