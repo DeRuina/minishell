@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/03 17:53:30 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/04 16:18:32 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ char	*ft_var_expand(t_vec env_vars, char *str)
 	char	*key;
 	char	*value;
 
-	if (*str == '$' && *(str + 1))
+	if (*str == '$' && *(str + 1) && ft_isalnum(*(str + 1)))
 		str++;
 	key = ft_substr(str, 0, ft_var_end(str) - str);
 	if (!key)
 		return (NULL);
-	if (ft_strchr(key, '$'))
+	if (*key == '$')
 		value = key;
 	else
 		value = ft_getenv(env_vars, key);
@@ -60,60 +60,73 @@ char	*ft_var_expand(t_vec env_vars, char *str)
 	return (value);
 }
 
-char	*ft_handle_expand(t_vec env_vars, char *str) // better name for str
+char	*ft_handle_dollar(t_vec env_vars, char *line, char *token)
 {
 	char	*expanded_var;
 	char	*result;
 
+	result = line;
+	expanded_var = ft_var_expand(env_vars, token);
+	if (!expanded_var)
+		return (NULL);
+	return (ft_strjoin(line, expanded_var)); // leaks ft_strfjoin()?? && protection ??
+}
+
+// char	*ft_handle_tilde(t_vec env_vars, char *token);
+
+char	*ft_expand_token(t_vec env_vars, char *token)
+{
+	// char	*expanded_var;
+	char	*result;
+	char	*tmp;
+	char	*character;
+
 	result = ft_strdup(""); // protection
-	while (*str)
+	while (*token)
 	{
-		if (*str == '$')
+		if (*token == '$' && ft_isalnum(*(token + 1)))
 		{
-			expanded_var = ft_var_expand(env_vars, str);
-			if (expanded_var)
-				result = ft_strjoin(result, expanded_var); // leaks ft_strfjoin()?? && protection
-			str = ft_var_end(str);
+			tmp = ft_handle_dollar(env_vars, result, token);
+			if (tmp)
+			{
+				free(result);
+				result = tmp;
+			}
+			token = ft_var_end(token);
 		}
-		result = ft_strjoin(result, &(*str)); // leaks && protection
-		if (*str)
-			str++;
+		if (*token == '~')
+		{
+			tmp = ft_strjoin(result, ft_var_expand(env_vars, "HOME")); // protection
+			free(result);
+			result = tmp;
+			token++;
+		}
+		if (!*token)
+			return (result);
+		if (*token == '$' && *(token + 1) != '\0' && *(token + 1) != ' ')
+			continue;
+		character = ft_substr(token, 0, 1);
+		tmp = ft_strjoin(result, character); // protection
+		free(result);
+		free(character);
+		result = tmp;
+		if (*token)
+			token++;
 	}
 	return (result);
 }
 
-void	ft_expand(t_vec env_vars, char **arr) // better name for arr
+void	ft_expand(t_vec env_vars, char **token_arr)
 {
-	// t_vec	result;
-	char	*expanded_var;
-
-	while (*arr)
+	while (*token_arr)
 	{
-		if (!ft_strchr(*arr, '$'))
+		if (!ft_strchr(*token_arr, '$'))
 		{
-			arr++;
+			token_arr++;
 			continue;
 		}
-		// if(vec_new(&result, 10, sizeof(char)) < 0)
-		// 	exit (1);
-		while (**arr)
-		{
-			if (**arr == '$')
-			{
-				expanded_var = ft_var_expand(env_vars, *arr);
-				// if (vec_append(&result, &expanded_var) < 0)
-				// 	exit (1);
-				// vec_free(&expanded_var);
-				// *arr = ft_var_end(*arr);
-			}
-			// if (vec_push(&result, *arr) < 0)
-			// 	exit (1);
-			if (**arr)
-				(*arr)++;
-		}
-		// *arr = ft_strdup((char *)result.memory);
-		// vec_free(&result);
-		arr++;
+		*token_arr = ft_expand_token(env_vars, *token_arr);
+		token_arr++;
 	}
 }
 
