@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/03 17:48:33 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/04 08:56:35 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	**ft_split_operators(char **array)
 	count = find_proper_allocation(array, i);
 	answer = (char **)malloc(sizeof(char *) * count + 1);
 	if (!answer)
-		return (answer);
+		return (NULL);
 	answer[i + count] = 0;
 	answer = divide_into_arr(temp, answer);
 	// free_2d(array);
