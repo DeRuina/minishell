@@ -1,83 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_operations_utils.c                        :+:      :+:    :+:   */
+/*   ft_split_operators_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:18:22 by druina            #+#    #+#             */
-/*   Updated: 2023/04/28 16:19:00 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/03 17:48:30 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// part of find_proper_allocation
+// finds and mallocs the next operator
 
-void	get_allocation_num(char *array, int *count)
-{
-	int	offset;
-	int	flag;
-
-	offset = 0;
-	flag = 0;
-	offset = check_for_operator(array);
-	if (offset == 0)
-		(*count)++;
-	else
-	{
-		while (len_to_token(&array, &flag))
-		{
-			(*count)++;
-			if (!*array)
-				break ;
-		}
-	}
-}
-
-//Find proper allocation for 2D array
-
-int	find_proper_allocation(char **array, int i)
-{
-	int		count;
-	char	*temp;
-
-	count = 0;
-	while (array[i] != 0)
-	{
-		temp = array[i];
-		get_allocation_num(array[i], &count);
-		array[i] = temp;
-		i++;
-	}
-	return (count);
-}
-
-//Check if there is a operator
-
-int	check_for_operator(char *array)
+char	*malloc_new_token(char **array)
 {
 	int		i;
-	int		count;
-	char	*token;
+	char	*answer;
+	char	*temp;
+	int		len;
+	int		flag;
 
-	i = -1;
-	count = 0;
-	while (array[++i] != '\0')
+	flag = 2;
+	temp = (*array);
+	i = 0;
+	len = len_to_token(array, &flag);
+	if (flag == 1)
+		len++;
+	answer = (char *)malloc(sizeof(char) * len + 1);
+	if (!answer)
+		return (NULL);
+	while (i < len)
 	{
-		if (ft_strchr("<|>", array[i]))
-			token = ft_strchr("<|>", array[i]);
-		else
-			token = NULL;
-		if (token != NULL)
-		{
-			if (*token == array[i] && array[i + 1] == '\0' && !array[i - 1])
-				count = 0;
-			else if (token)
-				count++;
-		}
+		answer[i] = temp[i];
+		i++;
 	}
-	return (count);
+	answer[i] = '\0';
+	return (answer);
+}
+
+//	part of divide_into_arr
+
+void	*no_op(char **answer, char **array, int *offset, int *i)
+{
+	int	j;
+
+	j = 0;
+	answer[(*i) + (*offset)] = (char *)malloc(sizeof(char)
+			* ft_strlen(array[(*i)]) + 1);
+	while (array[(*i)][j] != '\0')
+	{
+		answer[(*i) + (*offset)][j] = array[(*i)][j];
+		j++;
+	}
+	(*i)++;
+	return (answer[(*i) + (*offset)]);
 }
 
 // len of the next token
@@ -105,4 +83,31 @@ int	len_to_token(char **array, int *flag)
 		(*array)++;
 	}
 	return (len);
+}
+
+//Check if there is a operator
+
+int	check_for_operator(char *array)
+{
+	int		i;
+	int		count;
+	char	*token;
+
+	i = -1;
+	count = 0;
+	while (array[++i] != '\0')
+	{
+		if (ft_strchr("<|>", array[i]))
+			token = ft_strchr("<|>", array[i]);
+		else
+			token = NULL;
+		if (token != NULL)
+		{
+			if (*token == array[i] && array[i + 1] == '\0' && !array[i - 1])
+				count = 0;
+			else if (token)
+				count++;
+		}
+	}
+	return (count);
 }

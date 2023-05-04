@@ -6,57 +6,11 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/28 16:20:40 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/04 08:56:35 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// finds and mallocs the next operator
-
-char	*malloc_new_token(char **array)
-{
-	int		i;
-	char	*answer;
-	char	*temp;
-	int		len;
-	int		flag;
-
-	flag = 2;
-	temp = (*array);
-	i = 0;
-	len = len_to_token(array, &flag);
-	if (flag == 1)
-		len++;
-	answer = (char *)malloc(sizeof(char) * len + 1);
-	if (!answer)
-		return (NULL);
-	while (i < len)
-	{
-		answer[i] = temp[i];
-		i++;
-	}
-	answer[i] = '\0';
-	return (answer);
-}
-
-//	part of divide_into_arr
-
-void	*no_op(char **answer, char **array, int *offset, int *i)
-{
-	int	j;
-
-	j = 0;
-	answer[(*i) + (*offset)] = (char *)malloc(sizeof(char)
-			* ft_strlen(array[(*i)]) + 1);
-	while (array[(*i)][j] != '\0')
-	{
-		answer[(*i) + (*offset)][j] = array[(*i)][j];
-		j++;
-	}
-	(*i)++;
-	return (answer[(*i) + (*offset)]);
-}
 
 // creates the new array and allocates
 
@@ -88,6 +42,47 @@ char	**divide_into_arr(char **array, char **answer)
 	return (answer);
 }
 
+// part of find_proper_allocation
+
+void	get_allocation_num(char *array, int *count)
+{
+	int	offset;
+	int	flag;
+
+	offset = 0;
+	flag = 0;
+	offset = check_for_operator(array);
+	if (offset == 0)
+		(*count)++;
+	else
+	{
+		while (len_to_token(&array, &flag))
+		{
+			(*count)++;
+			if (!*array)
+				break ;
+		}
+	}
+}
+
+//Find proper allocation for 2D array
+
+int	find_proper_allocation(char **array, int i)
+{
+	int		count;
+	char	*temp;
+
+	count = 0;
+	while (array[i] != 0)
+	{
+		temp = array[i];
+		get_allocation_num(array[i], &count);
+		array[i] = temp;
+		i++;
+	}
+	return (count);
+}
+
 //Split the tokens into operators
 
 char	**ft_split_operators(char **array)
@@ -104,7 +99,7 @@ char	**ft_split_operators(char **array)
 	count = find_proper_allocation(array, i);
 	answer = (char **)malloc(sizeof(char *) * count + 1);
 	if (!answer)
-		return (answer);
+		return (NULL);
 	answer[i + count] = 0;
 	answer = divide_into_arr(temp, answer);
 	// free_2d(array);
