@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:47:04 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/04 13:46:28 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/05 10:03:06 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,40 @@ void test_ft_parse_args_1(void)
 
 void test_ft_parse_args_2(void)
 {
-	t_node	expected0 = {.full_cmd = {"echo", "hello \n hi"}, .full_path = "echo", .pid = -1, .infile = 0, .outfile = 3, .next_node = NULL};
+	t_node	expected0 = {.full_cmd = {"echo", "hello \n hi"}, .full_path = "echo", .pid = -1, .infile = 0, .outfile = 1, .next_node = NULL};
 	char	*array0[] = {"echo", "hello \n hi" "|" "grep" "i", NULL};
 	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expected0, ft_parse_args(array0), sizeof(expected0), "#0 node 0");
-	t_node	expected0 = {.full_cmd = {"grep", "i"}, .full_path = "grep", .pid = -1, .infile = 0, .outfile = 3, .next_node = NULL};
-	char	*array0[] = {"echo", "hello \n hi" "|" "grep" "i", NULL};
-	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expected0, ft_parse_args(array0), sizeof(expected0), "#0 node 1");
+	t_node	expected1 = {.full_cmd = {"grep", "i"}, .full_path = "grep", .pid = -1, .infile = 0, .outfile = 1, .next_node = NULL};
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expected1, ft_parse_args(array0), sizeof(expected1), "#0 node 1");
+	t_node	expected2 = {.full_cmd = {"echo", "hello"}, .full_path = "echo", .pid = -1, .infile = 0, .outfile = 1, .next_node = NULL};
+	char	*array1[] = {"echo", "hello", "|", "grep", "i", "|", "cat", "-e", NULL};
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expected2, ft_parse_args(array1), sizeof(expected2), "#1 node 0");
+	t_node	expected3 = {.full_cmd = {"grep", "i"}, .full_path = "grep", .pid = -1, .infile = 0, .outfile = 1, .next_node = NULL};
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expected3, ft_parse_args(array1), sizeof(expected3), "#1 node 1");
+	t_node	expected4 = {.full_cmd = {"cat", "-e"}, .full_path = "cat", .pid = -1, .infile = 0, .outfile = 1, .next_node = NULL};
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expected4, ft_parse_args(array1), sizeof(expected4), "#1 node 2");
+	t_node	expected5 = {.full_cmd = {"echo", "hello"}, .full_path = "echo", .pid = -1, .infile = 3, .outfile = 4, .next_node = NULL};
+	char	*array2[] = {"<", "infile", "echo", "hello", "|", "grep", "i", "|", "cat", "-e", ">", "outfile", NULL};
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expected5, ft_parse_args(array2), sizeof(expected5), "#2 node 0");
+	t_node	expected6 = {.full_cmd = {"grep", "i"}, .full_path = "grep", .pid = -1, .infile = 3, .outfile = 4, .next_node = NULL};
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expected6, ft_parse_args(array2), sizeof(expected6), "#2 node 1");
+	t_node	expected7 = {.full_cmd = {"cat", "-e"}, .full_path = "cat", .pid = -1, .infile = 3, .outfile = 4, .next_node = NULL};
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expected7, ft_parse_args(array2), sizeof(expected7), "#2 node 2");
+
 
 }
 
 void test_ft_parse_args_3(void)
 {
-
+	t_node	expected0 = {.full_cmd = {"Makefile", "cat"}, .full_path = "cat", .pid = -1, .infile = 3, .outfile = 1, .next_node = NULL};
+	char	*array0[] = {"<", "Makefile", "cat" , "|", "echo", "\"/Users/druina/Desktop/github/minishell 'hola'\"", "/Users/druina/src", "|", "'tr'", "-d", "/", ">", "outfile", NULL};
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expected0, ft_parse_args(array0), sizeof(expected0), "#0 node 0");
+	t_node	expected1 = {.full_cmd = {"echo", "\"/Users/druina/Desktop/github/minishell 'hola'\"", "/Users/druina/src"}, .full_path = "echo", .pid = -1, .infile = 0, .outfile = 1, .next_node = NULL};
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expected1, ft_parse_args(array0), sizeof(expected1), "#0 node 1");
+	t_node	expected2 = {.full_cmd = {"tr", "-d", "/"}, .full_path = "tr", .pid = -1, .infile = 0, .outfile = 3, .next_node = NULL};
+	TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expected2, ft_parse_args(array0), sizeof(expected2), "#0 node 2");
 }
+
 
 int test_ft_parse_args(void)
 {
