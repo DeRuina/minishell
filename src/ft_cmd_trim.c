@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/04/27 12:44:42 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/05 09:25:56 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // cases of double quotes
 
-int	quotes_cases(char first, char character, int *flag, char **line)
+int	quotes_edge_cases(char first, char character, int *flag, char **line)
 {
 	if (first == character && *(*line) == character && *(*line + 1) == ' ')
 	{
@@ -46,7 +46,7 @@ void	handle_quotes(char *whitespace, char **line)
 				first = '"';
 			else if (*(*line) == '\'' && !first)
 				first = '\'';
-			else if (quotes_cases(first, first, &flag, line) == 1)
+			else if (quotes_edge_cases(first, first, &flag, line) == 1)
 				break ;
 			(*line)++;
 		}
@@ -61,7 +61,7 @@ void	handle_quotes(char *whitespace, char **line)
 
 // Gets a token from the line,and modifies the line to a new start by the pointer
 
-char	*malloc_token(char *start, char *line)
+char	*allocate_token(char *start, char *line)
 {
 	char	*token;
 	int		i;
@@ -82,7 +82,9 @@ char	*malloc_token(char *start, char *line)
 	return (token);
 }
 
-char	*get_token(char **line)
+// Gets the next token and mallocs it
+
+char	*next_token_from_line(char **line)
 {
 	char	*line_start;
 
@@ -96,11 +98,11 @@ char	*get_token(char **line)
 	handle_quotes(" \t\n\v\f\r", line);
 	if ((*line) == '\0')
 	{
-		line_start = malloc_token(line_start, (*line));
+		line_start = allocate_token(line_start, (*line));
 		(*line) = NULL;
 		return (line_start);
 	}
-	line_start = malloc_token(line_start, (*line));
+	line_start = allocate_token(line_start, (*line));
 	if (*(*line) != '\0')
 		(*line)++;
 	return (line_start);
@@ -117,14 +119,14 @@ char	**ft_cmd_trim(char *line)
 
 	len = 0;
 	temp = line;
-	temp2 = get_token(&line);
+	temp2 = next_token_from_line(&line);
 	if (temp2 == NULL)
 		return (NULL);
 	while (temp2 != NULL)
 	{
 		len++;
 		free(temp2);
-		temp2 = get_token(&line);
+		temp2 = next_token_from_line(&line);
 	}
 	cmds = (char **)malloc(sizeof(char *) * len + 1);
 	if (!cmds)
@@ -132,6 +134,6 @@ char	**ft_cmd_trim(char *line)
 	cmds[len] = 0;
 	i = 0;
 	while (i != len)
-		cmds[i++] = get_token(&temp);
+		cmds[i++] = next_token_from_line(&temp);
 	return (cmds);
 }

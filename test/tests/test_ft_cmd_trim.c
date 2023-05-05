@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:37 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/03 10:44:17 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/04 10:41:02 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void test_ft_cmd_trim_2(void)
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected9, ft_cmd_trim("\"echo\"\"\" abc"), 2, "#9");
 	char	*expected10[] = {"\"   /   \"", "echo", "tr", "-d"};
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected10, ft_cmd_trim("\"   /   \"   echo   tr -d  "), 4, "#10");
+	char	*expected11[] = {"cd", ".."};
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected11, ft_cmd_trim("cd .."), 2, "#11");
 }
 
 void test_ft_cmd_trim_3(void)

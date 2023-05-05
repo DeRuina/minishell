@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:43:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/03 17:41:00 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/04 10:43:24 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*trim_loop(char *str, char *answer, int i, char *c)
 	}
 	if ((*c) != 0)
 	{
-		free(answer);
+		// free(answer);
 		return (NULL);
 	}
 	return (answer);
@@ -46,7 +46,8 @@ char	*trim_loop(char *str, char *answer, int i, char *c)
 char	*null_term_and_free(char *answer, int i, char *temp)
 {
 	answer[i] = '\0';
-	free(temp);
+	// free(temp);
+	temp = NULL;
 	return (answer);
 }
 
@@ -77,7 +78,7 @@ char	*check_for_trim(char *str)
 	answer = trim_loop(str, answer, i, &c);
 	if (answer == NULL)
 		return (NULL);
-	free(temp);
+	// free(temp);
 	return (answer);
 }
 
@@ -95,7 +96,7 @@ char	**ft_str_trim(char **array)
 		*array = check_for_trim(*array);
 		if (*array == NULL)
 		{
-			free_2d(answer);
+			// free_2d(answer);
 			return (NULL);
 		}
 		array++;
