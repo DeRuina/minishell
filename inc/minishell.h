@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/05 09:35:09 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/05 11:00:46 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
+#include <fcntl.h>
+#include <string.h>
 
 typedef struct node
 {
@@ -45,6 +47,7 @@ void			ft_expand(t_vec vars, char **line);
 char			**ft_split_operators(char **array);
 char			**ft_str_trim(char **array);
 t_node			*ft_parse_args(char **aray);
+int				*ft_fd_handler(char **array);
 
 // cmd_trim
 char			*allocate_token(char *start, char *line);
@@ -66,5 +69,8 @@ void			get_allocation_len(char *array, int *count);
 char			*check_for_trim(char *str);
 char			*null_term_and_free(char *answer, int i, char *temp);
 char			*trim_loop(char *str, char *answer, int i, char *c);
+
+// fd_handler
+int				fd_amount(char **array);
 
 #endif
