@@ -6,92 +6,169 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/05 15:03:04 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/08 16:01:09 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int find_infile(char *array, char *filename)
+char	*find_infile_outfile(char **array, char *operator1, char *operator2)
 {
-	int infile;
+	int		i;
+	char	*last;
+	char	*oppsite1;
+	char	*oppsite2;
 
-	infile = 0;
-	if (ft_strncmp(array, "<", 1) == 0)
+	oppsite2 = "<<";
+	oppsite1 = "<";
+	if (operator2 == oppsite2)
+		oppsite2 = ">>";
+	if (operator1 == oppsite1)
+		oppsite1 = ">";
+	i = 0;
+	while (array[i] != '\0')
 	{
-		infile = open(filename, O_RDONLY);
-		if (infile == -1)
-		perror("Error: ");
+		if (ft_strncmp(array[i], operator2, 2) == 0)
+			last = array[i];
+		else if (ft_strncmp(array[i], operator1, 1) == 0)
+			last = array[i];
+		else if (ft_strncmp(operator1, "<", 1) == 0 || ft_strncmp(operator2, "<<", 2) == 0)
+			if ((ft_strncmp(array[i], oppsite2, 2) == 0)|| ft_strncmp(array[i], oppsite1, 1) == 0)
+				break ;
+		i++;
 	}
-	return (infile);
+	return (last);
 }
 
-
-int *find_and_open_fds(char **array, int *fds)
+int	get_infile_fd(char **array)
 {
-	int i;
-	int fd;
-	int j;
+	int	fd;
+	char *infile;
+	int	i;
 
 	i = 0;
 	fd = 0;
-	j = 0;
+	infile = find_infile_outfile(array, "<", "<<");
 	while (array[i] != '\0')
 	{
-		if (ft_strncmp(array[i], "<", 1) == 0)
-			{
-				if (fd == 0)
-					fd = find_infile(array[i],array[i + 1]);
-				else
-					fd = open(array[i + 1], O_RDONLY);
-				if (fd == -1)
-					perror("Error: ");
-				fds[j] = fd;
-				j++;
-			}
-		else if (t_strncmp(array[i], ">", 1) == 0)
+		if (infile == array[i])
 		{
-			if (array[i + 2] )
+			if (ft_strncmp(infile, "<<", 2) == 0)
+				fd = here_doc(array[i + 1]);
+			else
+				fd = open(array[i + 1], O_RDONLY);
+			if (fd == -1)
+				return (perror(array[i + 1]), -1);
+			break;
 		}
-
-
+		i++;
 	}
+	return (fd);
 }
 
-int fd_amount(char **array, char op)
+int get_outfile_fd(char **array)
 {
-	int i;
-	int count;
+	int		fd;
+	int		i;
+	char	*outfile;
+
+	i = 0;
+	fd = 0;
+	outfile = find_infile_outfile(array, ">", ">>");
+	while (array[i] != '\0')
+	{
+		if (outfile == array[i])
+		{
+			if (ft_strncmp(outfile, ">>", 1) == 0)
+				fd = open(array[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0664);
+			else
+				fd = open(array[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+			if (fd == -1)
+				return (perror(array[i + 1]), -1);
+			break;
+		}
+		i++;
+	}
+	return(fd);
+}
+
+int	*find_and_open_fds(char **array, int *fds)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	fds[0] = get_infile_fd(array);
+	printf("infile -  %d\n", fds[0]);
+	fds[fd_amount(array) - 1] = get_outfile_fd(array);
+	printf("outfile = %d\n", fds[fd_amount(array) - 1]);
+	while (array[i] != '\0')
+	{
+		if (ft_strncmp(array[i], "<<", 2) == 0 && array[i] != find_infile_outfile(array, "<", "<<"))
+		{
+			fds[++j] = here_doc(array[i + 1]);
+			printf("here_doc = %d\n", fds[j]);
+			 if (fds[j] == - 1)
+			 	perror(array[i + 1]);
+		}
+		 else if (ft_strncmp(array[i], "<", 1) == 0 && array[i] != find_infile_outfile(array, "<", "<<"))
+		{
+			fds[++j] = open(array[i + 1], O_RDONLY);
+			printf("in = %d\n", fds[j]);
+			 if (fds[j] == - 1)
+			 	perror(array[i + 1]);
+		}
+		else if (ft_strncmp(array[i], ">>", 2) == 0 && array[i] != find_infile_outfile(array, ">", ">>"))
+		{
+			fds[++j] = open(array[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0664);
+			printf("append out = %d\n", fds[j]);
+			 if (fds[j] == - 1)
+			 	perror(array[i + 1]);
+		}
+		else if (ft_strncmp(array[i], ">", 1) == 0 && array[i] != find_infile_outfile(array, ">", ">>"))
+		{
+			fds[++j] = open(array[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+			printf("trunc out = %d\n", fds[j]);
+			 if (fds[j] == - 1)
+			 	perror(array[i + 1]);
+		}
+		i++;
+	}
+	return (fds);
+}
+
+int	fd_amount(char **array)
+{
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
 	while (array[i] != '\0')
 	{
-		if (ft_strncmp(array[i], "<", 1) == 0 && (op == '<' || op == '*'))
+		if (ft_strncmp(array[i], "<<", 2) == 0)
 			count++;
-		else if ((ft_strncmp(array[i], "<<", 2) == 0) && (op == '2' || op == '*'))
+		else if (ft_strncmp(array[i], ">>", 2) == 0)
 			count++;
-		else if ((ft_strncmp(array[i], ">", 1) == 0) && (op == '>' || op == '*'))
+		else if (ft_strncmp(array[i], "<", 1) == 0)
 			count++;
-		else if ((ft_strncmp(array[i], ">>", 2) == 0)&& (op == '4' || op == '*'))
+		else if (ft_strncmp(array[i], ">", 1) == 0)
 			count++;
-		else
-			i++;
+		i++;
 	}
-	return(count);
+	return (count);
 }
 
-int *ft_fd_handler(char **array)
+int	*ft_fd_handler(char **array)
 {
-	int i;
-	int *fds;
+	int	i;
+	int	*fds;
 
 	i = 0;
-	fds = (int *)malloc(sizeof(int) * fd_amount(array, '*'));
+	fds = (int *)malloc(sizeof(int) * fd_amount(array));
 	if (!fds)
-		return(NULL);
-
-
-
-
+		return (NULL);
+	fds = find_and_open_fds(array, fds);
+	return (fds);
 }

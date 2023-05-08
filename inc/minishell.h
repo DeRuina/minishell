@@ -6,18 +6,18 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/05 11:00:46 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/08 13:44:43 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft.h"
+# include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
-#include <fcntl.h>
-#include <string.h>
+# include <string.h>
 
 typedef struct node
 {
@@ -72,5 +72,6 @@ char			*trim_loop(char *str, char *answer, int i, char *c);
 
 // fd_handler
 int				fd_amount(char **array);
+int				here_doc(char *delimiter);
 
 #endif

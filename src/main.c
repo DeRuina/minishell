@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/03 16:43:35 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/08 15:57:02 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int	main(int argc, char *argv[]/*, char *env[]*/)
 {
-	char	*line; /*= "<Makefile cat | echo \"$PWD 'hola'\" ~/src | 'tr' -d / >outfile";*/
+	char	*line = "< Makefile << here_doc > in >> 1 > out";
 	char	*temp;
 	char	**str;
 	char	**str1;
-	line = readline("TERMINAL:");
+	int		*fds;
+	// line = readline("TERMINAL:");
 	temp = line;
 	(void)argv;
 	argc = 0;
@@ -39,8 +40,14 @@ int	main(int argc, char *argv[]/*, char *env[]*/)
 	str1 = ft_split_operators(str);
 	free_2d(str);
 	str1 = ft_str_trim(str1);
+	fds = ft_fd_handler(str1);
+	printf("%d\n", fds[0]);
+	printf("%d\n", fds[1]);
+	printf("%d\n", fds[2]);
+	printf("%d\n", fds[3]);
+	printf("%d\n", fds[4]);
 	free_2d(str1);
-	free(temp);
+	// free(temp);
 
 	return (0);
 }
