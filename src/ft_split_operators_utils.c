@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:18:22 by druina            #+#    #+#             */
-/*   Updated: 2023/05/03 17:48:30 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/05 09:23:25 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*malloc_new_token(char **array)
 	flag = 2;
 	temp = (*array);
 	i = 0;
-	len = len_to_token(array, &flag);
+	len = len_to_operator(array, &flag);
 	if (flag == 1)
 		len++;
 	answer = (char *)malloc(sizeof(char) * len + 1);
@@ -42,7 +42,7 @@ char	*malloc_new_token(char **array)
 
 //	part of divide_into_arr
 
-void	*no_op(char **answer, char **array, int *offset, int *i)
+void	*no_operator(char **answer, char **array, int *offset, int *i)
 {
 	int	j;
 
@@ -60,7 +60,7 @@ void	*no_op(char **answer, char **array, int *offset, int *i)
 
 // len of the next token
 
-int	len_to_token(char **array, int *flag)
+int	len_to_operator(char **array, int *flag)
 {
 	int	len;
 
