@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:21:48 by druina            #+#    #+#             */
-/*   Updated: 2023/05/08 15:56:33 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/09 09:21:32 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	here_doc(char *delimiter)
 		free(line);
 	}
 	free(line);
-	// close(infile);
-	// reopen_file_and_check(infile);
+	unlink("here_doc");
 	return (infile);
 }

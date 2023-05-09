@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/08 15:57:02 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/09 11:01:35 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char *argv[]/*, char *env[]*/)
 {
-	char	*line = "< Makefile << here_doc > in >> 1 > out";
+	char	*line = "cat < this < is < a < test > ok";
 	char	*temp;
 	char	**str;
 	char	**str1;
