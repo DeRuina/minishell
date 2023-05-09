@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/09 12:25:15 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/09 14:04:09 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,29 @@ char			*ft_getenv(t_vec envs_vec, char *key);
 char			*ft_getkey(char *str);
 char			*ft_getvalue(char *str);
 
+// Parsing
+char			**ft_cmd_trim(char *line);
+void			ft_expand(t_vec vars, char **line);
+char			**ft_split_operators(char **array);
+char			**ft_str_trim(char **array);
+t_node			*ft_parse_args(char **aray);
+int				*ft_fd_handler(char **array);
+
 // cmd_trim
 
-char		**ft_cmd_trim(char *line);
+char			**ft_cmd_trim(char *line);
 
 // expand
 
-void		ft_expand(t_vec env_vars, char **arr);
-char		*ft_var_end(char *str);
-char		*ft_var_expand(t_vec env_vars, char *str);
-char		*ft_expand_token(t_vec env_vars, char *str);
+void			ft_expand(t_vec env_vars, char **arr);
+char			*ft_var_end(char *str);
+char			*ft_var_expand(t_vec env_vars, char *str);
+char			*ft_expand_token(t_vec env_vars, char *str);
 
 // split_operators
 
-char		**ft_split_operators(char **array);
-char		**ft_str_trim(char **array);
+char			**ft_split_operators(char **array);
+char			 **ft_str_trim(char **array);
 
 // cmd_trim
 char			*allocate_token(char *start, char *line);
@@ -82,5 +90,8 @@ char			*trim_loop(char *str, char *answer, int i, char *c);
 // fd_handler
 int				fd_amount(char **array);
 int				here_doc(char *delimiter);
+
+// utils
+int				ft_max(int a, int b);
 
 #endif
