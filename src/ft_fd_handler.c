@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/09 10:54:53 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/09 14:44:09 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,58 +98,35 @@ int	get_outfile_fd(char **array)
 	}
 	return (fd);
 }
-// finds and opens the fd's, returns them in an array
 
-int	*find_and_open_fds(char **array, int *fds, int i, int j)
+//  opens the fd's and closing them, returns the infile and outfile
+
+int	*find_and_open_fds(char **array, int *fds, int i)
 {
-	while (array[i] != '\0')
-	{
-		if (ft_strncmp(array[i], "<<", 2) == 0
-			&& array[i] != find_infile_outfile(array, "<", "<<", 0))
-			fds[++j] = here_doc(array[i + 1]);
-		else if (ft_strncmp(array[i], "<", 1) == 0
-			&& array[i] != find_infile_outfile(array, "<", "<<", 0))
-			fds[++j] = open(array[i + 1], O_RDONLY);
-		else if (ft_strncmp(array[i], ">>", 2) == 0
-			&& array[i] != find_infile_outfile(array, ">", ">>", 0))
-			fds[++j] = open(array[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0664);
-		else if (ft_strncmp(array[i], ">", 1) == 0
-			&& array[i] != find_infile_outfile(array, ">", ">>", 0))
-			fds[++j] = open(array[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-		if (fds[j] == -1 && (ft_strncmp(array[i], "<<", 2) == 0
-				|| ft_strncmp(array[i], "<", 1) == 0))
-			if (array[i] != find_infile_outfile(array, "<", "<<", 0))
-				perror(array[i + 1]);
-		i++;
-	}
-	fds[0] = get_infile_fd(array);
-	fds[fd_amount(array) - 1] = get_outfile_fd(array);
-	return (fds);
-}
-// finds the amount of operators for the allocation
+	int	fd;
 
-int	fd_amount(char **array)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
+	fd = 0;
 	while (array[i] != '\0')
 	{
 		if (ft_strncmp(array[i], "<<", 2) == 0)
-			count++;
-		else if (ft_strncmp(array[i], ">>", 2) == 0)
-			count++;
+			fd = here_doc(array[i + 1]);
 		else if (ft_strncmp(array[i], "<", 1) == 0)
-			count++;
+			fd = open(array[i + 1], O_RDONLY);
+		else if (ft_strncmp(array[i], ">>", 2) == 0)
+			fd = open(array[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0664);
 		else if (ft_strncmp(array[i], ">", 1) == 0)
-			count++;
+			fd = open(array[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+		if (fd == -1)
+			return (here_doc_if_invalid_infile(array, i), perror(array[i + 1]),
+				NULL);
+		close(fd);
 		i++;
 	}
-	return (count);
+	fds[0] = get_infile_fd(array);
+	fds[1] = get_outfile_fd(array);
+	return (fds);
 }
-// allocates int array and returns it with all the fd's
+// allocates int array and returns it infile and outfile
 
 int	*ft_fd_handler(char **array)
 {
@@ -157,9 +134,9 @@ int	*ft_fd_handler(char **array)
 	int	*fds;
 
 	i = 0;
-	fds = (int *)malloc(sizeof(int) * fd_amount(array));
+	fds = (int *)malloc(sizeof(int) * 2);
 	if (!fds)
 		return (NULL);
-	fds = find_and_open_fds(array, fds, 0, 0);
+	fds = find_and_open_fds(array, fds, 0);
 	return (fds);
 }
