@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/09 14:45:10 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/09 17:43:35 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void test_ft_expand_token_0(void)
 	char *expected = "/Users/tspoof/Documents/HIVE/minishell";
 	char *actual = ft_expand_token(vars, "$PWD");
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
+	free(actual);
 }
 
 void test_ft_expand_token_1(void)
@@ -121,6 +122,7 @@ void test_ft_expand_token_1(void)
 	char *expected = "/Users/tspoof/Documents/HIVE/minishell$";
 	char *actual = ft_expand_token(vars, "$PWD$");
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
+	free(actual);
 }
 
 void test_ft_expand_token_2(void)
@@ -128,6 +130,7 @@ void test_ft_expand_token_2(void)
 	char *expected = "";
 	char *actual = ft_expand_token(vars, "$SOMETHING");
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
+	free(actual);
 }
 
 void test_ft_expand_token_3(void)
@@ -135,6 +138,7 @@ void test_ft_expand_token_3(void)
 	char *expected = "$";
 	char *actual = ft_expand_token(vars, "$");
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
+	free(actual);
 }
 
 void test_ft_expand_token_4(void)
@@ -142,7 +146,7 @@ void test_ft_expand_token_4(void)
 	char *expected = "$ test";
 	char *actual = ft_expand_token(vars, "$ test");
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
-
+	free(actual);
 }
 
 // $ tests
@@ -156,6 +160,7 @@ void test_ft_expand_$0(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
+	free(line[0]);
 	free(line);
 }
 
@@ -169,6 +174,7 @@ void test_ft_expand_$1(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
+	free(line[0]);
 	free(line);
 }
 
@@ -182,6 +188,7 @@ void test_ft_expand_$2(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
+	free(line[0]);
 	free(line);
 }
 
@@ -195,6 +202,7 @@ void test_ft_expand_$3(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
+	free(line[0]);
 	free(line);
 }
 
@@ -208,6 +216,7 @@ void test_ft_expand_$4(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
+	free(line[0]);
 	free(line);
 }
 
@@ -221,6 +230,7 @@ void test_ft_expand_$5(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
+	free(line[0]);
 	free(line);
 }
 
@@ -234,6 +244,7 @@ void test_ft_expand_$6(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
+	free(line[0]);
 	free(line);
 }
 
@@ -249,6 +260,7 @@ void test_ft_expand_0(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
+	free(line[0]);
 	free(line);
 }
 
@@ -262,6 +274,7 @@ void test_ft_expand_1(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
+	free(line[0]);
 	free(line);
 }
 
@@ -275,6 +288,7 @@ void test_ft_expand_2(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
+	free(line[0]);
 	free(line);
 }
 
@@ -288,6 +302,7 @@ void test_ft_expand_3(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
+	free(line[0]);
 	free(line);
 }
 
@@ -301,10 +316,11 @@ void test_ft_expand_4(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
+	free(line[0]);
 	free(line);
 }
 
-void test_ft_expand_1337(void)
+void test_ft_expand_5(void)
 {
 	char **expected = calloc(2, sizeof(char *));
 	char **line = calloc(2, sizeof(char *));
@@ -313,6 +329,9 @@ void test_ft_expand_1337(void)
 
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
+	free(expected);
+	free(line[0]);
+	free(line);
 }
 
 int test_ft_expand(void)
@@ -320,35 +339,35 @@ int test_ft_expand(void)
 	UNITY_BEGIN();
 	set_vars();
 
-	// RUN_TEST(test_ft_var_end_0);
-	// RUN_TEST(test_ft_var_end_1);
-	// RUN_TEST(test_ft_var_end_2);
-	// RUN_TEST(test_ft_var_end_3);
-	// RUN_TEST(test_ft_var_end_4);
-	// RUN_TEST(test_ft_var_expand_0);
-	// RUN_TEST(test_ft_var_expand_1);
-	// RUN_TEST(test_ft_var_expand_2);
-	// RUN_TEST(test_ft_var_expand_3);
-	// RUN_TEST(test_ft_var_expand_4);
-	// RUN_TEST(test_ft_var_expand_5);
-	// RUN_TEST(test_ft_var_expand_6);
-	// RUN_TEST(test_ft_expand_token_0);
-	// RUN_TEST(test_ft_expand_token_1);
-	// RUN_TEST(test_ft_expand_token_2);
-	// RUN_TEST(test_ft_expand_token_3);
-	// RUN_TEST(test_ft_expand_token_4);
-	// RUN_TEST(test_ft_expand_$0);
-	// RUN_TEST(test_ft_expand_$1);
-	// RUN_TEST(test_ft_expand_$2);
-	// RUN_TEST(test_ft_expand_$3);
-	// RUN_TEST(test_ft_expand_$4);
-	// RUN_TEST(test_ft_expand_$5);
-	// RUN_TEST(test_ft_expand_$6);
+	RUN_TEST(test_ft_var_end_0);
+	RUN_TEST(test_ft_var_end_1);
+	RUN_TEST(test_ft_var_end_2);
+	RUN_TEST(test_ft_var_end_3);
+	RUN_TEST(test_ft_var_end_4);
+	RUN_TEST(test_ft_var_expand_0);
+	RUN_TEST(test_ft_var_expand_1);
+	RUN_TEST(test_ft_var_expand_2);
+	RUN_TEST(test_ft_var_expand_3);
+	RUN_TEST(test_ft_var_expand_4);
+	RUN_TEST(test_ft_var_expand_5);
+	RUN_TEST(test_ft_var_expand_6);
+	RUN_TEST(test_ft_expand_token_0);
+	RUN_TEST(test_ft_expand_token_1);
+	RUN_TEST(test_ft_expand_token_2);
+	RUN_TEST(test_ft_expand_token_3);
+	RUN_TEST(test_ft_expand_token_4);
+	RUN_TEST(test_ft_expand_$0);
+	RUN_TEST(test_ft_expand_$1);
+	RUN_TEST(test_ft_expand_$2);
+	RUN_TEST(test_ft_expand_$3);
+	RUN_TEST(test_ft_expand_$4);
+	RUN_TEST(test_ft_expand_$5);
+	RUN_TEST(test_ft_expand_$6);
 	RUN_TEST(test_ft_expand_0);
 	RUN_TEST(test_ft_expand_1);
 	RUN_TEST(test_ft_expand_2);
 	RUN_TEST(test_ft_expand_3);
 	RUN_TEST(test_ft_expand_4);
-	RUN_TEST(test_ft_expand_1337);
+	RUN_TEST(test_ft_expand_5);
 	return UNITY_END();
 }
