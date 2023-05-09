@@ -6,11 +6,30 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:21:48 by druina            #+#    #+#             */
-/*   Updated: 2023/05/09 09:21:32 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/09 14:43:41 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// creates and closes here_docs in case of invalid infile
+
+void	here_doc_if_invalid_infile(char **array, int i)
+{
+	int	fd;
+
+	fd = 0;
+	while (array[i] != '\0')
+	{
+		if (ft_strncmp(array[i], "<<", 2) == 0)
+			fd = here_doc(array[i + 1]);
+		if (fd != 0)
+			close(fd);
+		i++;
+	}
+}
+
+// reads from 0 and creates a here_doc
 
 int	here_doc(char *delimiter)
 {

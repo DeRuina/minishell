@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/09 11:01:35 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/09 14:41:27 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char *argv[]/*, char *env[]*/)
 {
-	char	*line = "cat < this < is < a < test > ok";
+	char	*line = "< Makefile > ok > this << yes >>yea";
 	char	*temp;
 	char	**str;
 	char	**str1;
@@ -41,11 +41,11 @@ int	main(int argc, char *argv[]/*, char *env[]*/)
 	free_2d(str);
 	str1 = ft_str_trim(str1);
 	fds = ft_fd_handler(str1);
+	if (fds != NULL)
+	{
 	printf("%d\n", fds[0]);
 	printf("%d\n", fds[1]);
-	printf("%d\n", fds[2]);
-	printf("%d\n", fds[3]);
-	printf("%d\n", fds[4]);
+	}
 	free_2d(str1);
 	// free(temp);
 
