@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/10 09:15:04 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/10 12:40:17 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 int	main(int argc, char *argv[]/*, char *env[]*/)
 {
-	char	*line = "< Makefile > ok > this << yes >>yea";
+	char	*line = "< Makefile cat > ok > this | echo << yes >>yea | cat -e | ls -l";
 	char	*temp;
 	char	**str;
 	char	**str1;
-	int		*fds;
+	// int		*fds;
 	// line = readline("TERMINAL:");
 	temp = line;
 	(void)argv;
@@ -41,15 +41,16 @@ int	main(int argc, char *argv[]/*, char *env[]*/)
 	str1 = ft_split_operators(str);
 	free_2d(str);
 	str1 = ft_str_trim(str1);
-	fds = ft_fd_handler(str1);
-	if (fds != NULL)
-	{
-	printf("%d\n", fds[0]);
-	printf("%d\n", fds[1]);
-	}
-	free(fds);
+	// fds = ft_fd_handler(str1);
+	// if (fds != NULL)
+	// {
+	// printf("%d\n", fds[0]);
+	// printf("%d\n", fds[1]);
+	// }
+	new_node(&str1);
+	// free(fds);
 	free_2d(str1);
-	// free(temp);
+	free(temp);
 
 	return (0);
 }

@@ -6,11 +6,9 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/10 09:07:56 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/10 10:55:01 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -24,7 +22,7 @@
 typedef struct node
 {
 	char		**full_cmd;
-	char		*full_path;
+	char		*path_name;
 	int			pid;
 	int			infile;
 	int			outfile;
@@ -48,7 +46,7 @@ char			**ft_cmd_trim(char *line);
 void			ft_expand(t_vec vars, char **line);
 char			**ft_split_operators(char **array);
 char			**ft_str_trim(char **array);
-t_node			*ft_parse_args(char **aray);
+t_node			*ft_parse_args(char *line);
 int				*ft_fd_handler(char **array);
 
 // cmd_trim
@@ -69,7 +67,7 @@ int				ft_should_expand_tilde(char *token, char *token_init);
 // split_operators
 
 char			**ft_split_operators(char **array);
-char			 **ft_str_trim(char **array);
+char			**ft_str_trim(char **array);
 
 // cmd_trim
 char			*allocate_token(char *start, char *line);
@@ -103,5 +101,10 @@ char			*find_infile_outfile(char **array, char *operator1,
 
 // utils
 int				ft_max(int a, int b);
+
+// node funtions
+t_node			*new_node(char ***array);
+char			**get_node_cmd(char ***array);
+int				len_node_cmd(char **array);
 
 #endif
