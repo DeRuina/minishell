@@ -3,12 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/09 15:00:44 by druina           ###   ########.fr       */
+=======
+/*   Updated: 2023/05/09 17:29:25 by tspoof           ###   ########.fr       */
+>>>>>>> 5b424770da540ef0e7b3ddbe92148851603e9b23
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -50,6 +55,26 @@ t_node			*ft_parse_args(char **aray);
 int				*ft_fd_handler(char **array);
 
 // cmd_trim
+
+char			**ft_cmd_trim(char *line);
+
+// expand
+
+void			ft_expand(t_vec env_vars, char **arr);
+char			*ft_var_end(char *str);
+char			*ft_var_expand(t_vec env_vars, char *str);
+char			*ft_expand_token(t_vec env_vars, char *str);
+
+// expand utils
+void			ft_tmp_to_result(char **result, char **tmp);
+int				ft_should_expand_tilde(char *token, char *token_init);
+
+// split_operators
+
+char			**ft_split_operators(char **array);
+char			 **ft_str_trim(char **array);
+
+// cmd_trim
 char			*allocate_token(char *start, char *line);
 int				quotes_edge_cases(char first, char character, int *flag,
 					char **line);
@@ -78,5 +103,8 @@ int				get_outfile_fd(char **array);
 int				get_infile_fd(char **array);
 char			*find_infile_outfile(char **array, char *operator1,
 					char *operator2, int i);
+
+// utils
+int				ft_max(int a, int b);
 
 #endif

@@ -6,11 +6,13 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 11:45:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/27 19:06:01 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/04 13:11:45 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//remove exit functions
 #include "minishell.h"
+
 
 char	*ft_getkey(char *str)
 {
@@ -62,8 +64,8 @@ char	*ft_getenv(t_vec envs_vec, char *key)
 	size_t	i;
 	t_env	*envs;
 
-	if (!envs_vec.memory)
-		return (0);
+	if (!envs_vec.memory || *key == '\0')
+		return (NULL);
 	envs = (t_env *)envs_vec.memory;
 	i = 0;
 	while (i < envs_vec.len)

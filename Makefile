@@ -6,7 +6,7 @@ I			= inc/
 LIBFT_I		= libft/inc
 
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -g
+CFLAGS		= -Wall -Werror -Wextra -O3
 INCLUDES	= -I$I -I$(LIBFT_I)
 LIBRARIES	= -L./libft -lft
 
@@ -14,8 +14,9 @@ AR			= ar
 ARFLAGS		= rcs
 
 SRC = \
-$S/main.c	$S/ft_cmd_trim.c	$S/ft_expand.c	$S/ft_env.c $S/ft_split_operators.c\
-$S/ft_split_operators_utils.c $S/ft_str_trim.c $S/ft_fd_handler.c $S/here_doc.c
+$S/main.c	$S/ft_cmd_trim.c	$S/ft_expand.c	$S/ft_env.c	$S/ft_split_operators.c		\
+$S/ft_split_operators_utils.c	$S/ft_str_trim.c	$S/ft_fd_handler.c	$S/here_doc.c	\
+$S/ft_expand_utils.c
 
 OBJ			= $(SRC:$S%=$O%.o)
 
