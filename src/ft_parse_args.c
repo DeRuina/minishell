@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/10 12:47:30 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/10 13:44:53 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char **get_node_cmd(char ***array)
 	answer = (char **)malloc(sizeof(char *) * len + 1);
 	if (!answer)
 		return(NULL);
-	while (**(*array) != '|' && **(*array) != '\0')
+	while (*(*array) && **(*array) != '|' && **(*array) != '\0')
 	{
 		if (ft_strncmp(*(*array), "<", 1) == 0 || ft_strncmp(*(*array), ">", 1) == 0)
 			(*array) += 2;
@@ -55,6 +55,8 @@ char **get_node_cmd(char ***array)
 			(*array)++;
 		}
 	}
+	if (*(*array))
+		(*array)++;
 	answer[i] = 0;
 	return (answer);
 }
@@ -63,6 +65,8 @@ t_node *new_node(char ***array)
 {
 	t_node *node;
 
+	if (array == NULL)
+		return(NULL);
 	node = (t_node *)malloc(sizeof(t_node) * 1);
 	if (!node)
 		return (NULL);
@@ -71,8 +75,8 @@ t_node *new_node(char ***array)
 		node->path_name = NULL;
 	else
 		node->path_name = node->full_cmd[0];
-	if (!array)
-	node->next_node = NULL;
+	if (!**array)
+		node->next_node = NULL;
 	else
 		node->next_node = new_node(array);
 
