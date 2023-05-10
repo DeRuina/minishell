@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:43:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/09 15:02:53 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/10 15:09:49 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*check_for_trim(char *str)
 
 	i = 0;
 	temp = str;
-	answer = (char *)malloc(sizeof(char) * ft_strlen(str) - 1);
+	answer = (char *)malloc(sizeof(char) * ft_strlen(str) + 1);
 	while (*str != '\0')
 	{
 		if (ft_strchr("\"'", *str))

@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:18:22 by druina            #+#    #+#             */
-/*   Updated: 2023/05/05 09:23:25 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/10 14:57:54 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	*no_operator(char **answer, char **array, int *offset, int *i)
 		answer[(*i) + (*offset)][j] = array[(*i)][j];
 		j++;
 	}
+	answer[(*i) + (*offset)][j] = '\0';
 	(*i)++;
 	return (answer[(*i) + (*offset)]);
 }
