@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/09 17:29:25 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/10 09:07:56 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef MINISHELL_H
@@ -92,8 +93,13 @@ char			*null_term_and_free(char *answer, int i, char *temp);
 char			*trim_loop(char *str, char *answer, int i, char *c);
 
 // fd_handler
-int				fd_amount(char **array);
+int				*find_and_open_fds(char **array, int *fds, int i);
 int				here_doc(char *delimiter);
+void			here_doc_if_invalid_infile(char **array, int i);
+int				get_outfile_fd(char **array);
+int				get_infile_fd(char **array);
+char			*find_infile_outfile(char **array, char *operator1,
+					char *operator2, int i);
 
 // utils
 int				ft_max(int a, int b);

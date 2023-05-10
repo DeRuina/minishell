@@ -6,9 +6,10 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/09 14:41:27 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/10 09:15:04 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -46,6 +47,7 @@ int	main(int argc, char *argv[]/*, char *env[]*/)
 	printf("%d\n", fds[0]);
 	printf("%d\n", fds[1]);
 	}
+	free(fds);
 	free_2d(str1);
 	// free(temp);
 
