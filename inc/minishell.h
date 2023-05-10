@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/10 10:55:01 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/10 14:19:06 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ int				ft_max(int a, int b);
 t_node			*new_node(char ***array);
 char			**get_node_cmd(char ***array);
 int				len_node_cmd(char **array);
+void			case_no_cmd_with_pipe_after(char ***array);
 
 #endif

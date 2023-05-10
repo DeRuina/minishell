@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/10 13:44:53 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/10 14:20:23 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ int len_node_cmd(char **array)
 	}
 	return(len);
 }
+void case_no_cmd_with_pipe_after(char ***array)
+{
+	while (*(*array) && **(*array) != '|' && **(*array) != '\0')
+		(*array)++;
+	(*array)++;
+}
 
 char **get_node_cmd(char ***array)
 {
@@ -41,7 +47,7 @@ char **get_node_cmd(char ***array)
 	i = 0;
 	len = len_node_cmd((*array));
 	if (len == 0)
-		return(NULL);
+		return(case_no_cmd_with_pipe_after(array), NULL);
 	answer = (char **)malloc(sizeof(char *) * len + 1);
 	if (!answer)
 		return(NULL);

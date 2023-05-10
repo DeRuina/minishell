@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/10 13:59:55 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/10 14:23:37 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	main(int argc, char *argv[]/*, char *env[]*/)
 {
-	char	*line = "< Makefile cat > ok > this | echo << yes >>yea | cat -e | tr -d / > this | ls -l | echo \"'this is the good life'\"";
+	char	*line = "< Makefile cat > ok > this | echo << yes >>yea | cat -e | tr -d / > this| << yes > no | ls -l | echo \"'this is the good life'\"";
 	char	*temp;
 	char 	**temp1;
 	char	**str;
@@ -54,10 +54,15 @@ int	main(int argc, char *argv[]/*, char *env[]*/)
 	head = new_node(&str1);
 	while (head->next_node != NULL)
 	{
+		if (head->full_cmd == NULL)
+			printf("NULL");
+		else
+		{
 		while (head->full_cmd[i] != 0)
 		{
 			printf("%s ",head->full_cmd[i]);
 			i++;
+		}
 		}
 		i = 0;
 		printf("\n");
