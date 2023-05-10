@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/10 14:19:06 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/10 15:14:13 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char			*find_infile_outfile(char **array, char *operator1,
 int				ft_max(int a, int b);
 
 // node funtions
-t_node			*new_node(char ***array);
+t_node			*new_node_and_link(char ***array);
 char			**get_node_cmd(char ***array);
 int				len_node_cmd(char **array);
 void			case_no_cmd_with_pipe_after(char ***array);

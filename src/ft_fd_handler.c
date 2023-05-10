@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/09 14:44:09 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/10 15:53:10 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*find_infile_outfile(char **array, char *operator1, char *operator2,
 		oppsite2 = ">>";
 	if (operator1 == oppsite1)
 		oppsite1 = ">";
-	while (array[i] != '\0')
+	while (array[i] != '\0' && *array[i] != '|')
 	{
 		if (ft_strncmp(array[i], operator2, 2) == 0)
 			last = array[i];
@@ -54,7 +54,7 @@ int	get_infile_fd(char **array)
 	i = 0;
 	fd = 0;
 	infile = find_infile_outfile(array, "<", "<<", 0);
-	while (array[i] != '\0')
+	while (array[i] != '\0' && *array[i] != '|')
 	{
 		if (infile == array[i])
 		{
@@ -82,7 +82,7 @@ int	get_outfile_fd(char **array)
 	i = 0;
 	fd = 1;
 	outfile = find_infile_outfile(array, ">", ">>", 0);
-	while (array[i] != '\0')
+	while (array[i] != '\0' && *array[i] != '|')
 	{
 		if (outfile == array[i])
 		{
@@ -106,7 +106,7 @@ int	*find_and_open_fds(char **array, int *fds, int i)
 	int	fd;
 
 	fd = 0;
-	while (array[i] != '\0')
+	while (array[i] != '\0' && *array[i] != '|')
 	{
 		if (ft_strncmp(array[i], "<<", 2) == 0)
 			fd = here_doc(array[i + 1]);
@@ -119,7 +119,8 @@ int	*find_and_open_fds(char **array, int *fds, int i)
 		if (fd == -1)
 			return (here_doc_if_invalid_infile(array, i), perror(array[i + 1]),
 				NULL);
-		close(fd);
+		if (fd != 0 && fd != 1 && fd != 2)
+			close(fd);
 		i++;
 	}
 	fds[0] = get_infile_fd(array);

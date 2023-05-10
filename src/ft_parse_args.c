@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/10 14:20:23 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/10 15:36:18 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,19 @@ char **get_node_cmd(char ***array)
 	return (answer);
 }
 
-t_node *new_node(char ***array)
+t_node *new_node_and_link(char ***array)
 {
 	t_node *node;
+	int *fds;
 
 	if (array == NULL)
 		return(NULL);
 	node = (t_node *)malloc(sizeof(t_node) * 1);
 	if (!node)
 		return (NULL);
+	fds= ft_fd_handler((*array));
+	node->infile = fds[0];
+	node->outfile = fds[1];
 	node->full_cmd = get_node_cmd(array);
 	if (node->full_cmd == NULL)
 		node->path_name = NULL;
@@ -84,7 +88,7 @@ t_node *new_node(char ***array)
 	if (!**array)
 		node->next_node = NULL;
 	else
-		node->next_node = new_node(array);
+		node->next_node = new_node_and_link(array);
 
 
 	return(node);
