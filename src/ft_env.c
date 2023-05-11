@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 11:45:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/04 13:11:45 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/11 15:07:35 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //remove exit functions
 #include "minishell.h"
-
 
 char	*ft_getkey(char *str)
 {

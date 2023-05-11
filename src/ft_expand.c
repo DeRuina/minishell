@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/09 17:34:13 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/11 15:15:10 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_handle_dollar(t_vec env_vars, char *line, char *token)
 	expanded_var = ft_var_expand(env_vars, token);
 	if (!expanded_var)
 		return (NULL);
-	return (ft_strjoin(line, expanded_var)); // leaks ft_strfjoin()?? && protection ??
+	return (ft_strjoin(line, expanded_var));
 }
 
 static char	*ft_handle_nonexpand(char **result, char *token)
@@ -45,7 +45,8 @@ static char	*ft_handle_nonexpand(char **result, char *token)
 	return (token);
 }
 
-char	*ft_handle_expand(t_vec env_vars, char **result, char *token, char *token_init)
+char	*ft_handle_expand(t_vec env_vars, char **result, char *token,
+			char *token_init)
 {
 	char	*tmp;
 	char	*sub_str;
@@ -58,14 +59,14 @@ char	*ft_handle_expand(t_vec env_vars, char **result, char *token, char *token_i
 	}
 	if (*token == '~' && ft_should_expand_tilde(token, token_init))
 	{
-		tmp = ft_strjoin(*result, ft_var_expand(env_vars, "HOME")); // protection?
+		tmp = ft_strjoin(*result, ft_var_expand(env_vars, "HOME"));
 		ft_tmp_to_result(result, &tmp);
 		token++;
 	}
 	if ((*token == '$' && !ft_isalnum(*(token + 1))) || *token == '~')
 	{
 		sub_str = ft_substr(token, 0, 1);
-		tmp = ft_strjoin(*result, sub_str); // leak
+		tmp = ft_strjoin(*result, sub_str);
 		free(sub_str);
 		ft_tmp_to_result(result, &tmp);
 		token++;

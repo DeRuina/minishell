@@ -6,22 +6,23 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/11 14:37:53 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/11 15:13:54 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int len_node_cmd(char **array)
+int	len_node_cmd(char **array)
 {
-	int len;
-	int i;
+	int	len;
+	int	i;
 
 	len = 0;
 	i = 0;
 	while (array[i] && ft_strncmp(array[i], "|", 1) != 0 && array[i] != '\0')
 	{
-		if (ft_strncmp(array[i], "<", 1) == 0 || ft_strncmp(array[i], ">", 1) == 0)
+		if (ft_strncmp(array[i], "<", 1) == 0 || ft_strncmp(array[i], ">",
+				1) == 0)
 			i += 2;
 		else
 		{
@@ -29,9 +30,10 @@ int len_node_cmd(char **array)
 			i++;
 		}
 	}
-	return(len);
+	return (len);
 }
-void case_no_cmd_with_pipe_after(char ***array)
+
+void	case_no_cmd_with_pipe_after(char ***array)
 {
 	while (*(*array) && **(*array) != '|' && **(*array) != '\0')
 		(*array)++;
@@ -39,22 +41,21 @@ void case_no_cmd_with_pipe_after(char ***array)
 		(*array)++;
 }
 
-char **get_node_cmd(char ***array)
+char	**get_node_cmd(char ***array)
 {
-	char **answer;
-	int i;
-	int len;
+	char	**answer;
+	int		i;
 
 	i = 0;
-	len = len_node_cmd((*array));
-	if (len == 0)
-		return(case_no_cmd_with_pipe_after(array), NULL);
-	answer = (char **)malloc(sizeof(char *) * len + 1);
+	if (len_node_cmd(*array) == 0)
+		return (case_no_cmd_with_pipe_after(array), NULL);
+	answer = (char **)malloc(sizeof(char *) * len_node_cmd(*array) +1);
 	if (!answer)
-		return(NULL);
+		return (NULL);
 	while (*(*array) && **(*array) != '|' && **(*array) != '\0')
 	{
-		if (ft_strncmp(*(*array), "<", 1) == 0 || ft_strncmp(*(*array), ">", 1) == 0)
+		if (ft_strncmp(*(*array), "<", 1) == 0 || ft_strncmp(*(*array), ">",
+				1) == 0)
 			(*array) += 2;
 		else
 		{
@@ -68,17 +69,17 @@ char **get_node_cmd(char ***array)
 	return (answer);
 }
 
-t_node *new_node_and_link(char ***array)
+t_node	*new_node_and_link(char ***array)
 {
-	t_node *node;
-	int *fds;
+	t_node	*node;
+	int		*fds;
 
 	if (array == NULL)
-		return(NULL);
+		return (NULL);
 	node = (t_node *)malloc(sizeof(t_node) * 1);
 	if (!node)
 		return (NULL);
-	fds= ft_fd_handler((*array));
+	fds = ft_fd_handler((*array));
 	if (fds != NULL)
 	{
 		node->infile = fds[0];
@@ -93,13 +94,12 @@ t_node *new_node_and_link(char ***array)
 		node->next_node = NULL;
 	else
 		node->next_node = new_node_and_link(array);
-	return(node);
+	return (node);
 }
 
 // t_node	*ft_parse_args(char *line)
 // {
 // 	t_node *node;
-
 
 // 	return(node);
 // }
