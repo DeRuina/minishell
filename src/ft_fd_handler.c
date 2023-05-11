@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/10 15:53:10 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/11 15:04:47 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,13 @@ int	*find_and_open_fds(char **array, int *fds, int i)
 	fd = 0;
 	while (array[i] != '\0' && *array[i] != '|')
 	{
-		if (ft_strncmp(array[i], "<<", 2) == 0)
+		if (ft_strncmp(array[i], "<<", 2) == 0 && (i != 0 && i != 1))
 			fd = here_doc(array[i + 1]);
-		else if (ft_strncmp(array[i], "<", 1) == 0)
+		else if (ft_strncmp(array[i], "<", 1) == 0 && ft_strlen(array[i]) != 2)
 			fd = open(array[i + 1], O_RDONLY);
 		else if (ft_strncmp(array[i], ">>", 2) == 0)
 			fd = open(array[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0664);
-		else if (ft_strncmp(array[i], ">", 1) == 0)
+		else if (ft_strncmp(array[i], ">", 1) == 0 && ft_strlen(array[i]) != 2)
 			fd = open(array[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 		if (fd == -1)
 			return (here_doc_if_invalid_infile(array, i), perror(array[i + 1]),

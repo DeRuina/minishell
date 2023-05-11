@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/11 14:33:46 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/11 15:05:49 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	main(int argc, char *argv[]/*, char *env[]*/)
 {
-	char	*line = "< Makefile cat | echo \"/Users/druina/Desktop/github/minishell 'hola'\" /Users/druina/src | 'tr' -d / > outfile | echo \"'hi'\" >> dude >ok | echo \"\" | echo ''| < dean >>yep";
+	char	*line = "< Makefile cat | echo \"/Users/druina/Desktop/github/minishell 'hola'\" /Users/druina/src | 'tr' -d / > outfile | echo \"'hi'\" >> dude >ok | echo \"\" | echo ''| << dean  >>yep";
 	char	*temp;
 	char 	**temp1;
 	char	**str;
