@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:43:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/10 15:09:49 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/11 10:26:37 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ char	*null_term_and_free(char *answer, int i, char *temp)
 	return (answer);
 }
 
+// copies to malloced array in case of single quotes
+
+char *handle_trim_only_quotes_case(char *str, char *answer)
+{
+	answer[0] = str[0];
+	answer[1] = str[1];
+	answer[2] = '\0';
+	return(answer);
+}
+
 // Check if trim is needed and returns new arr
 
 char	*check_for_trim(char *str)
@@ -67,12 +77,12 @@ char	*check_for_trim(char *str)
 	{
 		if (ft_strchr("\"'", *str))
 			break ;
-		answer[i] = *str;
-		i++;
-		str++;
+		answer[i++] = *str++;
 	}
 	if (*str == '\0')
 		return (null_term_and_free(answer, i, temp));
+	if (ft_strncmp(str, "\"\"", 2) == 0 || ft_strncmp(str, "''", 2) == 0)
+		return(handle_trim_only_quotes_case(str, answer));
 	c = *str;
 	str++;
 	answer = trim_loop(str, answer, i, &c);

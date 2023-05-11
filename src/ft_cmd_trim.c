@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/05/05 09:38:20 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/11 11:06:03 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	quotes_edge_cases(char first, char character, int *flag, char **line)
 	if (first == character && *(*line) == character && *(*line + 1) == ' ')
 	{
 		(*line)++;
-		if (!ft_strchr((*line), first))
+		if (*(*line) != first)
 			(*flag) = 1;
 		return (1);
 	}

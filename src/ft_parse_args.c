@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/10 15:36:18 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/11 14:03:41 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int len_node_cmd(char **array)
 
 	len = 0;
 	i = 0;
-	while (array[i] && ft_strncmp(array[i], "|", 1) != 0 && ft_strncmp(array[i], "'\0", 1) != 0)
+	while (array[i] && ft_strncmp(array[i], "|", 1) != 0 && array[i] != '\0')
 	{
 		if (ft_strncmp(array[i], "<", 1) == 0 || ft_strncmp(array[i], ">", 1) == 0)
 			i += 2;

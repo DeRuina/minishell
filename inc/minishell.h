@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/10 15:14:13 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/11 10:27:33 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,6 @@ char			**ft_str_trim(char **array);
 t_node			*ft_parse_args(char *line);
 int				*ft_fd_handler(char **array);
 
-// cmd_trim
-
-char			**ft_cmd_trim(char *line);
-
 // expand
 
 void			ft_expand(t_vec env_vars, char **arr);
@@ -89,6 +85,7 @@ void			get_allocation_len(char *array, int *count);
 char			*check_for_trim(char *str);
 char			*null_term_and_free(char *answer, int i, char *temp);
 char			*trim_loop(char *str, char *answer, int i, char *c);
+char			*handle_trim_only_quotes_case(char *str, char *answer);
 
 // fd_handler
 int				*find_and_open_fds(char **array, int *fds, int i);
