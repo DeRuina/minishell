@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/11 14:03:41 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/11 14:37:53 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void case_no_cmd_with_pipe_after(char ***array)
 {
 	while (*(*array) && **(*array) != '|' && **(*array) != '\0')
 		(*array)++;
-	(*array)++;
+	if (*(*array))
+		(*array)++;
 }
 
 char **get_node_cmd(char ***array)
@@ -78,8 +79,11 @@ t_node *new_node_and_link(char ***array)
 	if (!node)
 		return (NULL);
 	fds= ft_fd_handler((*array));
-	node->infile = fds[0];
-	node->outfile = fds[1];
+	if (fds != NULL)
+	{
+		node->infile = fds[0];
+		node->outfile = fds[1];
+	}
 	node->full_cmd = get_node_cmd(array);
 	if (node->full_cmd == NULL)
 		node->path_name = NULL;
@@ -89,8 +93,6 @@ t_node *new_node_and_link(char ***array)
 		node->next_node = NULL;
 	else
 		node->next_node = new_node_and_link(array);
-
-
 	return(node);
 }
 
