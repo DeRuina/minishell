@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/12 14:44:20 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/12 16:09:08 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,15 @@ char	*find_infile_outfile(char **array, char *operator1, char *operator2,
 	}
 	return (last);
 }
-void error_fd(int fd, char **array, int i)
+// error message in case of -1 fd and here_doc after
+
+void error_fd(int fd, char *array, char *error)
 {
 	if (fd == -1)
 	{
-		write(2, array[i + 1], ft_strlen(array[i + 1]));
+		write(2, array, ft_strlen(array));
 		write(2, ": ", 2);
-		write(2, strerror(errno), ft_strlen(strerror(errno)));
+		write(2, error, ft_strlen(error));
 		write(2, "\n", 1);
 	}
 }
@@ -72,9 +74,8 @@ int	get_infile_fd(char **array, int *flag)
 				fd = open(array[i + 1], O_RDONLY);
 			if (fd == -1)
 			{
+				here_doc_if_invalid_infile(array, i, fd);
 				(*flag) = 1;
-				here_doc_if_invalid_infile(array, i);
-				error_fd(fd, array, i);
 				return (-1);
 			}
 			if (ft_strncmp(infile, "<<", 2) == 0 && (*flag) == 0)

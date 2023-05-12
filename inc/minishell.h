@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/12 14:32:30 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/12 16:06:08 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ char			*handle_trim_only_quotes_case(char *str, char *answer);
 // fd_handler
 int				*find_and_open_fds(char **array, int *fds, int i, int *flag);
 int				here_doc(char *delimiter);
-void			here_doc_if_invalid_infile(char **array, int i);
+void			here_doc_if_invalid_infile(char **array, int i, int bad_fd);
 int				get_infile_fd(char **array, int *flag);
 char			*find_infile_outfile(char **array, char *operator1,
 					char *operator2, int i);
-void			error_fd(int fd, char **array, int i);
+void			error_fd(int fd, char *array, char *error);
 
 // utils
 int				ft_max(int a, int b);

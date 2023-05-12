@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:21:48 by druina            #+#    #+#             */
-/*   Updated: 2023/05/12 13:22:35 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/12 16:06:56 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 // creates and closes here_docs in case of invalid infile
 
-void	here_doc_if_invalid_infile(char **array, int i)
+void	here_doc_if_invalid_infile(char **array, int i, int bad_fd)
 {
 	int	fd;
+	char *error_var;
+	char *error;
 
+	error = strerror(errno);
+	error_var = array[i + 1];
 	fd = 0;
 	while (array[i] != '\0')
 	{
@@ -27,6 +31,7 @@ void	here_doc_if_invalid_infile(char **array, int i)
 			close(fd);
 		i++;
 	}
+	error_fd(bad_fd, error_var, error);
 }
 
 // reads from 0 and creates a here_doc
