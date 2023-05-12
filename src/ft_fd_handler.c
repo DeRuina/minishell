@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/12 16:15:01 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/12 17:17:02 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,11 @@ int	*find_and_open_fds(char **array, int *fds, int i, int *flag)
 	fds[1] = get_outfile_fd(array);
 	while (array[i] != '\0' && *array[i] != '|')
 	{
-		if (ft_strncmp(array[i], "<<", 2) == 0 && (i != 0 && i != 1))
+		if (ft_strncmp(array[i], "<<", 2) == 0
+			&& array[i] != find_infile_outfile(array, "<", "<<", 0))
 			fd = here_doc(array[i + 1]);
 		else if (ft_strncmp(array[i], "<", 1) == 0 && ft_strlen(array[i]) != 2
-			&& (i != 0 && i != 1))
+			&& array[i] != find_infile_outfile(array, "<", "<<", 0))
 			fd = open(array[i + 1], O_RDONLY);
 		else if (ft_strncmp(array[i], ">>", 2) == 0)
 			fd = open(array[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0664);
