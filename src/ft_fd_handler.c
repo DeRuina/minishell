@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/12 16:09:08 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/12 16:15:01 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,6 @@ char	*find_infile_outfile(char **array, char *operator1, char *operator2,
 	}
 	return (last);
 }
-// error message in case of -1 fd and here_doc after
-
-void error_fd(int fd, char *array, char *error)
-{
-	if (fd == -1)
-	{
-		write(2, array, ft_strlen(array));
-		write(2, ": ", 2);
-		write(2, error, ft_strlen(error));
-		write(2, "\n", 1);
-	}
-}
-
 // finds the infile fd and opens it
 
 int	get_infile_fd(char **array, int *flag)
@@ -73,11 +60,8 @@ int	get_infile_fd(char **array, int *flag)
 			if (ft_strncmp(infile, "<", 1) == 0 && ft_strlen(infile) == 1)
 				fd = open(array[i + 1], O_RDONLY);
 			if (fd == -1)
-			{
-				here_doc_if_invalid_infile(array, i, fd);
-				(*flag) = 1;
-				return (-1);
-			}
+				return (here_doc_if_invalid_infile(array, i, fd), (*flag) = 1,
+					-1);
 			if (ft_strncmp(infile, "<<", 2) == 0 && (*flag) == 0)
 				fd = here_doc(array[i + 1]);
 			if (fd == -1)
@@ -129,9 +113,10 @@ int	*find_and_open_fds(char **array, int *fds, int i, int *flag)
 	{
 		if (ft_strncmp(array[i], "<<", 2) == 0 && (i != 0 && i != 1))
 			fd = here_doc(array[i + 1]);
-		else if (ft_strncmp(array[i], "<", 1) == 0 && ft_strlen(array[i]) != 2 && (i != 0 && i != 1))
+		else if (ft_strncmp(array[i], "<", 1) == 0 && ft_strlen(array[i]) != 2
+			&& (i != 0 && i != 1))
 			fd = open(array[i + 1], O_RDONLY);
-		else if (ft_strncmp(array[i], ">>", 2) == 0 )
+		else if (ft_strncmp(array[i], ">>", 2) == 0)
 			fd = open(array[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0664);
 		else if (ft_strncmp(array[i], ">", 1) == 0 && ft_strlen(array[i]) != 2)
 			fd = open(array[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0664);
@@ -156,6 +141,6 @@ int	*ft_fd_handler(char **array, int *flag)
 		return (NULL);
 	fds = find_and_open_fds(array, fds, 0, flag);
 	if (fds == NULL)
-		return(NULL);
+		return (NULL);
 	return (fds);
 }

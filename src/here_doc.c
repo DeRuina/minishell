@@ -6,19 +6,32 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:21:48 by druina            #+#    #+#             */
-/*   Updated: 2023/05/12 16:06:56 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/12 16:15:12 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// error message in case of -1 fd and here_doc after
+
+void	error_fd(int fd, char *array, char *error)
+{
+	if (fd == -1)
+	{
+		write(2, array, ft_strlen(array));
+		write(2, ": ", 2);
+		write(2, error, ft_strlen(error));
+		write(2, "\n", 1);
+	}
+}
+
 // creates and closes here_docs in case of invalid infile
 
 void	here_doc_if_invalid_infile(char **array, int i, int bad_fd)
 {
-	int	fd;
-	char *error_var;
-	char *error;
+	int		fd;
+	char	*error_var;
+	char	*error;
 
 	error = strerror(errno);
 	error_var = array[i + 1];
