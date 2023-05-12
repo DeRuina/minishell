@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/11 15:13:54 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/12 14:34:54 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	len_node_cmd(char **array)
 	return (len);
 }
 
-void	case_no_cmd_with_pipe_after(char ***array)
+void	case_only_redirections(char ***array)
 {
 	while (*(*array) && **(*array) != '|' && **(*array) != '\0')
 		(*array)++;
@@ -48,7 +48,7 @@ char	**get_node_cmd(char ***array)
 
 	i = 0;
 	if (len_node_cmd(*array) == 0)
-		return (case_no_cmd_with_pipe_after(array), NULL);
+		return (case_only_redirections(array), NULL);
 	answer = (char **)malloc(sizeof(char *) * len_node_cmd(*array) +1);
 	if (!answer)
 		return (NULL);
@@ -69,7 +69,7 @@ char	**get_node_cmd(char ***array)
 	return (answer);
 }
 
-t_node	*new_node_and_link(char ***array)
+t_node	*new_node_and_link(char ***array, int *flag)
 {
 	t_node	*node;
 	int		*fds;
@@ -79,7 +79,7 @@ t_node	*new_node_and_link(char ***array)
 	node = (t_node *)malloc(sizeof(t_node) * 1);
 	if (!node)
 		return (NULL);
-	fds = ft_fd_handler((*array));
+	fds = ft_fd_handler((*array), flag);
 	if (fds != NULL)
 	{
 		node->infile = fds[0];
@@ -93,13 +93,16 @@ t_node	*new_node_and_link(char ***array)
 	if (!**array)
 		node->next_node = NULL;
 	else
-		node->next_node = new_node_and_link(array);
+		node->next_node = new_node_and_link(array, flag);
 	return (node);
 }
 
-// t_node	*ft_parse_args(char *line)
-// {
-// 	t_node *node;
+t_node	*ft_parse_args(char **array)
+{
+	t_node *head;
+	static int flag = 0;
 
-// 	return(node);
-// }
+	head = new_node_and_link(&array, &flag);
+
+	return(head);
+}

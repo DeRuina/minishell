@@ -6,13 +6,14 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/11 10:27:33 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/12 14:32:30 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft.h"
+# include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -46,8 +47,8 @@ char			**ft_cmd_trim(char *line);
 void			ft_expand(t_vec vars, char **line);
 char			**ft_split_operators(char **array);
 char			**ft_str_trim(char **array);
-t_node			*ft_parse_args(char *line);
-int				*ft_fd_handler(char **array);
+t_node			*ft_parse_args(char **array);
+int				*ft_fd_handler(char **array, int *flag);
 
 // expand
 
@@ -88,21 +89,21 @@ char			*trim_loop(char *str, char *answer, int i, char *c);
 char			*handle_trim_only_quotes_case(char *str, char *answer);
 
 // fd_handler
-int				*find_and_open_fds(char **array, int *fds, int i);
+int				*find_and_open_fds(char **array, int *fds, int i, int *flag);
 int				here_doc(char *delimiter);
 void			here_doc_if_invalid_infile(char **array, int i);
-int				get_outfile_fd(char **array);
-int				get_infile_fd(char **array);
+int				get_infile_fd(char **array, int *flag);
 char			*find_infile_outfile(char **array, char *operator1,
 					char *operator2, int i);
+void			error_fd(int fd, char **array, int i);
 
 // utils
 int				ft_max(int a, int b);
 
 // node funtions
-t_node			*new_node_and_link(char ***array);
+t_node			*new_node_and_link(char ***array, int *flag);
 char			**get_node_cmd(char ***array);
 int				len_node_cmd(char **array);
-void			case_no_cmd_with_pipe_after(char ***array);
+void			case_only_redirections(char ***array);
 
 #endif
