@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/12 16:18:47 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/12 17:21:00 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ t_node	*new_node_and_link(char ***array, int *flag)
 	else
 		node->path_name = node->full_cmd[0];
 	if (!**array)
-		node->next_node = NULL;
+		node->next = NULL;
 	else
-		node->next_node = new_node_and_link(array, flag);
+		node->next = new_node_and_link(array, flag);
 	return (node);
 }
 

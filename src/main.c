@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/12 16:21:24 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/12 17:21:00 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char *argv[]/*, char *env[]*/)
 	str1 = ft_str_trim(str1);
 	temp1 = str1;
 	head = ft_parse_args(str1);
-	while (head->next_node != NULL)
+	while (head->next != NULL)
 	{
 		if (head->full_cmd == NULL)
 			printf("NULL");
@@ -62,7 +62,7 @@ int	main(int argc, char *argv[]/*, char *env[]*/)
 		printf("path-name: %s\n", head->path_name);
 		printf("infile: %d\n", head->infile);
 		printf("outfile: %d\n", head->outfile);
-		head = head->next_node;
+		head = head->next;
 	}
 	while (head->full_cmd[i] != '\0')
 		{
