@@ -17,7 +17,7 @@ ARFLAGS		= rcs
 SRC = \
 $S/main.c	$P/ft_cmd_trim.c	$P/ft_expand.c	$P/ft_env.c	$P/ft_split_operators.c		\
 $P/ft_split_operators_utils.c	$P/ft_str_trim.c	$P/ft_fd_handler.c	$P/here_doc.c	\
-$P/ft_expand_utils.c	$P/ft_parse_args.c	$P/ft_get_exec_path.c
+$P/ft_expand_utils.c	$P/ft_parse_args.c	$P/ft_get_exec_path.c	$P/ft_executor.c
 
 OBJ			= $(SRC:$S%=$O%.o)
 
