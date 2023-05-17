@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/17 14:22:03 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/17 14:32:17 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,26 @@ int	check_for_operator(char *array)
 
 // part of find_proper_allocation
 
-void	get_allocation_len(char *array, int *count)
+int	get_allocation_len(char *array)
 {
 	int	offset;
+	int count;
 
 	offset = 0;
+	count =	0;
 	offset = check_for_operator(array);
 	if (offset == 0)
-		(*count)++;
+		count++;
 	else
 	{
 		while (len_to_operator(&array, NULL))
 		{
-			(*count)++;
+			count++;
 			if (!*array)
 				break ;
 		}
 	}
+	return (count);
 }
 
 //Find proper allocation for 2D array
@@ -69,7 +72,7 @@ int	find_new_array_len(char **array, int i)
 	count = 0;
 	while (array[i] != 0)
 	{
-		get_allocation_len(array[i], &count);
+		count += get_allocation_len(array[i]);
 		i++;
 	}
 	return (count);
