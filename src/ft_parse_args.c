@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/12 17:21:00 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/17 14:30:08 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**get_node_cmd(char ***array)
 	i = 0;
 	if (len_node_cmd(*array) == 0)
 		return (case_only_redirections(array), NULL);
-	answer = (char **)malloc(sizeof(char *) * len_node_cmd(*array) + 1);
+	answer = (char **)malloc(sizeof(char *) * (len_node_cmd(*array) + 1));
 	if (!answer)
 		return (NULL);
 	while (*(*array) && **(*array) != '|' && **(*array) != '\0')
