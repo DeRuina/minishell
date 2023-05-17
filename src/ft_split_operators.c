@@ -6,40 +6,37 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/17 14:12:33 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/17 14:22:03 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// creates the new array and allocates
+//Check if there is a operator
 
-char	**divide_into_array(char **array, char **answer)
+int	check_for_operator(char *array)
 {
 	int		i;
-	int		offset;
-	char	*temp;
+	int		count;
+	char	*token;
 
-	offset = 0;
-	i = 0;
-	while (array[i] != 0)
+	i = -1;
+	count = 0;
+	while (array[++i] != '\0')
 	{
-		if (check_for_operator(array[i]) == 0)
-			answer[i + offset] = no_operator(answer, array, &offset, &i);
+		if (ft_strchr("<|>", array[i]))
+			token = ft_strchr("<|>", array[i]);
 		else
+			token = NULL;
+		if (token != NULL)
 		{
-			temp = array[i];
-			while (*array[i])
-			{
-				answer[i + offset] = malloc_new_token(&array[i]);
-				if (*array[i])
-					offset++;
-			}
-			array[i] = temp;
-			i++;
+			if (array[i] == '\0' && *token == array[i] && array[i + 1] == '\0' && !array[i - 1])
+				count = 0;
+			else if (token)
+				count++;
 		}
 	}
-	return (answer);
+	return (count);
 }
 
 // part of find_proper_allocation

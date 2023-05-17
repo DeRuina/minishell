@@ -6,37 +6,40 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:18:22 by druina            #+#    #+#             */
-/*   Updated: 2023/05/17 14:18:06 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/17 14:22:03 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//Check if there is a operator
+// creates the new array and allocates
 
-int	check_for_operator(char *array)
+char	**divide_into_array(char **array, char **answer)
 {
 	int		i;
-	int		count;
-	char	*token;
+	int		offset;
+	char	*temp;
 
-	i = -1;
-	count = 0;
-	while (array[++i] != '\0')
+	offset = 0;
+	i = 0;
+	while (array[i] != 0)
 	{
-		if (ft_strchr("<|>", array[i]))
-			token = ft_strchr("<|>", array[i]);
+		if (check_for_operator(array[i]) == 0)
+			answer[i + offset] = no_operator(answer, array, &offset, &i);
 		else
-			token = NULL;
-		if (token != NULL)
 		{
-			if (array[i] == '\0' && *token == array[i] && array[i + 1] == '\0' && !array[i - 1])
-				count = 0;
-			else if (token)
-				count++;
+			temp = array[i];
+			while (*array[i])
+			{
+				answer[i + offset] = malloc_new_token(&array[i]);
+				if (*array[i])
+					offset++;
+			}
+			array[i] = temp;
+			i++;
 		}
 	}
-	return (count);
+	return (answer);
 }
 
 // finds and mallocs the next operator
