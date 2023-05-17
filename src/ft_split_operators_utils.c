@@ -6,11 +6,38 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:18:22 by druina            #+#    #+#             */
-/*   Updated: 2023/05/10 14:57:54 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/17 14:18:06 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//Check if there is a operator
+
+int	check_for_operator(char *array)
+{
+	int		i;
+	int		count;
+	char	*token;
+
+	i = -1;
+	count = 0;
+	while (array[++i] != '\0')
+	{
+		if (ft_strchr("<|>", array[i]))
+			token = ft_strchr("<|>", array[i]);
+		else
+			token = NULL;
+		if (token != NULL)
+		{
+			if (array[i] == '\0' && *token == array[i] && array[i + 1] == '\0' && !array[i - 1])
+				count = 0;
+			else if (token)
+				count++;
+		}
+	}
+	return (count);
+}
 
 // finds and mallocs the next operator
 
@@ -48,7 +75,7 @@ void	*no_operator(char **answer, char **array, int *offset, int *i)
 
 	j = 0;
 	answer[(*i) + (*offset)] = (char *)malloc(sizeof(char)
-			* ft_strlen(array[(*i)]) + 1);
+			* (ft_strlen(array[(*i)]) + 1));
 	while (array[(*i)][j] != '\0')
 	{
 		answer[(*i) + (*offset)][j] = array[(*i)][j];
@@ -66,12 +93,12 @@ int	len_to_operator(char **array, int *flag)
 	int	len;
 
 	len = 0;
-	if (ft_strchr("<|>", *(*array)))
+	if (*(*array) != '\0' && ft_strchr("<|>", *(*array)))
 	{
 		if (ft_strchr("<|>", *(*array + 1)) && *(*array + 1) != '\0' && *(*array
 				+ 1) != '|')
 		{
-			if ((*flag) != 0)
+			if (flag != NULL && (*flag) != 0 )
 				(*flag) = 1;
 			(*array)++;
 		}
@@ -86,29 +113,3 @@ int	len_to_operator(char **array, int *flag)
 	return (len);
 }
 
-//Check if there is a operator
-
-int	check_for_operator(char *array)
-{
-	int		i;
-	int		count;
-	char	*token;
-
-	i = -1;
-	count = 0;
-	while (array[++i] != '\0')
-	{
-		if (ft_strchr("<|>", array[i]))
-			token = ft_strchr("<|>", array[i]);
-		else
-			token = NULL;
-		if (token != NULL)
-		{
-			if (*token == array[i] && array[i + 1] == '\0' && !array[i - 1])
-				count = 0;
-			else if (token)
-				count++;
-		}
-	}
-	return (count);
-}
