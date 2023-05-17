@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/05/11 11:06:03 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/17 23:39:11 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 // cases of double quotes
 
-int	quotes_edge_cases(char first, char character, int *flag, char **line)
+int	quotes_edge_cases(char *first, int *flag, char **line)
 {
-	if (first == character && *(*line) == character && *(*line + 1) == ' ')
+	if ( *(*line) == (*first) && *(*line + 1) == ' ')
 	{
 		(*line)++;
-		if (*(*line) != first)
+		if (*(*line) != (*first))
 			(*flag) = 1;
 		return (1);
 	}
-	else if (*(*line) == character && *(*line + 1) == character)
-		(*flag) = -1;
-	if (first == character && *(*line) == character && (*flag) != -1)
+	else if (*(*line) == (*first) && *(*line + 1) == (*first))
+		(*first) = NULL;
+	if (*(*line) == (*first))
 		(*flag) = 1;
 	return (0);
 }
@@ -46,7 +46,7 @@ void	handle_quotes(char *whitespace, char **line)
 				first = '"';
 			else if (*(*line) == '\'' && !first)
 				first = '\'';
-			else if (quotes_edge_cases(first, first, &flag, line) == 1)
+			else if (quotes_edge_cases(&first, &flag, line) == 1)
 				break ;
 			(*line)++;
 		}
@@ -69,7 +69,7 @@ char	*allocate_token(char *start, char *line)
 	i = 0;
 	while (&start[i] != &line[0])
 		i++;
-	token = (char *)malloc(sizeof(char) * i + 1);
+	token = (char *)malloc(sizeof(char) * (i + 1));
 	if (!token)
 		return (NULL);
 	token[i] = '\0';

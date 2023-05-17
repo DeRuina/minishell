@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/12 16:21:24 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/17 22:37:17 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char *argv[]/*, char *env[]*/)
 			printf("NULL");
 		else
 		{
-		while (head->full_cmd[i] != '\0')
+		while (head->full_cmd[i] != 0)
 		{
 			printf("%s ",head->full_cmd[i]);
 			i++;
@@ -64,7 +64,7 @@ int	main(int argc, char *argv[]/*, char *env[]*/)
 		printf("outfile: %d\n", head->outfile);
 		head = head->next_node;
 	}
-	while (head->full_cmd[i] != '\0')
+	while (head->full_cmd[i] != 0)
 		{
 			printf("%s ",head->full_cmd[i]);
 			i++;

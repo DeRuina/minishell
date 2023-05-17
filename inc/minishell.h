@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/17 14:25:49 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/17 23:31:41 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ char			**ft_str_trim(char **array);
 
 // cmd_trim
 char			*allocate_token(char *start, char *line);
-int				quotes_edge_cases(char first, char character, int *flag,
-					char **line);
+int				quotes_edge_cases(char *first, int *flag, char **line);
 void			handle_quotes(char *whitespace, char **line);
 char			*next_token_from_line(char **line);
 
