@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/17 10:02:09 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/17 14:12:33 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,11 @@ void	get_allocation_len(char *array, int *count)
 int	find_new_array_len(char **array, int i)
 {
 	int		count;
-	char	*temp;
 
 	count = 0;
 	while (array[i] != 0)
 	{
-		temp = array[i];
 		get_allocation_len(array[i], &count);
-		array[i] = temp;
 		i++;
 	}
 	return (count);
@@ -85,20 +82,18 @@ int	find_new_array_len(char **array, int i)
 
 char	**ft_split_operators(char **array)
 {
-	int		i;
 	char	**answer;
 	char	**temp;
 	int		count;
 
 	if (array == NULL)
 		return (NULL);
-	i = 0;
 	temp = array;
-	count = find_new_array_len(array, i);
-	answer = (char **)malloc(sizeof(char *) * count + 1);
+	count = find_new_array_len(array, 0);
+	answer = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!answer)
 		return (NULL);
-	answer[i + count] = 0;
+	answer[count] = 0;
 	answer = divide_into_array(temp, answer);
 	// free_2d(array);
 	return (answer);
