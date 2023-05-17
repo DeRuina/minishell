@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/16 15:43:56 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/17 10:02:09 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ char	**divide_into_array(char **array, char **answer)
 void	get_allocation_len(char *array, int *count)
 {
 	int	offset;
-	
+
 	offset = 0;
 	offset = check_for_operator(array);
 	if (offset == 0)
 		(*count)++;
 	else
 	{
-		while (len_to_operator(&array, 0))
+		while (len_to_operator(&array, NULL))
 		{
 			(*count)++;
 			if (!*array)

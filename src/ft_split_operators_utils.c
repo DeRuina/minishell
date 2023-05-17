@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:18:22 by druina            #+#    #+#             */
-/*   Updated: 2023/05/10 14:57:54 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/17 10:03:05 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	len_to_operator(char **array, int *flag)
 		if (ft_strchr("<|>", *(*array + 1)) && *(*array + 1) != '\0' && *(*array
 				+ 1) != '|')
 		{
-			if ((*flag) != 0)
+			if (flag != NULL && (*flag) != 0 )
 				(*flag) = 1;
 			(*array)++;
 		}
