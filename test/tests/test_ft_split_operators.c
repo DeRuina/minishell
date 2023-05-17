@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:47:23 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/17 13:50:13 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/17 14:27:59 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void test_ft_split_operators_0(void)
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected0, ft_split_operators(array0), 2, "#0");
 	char	*expected1[] = {"echo", "|", NULL};
 	char	*array1[] = {"echo", "|", NULL};
-	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected1, ft_split_operators(array1), 3, "#1");
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected1, ft_split_operators(array1), 2, "#1");
 	char	*expected2[] = {"echo", "|", NULL};
 	char	*array2[] = {"echo|", NULL};
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected2, ft_split_operators(array2), 3, "#2");
@@ -29,7 +29,7 @@ void test_ft_split_operators_0(void)
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected4, ft_split_operators(array4), 1, "#4");
 	char	*expected5[] = {"echo", "|", "ls", NULL};
 	char	*array5[] = {"echo", "|ls", NULL};
-	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected5, ft_split_operators(array5), 4, "#5");
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected5, ft_split_operators(array5), 3, "#5");
 }
 
 void test_ft_split_operators_1(void)

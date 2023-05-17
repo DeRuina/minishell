@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/12 16:06:08 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/17 14:25:49 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char			*malloc_new_token(char **array);
 int				len_to_operator(char **array, int *flag);
 int				check_for_operator(char *array);
 int				find_new_array_len(char **array, int i);
-void			get_allocation_len(char *array, int *count);
+int				get_allocation_len(char *array);
 
 // str_trim
 char			*check_for_trim(char *str);
