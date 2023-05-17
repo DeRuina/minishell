@@ -1,22 +1,23 @@
 NAME 		= minishell
 
 S			= src/
+P			= $S/parser
 O			= obj/
 I			= inc/
 LIBFT_I		= libft/inc
 
 CC			= cc
 CFLAGS		= -Wall -Werror -Wextra -O3
-INCLUDES	= -I$I -I$(LIBFT_I)
+INCLUDES	= -I$I -I$(LIBFT_I) -I$P
 LIBRARIES	= -L./libft -lft
 
 AR			= ar
 ARFLAGS		= rcs
 
 SRC = \
-$S/main.c	$S/ft_cmd_trim.c	$S/ft_expand.c	$S/ft_env.c	$S/ft_split_operators.c		\
-$S/ft_split_operators_utils.c	$S/ft_str_trim.c	$S/ft_fd_handler.c	$S/here_doc.c	\
-$S/ft_expand_utils.c	$S/ft_parse_args.c	$S/ft_get_exec_path.c
+$S/main.c	$P/ft_cmd_trim.c	$P/ft_expand.c	$P/ft_env.c	$P/ft_split_operators.c		\
+$P/ft_split_operators_utils.c	$P/ft_str_trim.c	$P/ft_fd_handler.c	$P/here_doc.c	\
+$P/ft_expand_utils.c	$P/ft_parse_args.c	$P/ft_get_exec_path.c
 
 OBJ			= $(SRC:$S%=$O%.o)
 

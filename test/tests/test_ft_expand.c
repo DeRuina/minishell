@@ -6,12 +6,13 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/09 17:43:35 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/17 19:38:55 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unity.h"
 #include "minishell.h"
+#include "parser.h"
 
 t_vec	vars;
 

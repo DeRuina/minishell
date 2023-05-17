@@ -1,7 +1,7 @@
 T = ./tests/
 
 FLAGS = -Wall -Werror -Wextra -g
-INCLUDES = -I../inc -I../libft/inc -I./unity -I./inc
+INCLUDES = -I../inc -I../libft/inc -I./unity -I./inc -I../src/parser
 SANITIZE = -fsanitize=address
 TEST = ./unity/unity.c ./test.c
 TESTS = \
