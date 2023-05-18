@@ -6,13 +6,13 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/05/18 08:31:16 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/18 08:52:28 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// cases of double quotes
+// Finding the closing quote or reset in case of multiple quotes together
 
 int	find_closing_quote(char *quote, int *closing_quote, char **line)
 {
@@ -30,7 +30,8 @@ int	find_closing_quote(char *quote, int *closing_quote, char **line)
 	return (0);
 }
 
-// handling double and single quotes
+// setting the pointer of line to the address of where the token ends
+
 void	handle_quotes(char **line)
 {
 	char	quote;
