@@ -6,48 +6,86 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/18 10:11:45 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/18 12:09:38 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// len of the next token
+//Checks for the number of operators in the string
 
-int	len_to_operator(char **array, int *flag)
+int	check_operators_num_in_string(char *array)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (array[++i] != '\0')
+	{
+		if (ft_strchr("<|>", array[i]))
+			count++;
+	}
+	return (count);
+}
+
+// creates the new array and allocates
+
+char	**divide_into_array(char **array, char **answer)
+{
+	int		i;
+	int		offset_for_combined_tokens;
+	char	*temp;
+
+	offset_for_combined_tokens = 0;
+	i = 0;
+	while (array[i] != 0)
+	{
+		if (check_operators_num_in_string(array[i]) == 0)
+			answer[i + offset_for_combined_tokens] = no_operator(array[i]);
+		else
+		{
+			temp = array[i];
+			while (*array[i])
+			{
+				answer[i + offset_for_combined_tokens]
+					= malloc_new_token_and_move_pointer_to_next(&array[i]);
+				if (*array[i])
+					offset_for_combined_tokens++;
+			}
+			array[i] = temp;
+		}
+		i++;
+	}
+	return (answer);
+}
+
+// moves the pointer to the next token if exist,
+//returns the lenght of the token. example : "<Makefile|"
+//first call - return 1, modified string "Makefile|".
+// second call - return 8, modified string "|".
+//third call - return 1, modified string "".
+
+int	pointer_to_next_token_return_len(char **str)
 {
 	int	len;
 
 	len = 0;
-	if (**array != '\0' && ft_strchr("<|>", **array))
+	if (**str != '\0' && ft_strchr("<|>", **str))
 	{
-		if (ft_strchr("<|>", *(*array + 1)) && *(*array + 1) != '\0' && *(*array
-				+ 1) != '|')
+		if (*(*str + 1) && ft_strchr("<>", *(*str + 1)))
 		{
-			if (flag != NULL && (*flag) != 0 )
-				(*flag) = 1;
-			(*array)++;
+			(*str) += 2;
+			return (2);
 		}
-		(*array)++;
+		(*str)++;
 		return (1);
 	}
-	while (!ft_strchr("<|>", **array))
+	while (!ft_strchr("<|>", **str))
 	{
 		len++;
-		(*array)++;
+		(*str)++;
 	}
-	return (len);
-}
-
-// part of find_proper_allocation
-
-int	get_allocation_len(char *array)
-{
-	int len;
-
-	len =	0;
-	while (len_to_operator(&array, NULL))
-		len++;
 	return (len);
 }
 
@@ -55,22 +93,19 @@ int	get_allocation_len(char *array)
 
 int	split_operators_new_array_len(char **array, int i)
 {
-	int		len;
-	int		count;
+	int		num_of_tokens;
 	char	*temp;
 
-	len = 0;
-	count = 0;
+	num_of_tokens = 0;
 	while (array[i] != 0)
 	{
 		temp = array[i];
-		while (len_to_operator(&array[i], NULL))
-			count++;
-		len += count;
+		while (pointer_to_next_token_return_len(&array[i]))
+			num_of_tokens++;
 		array[i] = temp;
 		i++;
 	}
-	return (len);
+	return (num_of_tokens);
 }
 
 //Split the tokens if they're attached to an operator
