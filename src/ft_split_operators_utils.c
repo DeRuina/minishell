@@ -6,11 +6,32 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:18:22 by druina            #+#    #+#             */
-/*   Updated: 2023/05/17 14:22:03 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/18 09:30:47 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//Checks for the number of operators in the string
+
+int	check_operators_num_in_string(char *array)
+{
+	int		i;
+	int		count;
+	char	*operator;
+
+	i = -1;
+	count = 0;
+	operator = NULL;
+	while (array[++i] != '\0')
+	{
+		if (ft_strchr("<|>", array[i]))
+			operator = ft_strchr("<|>", array[i]);
+		if (operator)
+			count++;
+	}
+	return (count);
+}
 
 // creates the new array and allocates
 
@@ -24,7 +45,7 @@ char	**divide_into_array(char **array, char **answer)
 	i = 0;
 	while (array[i] != 0)
 	{
-		if (check_for_operator(array[i]) == 0)
+		if (check_operators_num_in_string(array[i]) == 0)
 			answer[i + offset] = no_operator(answer, array, &offset, &i);
 		else
 		{
@@ -88,31 +109,3 @@ void	*no_operator(char **answer, char **array, int *offset, int *i)
 	(*i)++;
 	return (answer[(*i) + (*offset)]);
 }
-
-// len of the next token
-
-int	len_to_operator(char **array, int *flag)
-{
-	int	len;
-
-	len = 0;
-	if (*(*array) != '\0' && ft_strchr("<|>", *(*array)))
-	{
-		if (ft_strchr("<|>", *(*array + 1)) && *(*array + 1) != '\0' && *(*array
-				+ 1) != '|')
-		{
-			if (flag != NULL && (*flag) != 0 )
-				(*flag) = 1;
-			(*array)++;
-		}
-		(*array)++;
-		return (1);
-	}
-	while (!ft_strchr("<|>", *(*array)))
-	{
-		len++;
-		(*array)++;
-	}
-	return (len);
-}
-

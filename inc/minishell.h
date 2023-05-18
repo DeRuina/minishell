@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/18 08:24:04 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/18 09:16:00 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ char			**divide_into_array(char **array, char **answer);
 void			*no_operator(char **answer, char **array, int *offset, int *i);
 char			*malloc_new_token(char **array);
 int				len_to_operator(char **array, int *flag);
-int				check_for_operator(char *array);
-int				find_new_array_len(char **array, int i);
+int				check_operators_num_in_string(char *array);
+int				split_operators_new_array_len(char **array, int i);
 int				get_allocation_len(char *array);
 
 // str_trim
