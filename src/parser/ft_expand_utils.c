@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:26:23 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/17 19:33:38 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/18 12:23:20 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_var_expand(t_vec env_vars, char *str)
 	if (!key)
 		return (NULL);
 	if (*key == '$')
-		value = key;
+		value = ft_strdup(key);
 	else
 		value = ft_getenv(env_vars, key);
 	free(key);
