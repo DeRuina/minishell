@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/17 23:31:41 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/18 08:24:04 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,12 @@ char			**ft_split_operators(char **array);
 char			**ft_str_trim(char **array);
 
 // cmd_trim
-char			*allocate_token(char *start, char *line);
-int				quotes_edge_cases(char *first, int *flag, char **line);
-void			handle_quotes(char *whitespace, char **line);
+char			*allocate_token(char *token_start, char *token_end);
+int				find_closing_quote(char *quote, int *closing_quote,
+					char **line);
+void			handle_quotes(char **line);
 char			*next_token_from_line(char **line);
+int				cmd_trim_new_array_len(char *line);
 
 // split_operators
 char			**divide_into_array(char **array, char **answer);
