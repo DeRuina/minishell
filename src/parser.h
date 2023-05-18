@@ -6,12 +6,14 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:32:22 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/17 19:36:40 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/17 19:57:55 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+
+#include "libft.h"
 
 // Expand utils
 void			ft_tmp_to_result(char **result, char **tmp);
