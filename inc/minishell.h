@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/18 12:04:28 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/19 09:00:57 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,16 @@ int				find_closing_quote(char *quote, int *closing_quote,
 					char **line);
 void			handle_quotes(char **line);
 char			*next_token_from_line(char **line);
-int				cmd_trim_new_array_len(char *line);
+int				cmd_trim_len(char *line);
 
 // split_operators
 char			**divide_into_array(char **array, char **answer);
 char			*no_operator(char *array);
-char			*malloc_new_token_and_move_pointer_to_next(char **array);
-int				pointer_to_next_token_return_len(char **string);
+char			*malloc_new_token(char **array);
+int				get_next_token(char **string);
 int				check_operators_num_in_string(char *array);
-int				split_operators_new_array_len(char **array, int i);
+int				split_operators_len(char **array);
+int				is_token_an_operator(char **str);
 
 // str_trim
 char			*check_for_trim(char *str);

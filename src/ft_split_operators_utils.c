@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:18:22 by druina            #+#    #+#             */
-/*   Updated: 2023/05/18 12:07:15 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/19 08:20:10 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,18 @@
 
 // finds and mallocs the next token
 
-char	*malloc_new_token_and_move_pointer_to_next(char **array)
+char	*malloc_new_token(char **array)
 {
-	int		i;
 	char	*answer;
 	char	*temp;
 	int		len;
 
 	temp = (*array);
-	i = 0;
-	len = pointer_to_next_token_return_len(array);
-	answer = (char *)malloc(sizeof(char) * len + 1);
+	len = get_next_token(array) + 1;
+	answer = (char *)malloc(sizeof(char) * len);
 	if (!answer)
 		return (NULL);
-	while (i < len)
-	{
-		answer[i] = temp[i];
-		i++;
-	}
-	answer[i] = '\0';
+	ft_strlcpy(answer, temp, len);
 	return (answer);
 }
 
@@ -40,16 +33,51 @@ char	*malloc_new_token_and_move_pointer_to_next(char **array)
 
 char	*no_operator(char *array)
 {
-	char	*answer;
-	int		j;
+	return (ft_strdup(array));
+}
+//Checks for the number of operators in the string
 
-	j = 0;
-	answer = (char *)malloc(sizeof(char) * (ft_strlen(array) + 1));
-	while (array[j] != '\0')
+int	check_operators_num_in_string(char *array)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (array[++i] != '\0')
 	{
-		answer[j] = array[j];
-		j++;
+		if (ft_strchr("<|>", array[i]))
+			count++;
 	}
-	answer[j] = '\0';
+	return (count);
+}
+
+// creates the new array and allocates
+
+char	**divide_into_array(char **array, char **answer)
+{
+	int		i;
+	int		tokens_to_split;
+	char	*temp;
+
+	tokens_to_split = 0;
+	i = 0;
+	while (array[i] != 0)
+	{
+		if (check_operators_num_in_string(array[i]) == 0)
+			answer[i + tokens_to_split] = no_operator(array[i]);
+		else
+		{
+			temp = array[i];
+			while (*array[i])
+			{
+				answer[i + tokens_to_split] = malloc_new_token(&array[i]);
+				if (*array[i])
+					tokens_to_split++;
+			}
+			array[i] = temp;
+		}
+		i++;
+	}
 	return (answer);
 }

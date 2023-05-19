@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 08:30:56 by druina            #+#    #+#             */
-/*   Updated: 2023/05/18 08:43:28 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/19 08:31:42 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 
 char	*allocate_token(char *token_start, char *token_end)
 {
-	int		i;
+	int		len;
+	char	*start;
 
-	i = 0;
-	while (&token_start[i] != &*token_end)
-		i++;
-	return (ft_substr(token_start, 0, i));
+	len = 0;
+	start = token_start;
+	while (&*token_start++ != &*token_end)
+		len++;
+	return (ft_substr(start, 0, len));
 }
