@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:43:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/11 15:09:04 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/19 10:08:05 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,31 @@
 
 // loops and trims the unnecessary
 
-char	*trim_loop(char *str, char *answer, int i, char *c)
+char	*trim_loop(char *str, char *answer, int i, char quote)
 {
 	while (*str)
 	{
-		if (*str == (*c))
+		if (*str == quote)
 		{
-			(*c) = 0;
+			quote = 0;
 			str++;
 		}
 		if (*str == '\0')
+		{
+			answer[i] = '\0';
 			break ;
-		if (ft_strchr("\"'", *str) && (*c) == 0)
-			(*c) = *str;
-		if (*str != (*c))
+		}
+		if (ft_strchr("\"'", *str) && !quote)
+			quote = *str;
+		if (*str != quote)
 			answer[i] = *str;
 		i++;
 		str++;
 		answer[i] = '\0';
 	}
-	if ((*c) != 0)
+	if (quote)
 	{
-		free(answer);
+		// free(answer);
 		return (NULL);
 	}
 	return (answer);
@@ -46,19 +49,18 @@ char	*trim_loop(char *str, char *answer, int i, char *c)
 char	*null_term_and_free(char *answer, int i, char *temp)
 {
 	answer[i] = '\0';
-	free(temp);
+	// free(temp);
 	temp = NULL;
 	return (answer);
 }
 
 // copies to malloced array in case of single quotes
 
-char	*handle_trim_only_quotes_case(char *str, char *answer)
+char	*only_double_quotes_case(char *str)
 {
-	answer[0] = str[0];
-	answer[1] = str[1];
-	answer[2] = '\0';
-	return (answer);
+	if ((ft_strncmp(str, "\"\"", 2) == 0 || ft_strncmp(str, "''", 2) == 0) && ft_strlen(str) == 2)
+		return(ft_strdup(str));
+	return (NULL);
 }
 
 // Check if trim is needed and returns new arr
@@ -67,12 +69,15 @@ char	*check_for_trim(char *str)
 {
 	char	*answer;
 	char	*temp;
-	char	c;
+	char	quote;
 	int		i;
 
 	i = 0;
 	temp = str;
-	answer = (char *)malloc(sizeof(char) * ft_strlen(str) + 1);
+	answer = only_double_quotes_case(str);
+	if (answer)
+		return(answer);
+	answer = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
 	while (*str != '\0')
 	{
 		if (ft_strchr("\"'", *str))
@@ -81,14 +86,9 @@ char	*check_for_trim(char *str)
 	}
 	if (*str == '\0')
 		return (null_term_and_free(answer, i, temp));
-	if (ft_strncmp(str, "\"\"", 2) == 0 || ft_strncmp(str, "''", 2) == 0)
-		return (handle_trim_only_quotes_case(str, answer));
-	c = *str;
-	str++;
-	answer = trim_loop(str, answer, i, &c);
-	if (answer == NULL)
-		return (NULL);
-	free(temp);
+	quote = *str;
+	answer = trim_loop(++str, answer, i, quote);
+	// free(temp);
 	return (answer);
 }
 
@@ -101,12 +101,12 @@ char	**ft_str_trim(char **array)
 	if (array == NULL)
 		return (NULL);
 	answer = array;
-	while (*array != NULL)
+	while (*array)
 	{
 		*array = check_for_trim(*array);
 		if (*array == NULL)
 		{
-			free_2d(answer);
+			// free_2d(answer);
 			return (NULL);
 		}
 		array++;

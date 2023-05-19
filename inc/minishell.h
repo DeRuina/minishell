@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/19 09:00:57 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/19 10:05:40 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ int				is_token_an_operator(char **str);
 // str_trim
 char			*check_for_trim(char *str);
 char			*null_term_and_free(char *answer, int i, char *temp);
-char			*trim_loop(char *str, char *answer, int i, char *c);
-char			*handle_trim_only_quotes_case(char *str, char *answer);
+char			*trim_loop(char *str, char *answer, int i, char quote);
+char			*only_double_quotes_case(char *str);
 
 // fd_handler
 int				*find_and_open_fds(char **array, int *fds, int i, int *flag);

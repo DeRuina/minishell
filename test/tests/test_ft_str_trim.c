@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:47:16 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/03 14:40:20 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/19 09:52:32 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ void test_ft_str_trim_2(void)
 	char	**expected6 = NULL;
 	char	*array6[] = {"\"\"\"", NULL};
 	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected6, ft_str_trim(array6), 2, "#6");
+	char	*expected7[] = {"\"\"", NULL};;
+	char	*array7[] = {"\"\"", NULL};
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected7, ft_str_trim(array7), 1, "#7");
+	char	*expected8[] = {"''", NULL};;
+	char	*array8[] = {"''", NULL};
+	TEST_ASSERT_EQUAL_STRING_ARRAY_MESSAGE(expected8, ft_str_trim(array8), 1, "#8");
 
 }
 
