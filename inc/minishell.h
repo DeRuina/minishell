@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/19 10:56:35 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/19 13:06:39 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct node
 	int			pid;
 	int			infile;
 	int			outfile;
-	struct node	*next_node;
+	struct node	*next;
 }				t_node;
 
 typedef struct s_env
@@ -35,6 +35,10 @@ typedef struct s_env
 	char		*key;
 	char		*value;
 }				t_env;
+
+
+// exec
+int	ft_executor(t_node *node);
 
 // Env
 int				ft_putenv(t_vec *envs_vec, char *str);
@@ -53,13 +57,13 @@ int				*ft_fd_handler(char **array, int *flag);
 // expand
 
 void			ft_expand(t_vec env_vars, char **arr);
-char			*ft_var_end(char *str);
-char			*ft_var_expand(t_vec env_vars, char *str);
+// char			*ft_var_end(char *str);
+// char			*ft_var_expand(t_vec env_vars, char *str);
 char			*ft_expand_token(t_vec env_vars, char *str);
 
 // expand utils
-void			ft_tmp_to_result(char **result, char **tmp);
-int				ft_should_expand_tilde(char *token, char *token_init);
+// void			ft_tmp_to_result(char **result, char **tmp);
+// int				ft_should_expand_tilde(char *token, char *token_init);
 
 // split_operators
 
@@ -97,6 +101,9 @@ int				get_infile_fd(char **array, int *flag);
 char			*find_infile_outfile(char **array, char *operator1,
 					char *operator2, int i);
 void			error_fd(int fd, char *array, char *error);
+
+// exec_path
+char			*ft_get_exec_path(t_vec env, char *cmd);
 
 // utils
 int				ft_max(int a, int b);
