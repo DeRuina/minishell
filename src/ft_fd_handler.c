@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/20 22:15:42 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/20 23:54:09 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,13 @@ int	get_infile_fd(char **array, int *flag)
 		{
 			if (ft_strncmp(infile, "<", 1) == 0 && ft_strlen(infile) == 1)
 				fd = open(array[i + 1], O_RDONLY);
-			if (fd == -1 && (*flag) != 1)
+			if (fd == -1 && (*flag) == 0)
 				return (here_doc_if_invalid_infile(array, i, fd), (*flag) = 1,
 					-1);
 			if (ft_strncmp(infile, "<<", 2) == 0 && (*flag) == 0)
 				fd = here_doc(array[i + 1]);
 			if (fd == -1)
 				perror(array[i + 1]);
-			break ;
 		}
 		i++;
 	}
@@ -102,13 +101,13 @@ int	get_outfile_fd(char **array)
 
 //  opens the fd's and closing them, returns the infile and outfile
 
-int	*find_and_open_fds(char **array, int *fds, int i, int *flag)
+void 	find_and_open_fds(char **array)
 {
-	int	fd;
+	int fd;
+	int	i;
 
 	fd = 1;
-	fds[0] = get_infile_fd(array, flag);
-	fds[1] = get_outfile_fd(array);
+	i  = 0;
 	while (array[i] != '\0' && *array[i] != '|')
 	{
 		if (ft_strncmp(array[i], "<<", 2) == 0
@@ -122,26 +121,20 @@ int	*find_and_open_fds(char **array, int *fds, int i, int *flag)
 		else if (ft_strncmp(array[i], ">", 1) == 0 && ft_strlen(array[i]) != 2)
 			fd = open(array[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 		if (fd == -1)
-			return (perror(array[i + 1]), NULL);
+			perror(array[i + 1]);
 		i++;
-		if (fd != 0 && fd != 1 && fd != 2)
+		if (fd > 2)
 			close(fd);
 	}
-	return (fds);
 }
 // Returns the infile and outfile, creates any neccessary fds.
 
-int	*ft_fd_handler(char **array, int *flag)
+t_node *ft_fd_handler(char **array, int *flag, t_node *node)
 {
-	int	i;
-	int	*fds;
 
-	i = 0;
-	fds = (int *)malloc(sizeof(int) * 2);
-	if (!fds)
-		return (NULL);
-	fds = find_and_open_fds(array, fds, 0, flag);
-	if (fds == NULL)
-		return (NULL);
-	return (fds);
+node->infile = get_infile_fd(array, flag);
+node->outfile = get_outfile_fd(array);
+find_and_open_fds(array);
+	
+	return (node);
 }

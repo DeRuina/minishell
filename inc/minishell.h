@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/20 23:07:14 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/20 23:34:12 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ typedef struct s_env
 	char		*value;
 }				t_env;
 
-
 // exec
-int	ft_executor(t_node *node);
+int				ft_executor(t_node *node);
 
 // Env
 int				ft_putenv(t_vec *envs_vec, char *str);
@@ -52,8 +51,7 @@ void			ft_expand(t_vec vars, char **line);
 char			**ft_split_operators(char **array);
 char			**ft_str_trim(char **array);
 t_node			*ft_parse_args(char **array);
-int				*ft_fd_handler(char **array, int *flag);
-
+t_node			*ft_fd_handler(char **array, int *flag, t_node *node);
 // expand
 
 void			ft_expand(t_vec env_vars, char **arr);
@@ -94,7 +92,7 @@ char			*trim_token(char *str, char *answer, int i, char quote);
 int				token_is_double_quotes(char *str);
 
 // fd_handler
-int				*find_and_open_fds(char **array, int *fds, int i, int *flag);
+void			find_and_open_fds(char **array);
 int				here_doc(char *delimiter);
 void			here_doc_if_invalid_infile(char **array, int i, int bad_fd);
 int				get_infile_fd(char **array, int *flag);
