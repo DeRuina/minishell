@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/12 17:17:02 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/20 22:15:42 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	get_infile_fd(char **array, int *flag)
 		{
 			if (ft_strncmp(infile, "<", 1) == 0 && ft_strlen(infile) == 1)
 				fd = open(array[i + 1], O_RDONLY);
-			if (fd == -1)
+			if (fd == -1 && (*flag) != 1)
 				return (here_doc_if_invalid_infile(array, i, fd), (*flag) = 1,
 					-1);
 			if (ft_strncmp(infile, "<<", 2) == 0 && (*flag) == 0)
@@ -129,7 +129,7 @@ int	*find_and_open_fds(char **array, int *fds, int i, int *flag)
 	}
 	return (fds);
 }
-// allocates int array and returns it infile and outfile
+// Returns the infile and outfile, creates any neccessary fds.
 
 int	*ft_fd_handler(char **array, int *flag)
 {

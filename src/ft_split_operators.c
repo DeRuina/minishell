@@ -6,13 +6,13 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/19 08:19:58 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/20 21:50:22 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// If operator, move pointer and return len
+// Checks if there is an operator and if its here_doc or append
 
 int	is_token_an_operator(char **str)
 {
@@ -32,7 +32,7 @@ int	is_token_an_operator(char **str)
 // gets the next token by moving the pointer,
 //returns the lenght of the token. example : "<Makefile|"
 //first call - return 1, modified string "Makefile|".
-// second call - return 8, modified string "|".
+//second call - return 8, modified string "|".
 //third call - return 1, modified string "".
 
 int	get_next_token(char **str)
@@ -71,7 +71,7 @@ int	split_operators_len(char **array)
 	return (num_of_tokens);
 }
 
-//Split the tokens if they're attached to an operator
+//Splits the token if there is operators attached to new tokens
 
 char	**ft_split_operators(char **array)
 {

@@ -6,11 +6,20 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/19 13:07:35 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/20 23:10:41 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
+void	case_only_redirections(char ***array)
+{
+	while (*(*array) && **(*array) != '|' && **(*array) != '\0')
+		(*array)++;
+	if (*(*array))
+		(*array)++;
+}
 
 int	len_node_cmd(char **array)
 {
@@ -19,7 +28,7 @@ int	len_node_cmd(char **array)
 
 	len = 0;
 	i = 0;
-	while (array[i] && ft_strncmp(array[i], "|", 1) != 0 && array[i] != '\0')
+	while (array[i] && ft_strncmp(array[i], "|", 1) != 0)
 	{
 		if (ft_strncmp(array[i], "<", 1) == 0 || ft_strncmp(array[i], ">",
 				1) == 0)
@@ -31,14 +40,6 @@ int	len_node_cmd(char **array)
 		}
 	}
 	return (len);
-}
-
-void	case_only_redirections(char ***array)
-{
-	while (*(*array) && **(*array) != '|' && **(*array) != '\0')
-		(*array)++;
-	if (*(*array))
-		(*array)++;
 }
 
 char	**get_node_cmd(char ***array)
@@ -69,7 +70,7 @@ char	**get_node_cmd(char ***array)
 	return (answer);
 }
 
-t_node	*new_node_and_link(char ***array, int *flag)
+t_node	*new_node(char ***array, int *flag)
 {
 	t_node	*node;
 	int		*fds;
@@ -93,7 +94,7 @@ t_node	*new_node_and_link(char ***array, int *flag)
 	if (!**array)
 		node->next = NULL;
 	else
-		node->next = new_node_and_link(array, flag);
+		node->next = new_node(array, flag);
 	return (node);
 }
 
@@ -102,6 +103,6 @@ t_node	*ft_parse_args(char **array)
 	t_node		*head;
 	static int	flag = 0;
 
-	head = new_node_and_link(&array, &flag);
+	head = new_node(&array, &flag);
 	return (head);
 }

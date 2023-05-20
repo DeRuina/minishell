@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/05/19 09:00:03 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/20 21:40:02 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	cmd_trim_len(char *line)
 	return (len);
 }
 
-// 2D array of the tokens
+// Gets the line and seperates it to tokens.
 
 char	**ft_cmd_trim(char *line)
 {
