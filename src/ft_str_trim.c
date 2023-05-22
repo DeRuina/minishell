@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:43:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/20 21:55:53 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/22 14:19:50 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*check_for_trim(char *str)
 	}
 	quote = *str;
 	answer = trim_token(++str, answer, i, quote);
-	// free(temp);
+	free(temp);
 	return (answer);
 }
 
@@ -106,7 +106,7 @@ char	**ft_str_trim(char **array)
 		*array = check_for_trim(*array);
 		if (*array == NULL)
 		{
-			// free_2d(answer);
+			free_2d(answer);
 			return (NULL);
 		}
 		array++;

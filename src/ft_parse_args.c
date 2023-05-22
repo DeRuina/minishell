@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 13:56:29 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/22 15:09:50 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,16 @@ t_node	*new_node(char ***array, int *error_flag)
 	return (node);
 }
 
-t_node	*ft_parse_args(char **array)
+t_node	*ft_parse_args(char *line, t_vec env)
 {
 	t_node		*head;
+	char		**tokens;
 	static int	error_flag = 0;
 
-	head = new_node(&array, &error_flag);
+	tokens = ft_cmd_trim(line);
+	ft_expand(env, tokens);
+	tokens = ft_split_operators(tokens);
+	tokens = ft_str_trim(tokens);
+	head = new_node(&tokens, &error_flag);
 	return (head);
 }

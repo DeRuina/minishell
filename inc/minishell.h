@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 13:49:09 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/22 15:54:53 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char			**ft_cmd_trim(char *line);
 void			ft_expand(t_vec vars, char **line);
 char			**ft_split_operators(char **array);
 char			**ft_str_trim(char **array);
-t_node			*ft_parse_args(char **array);
+t_node			*ft_parse_args(char *line, t_vec env);
 t_node			*ft_fd_handler(char **array, int *flag, t_node *node);
 // expand
 
@@ -93,11 +93,12 @@ int				token_is_double_quotes(char *str);
 // fd_handler
 void			find_and_open_fds(char **array);
 int				here_doc(char *delimiter);
-int				here_doc_if_invalid_infile(char **array, int i, int bad_fd);
+int				here_doc_invalid_infile(char **array, int i, int bad_fd);
 int				get_infile_fd(char **array, int *flag);
 char			*find_last_infile(char **array);
 char			*find_last_outfile(char **array);
 void			error_fd(int fd, char *array, char *error);
+void			check_for_invalid_file_before_infile(char **array);
 
 // exec_path
 char			*ft_get_exec_path(t_vec env, char *cmd);

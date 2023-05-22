@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/20 21:50:22 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/22 14:18:16 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ char	**ft_split_operators(char **array)
 		return (NULL);
 	answer[len] = 0;
 	answer = divide_into_array(array, answer);
-	// free_2d(array);
+	free_2d(array);
 	return (answer);
 }
