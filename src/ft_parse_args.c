@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 15:09:50 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/22 16:49:11 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**get_node_cmd(char ***array)
 	return (answer);
 }
 
-t_node	*new_node(char ***array, int *error_flag)
+t_node	*new_node(char ***array, int *error_flag, t_vec env)
 {
 	t_node	*node;
 
@@ -79,12 +79,14 @@ t_node	*new_node(char ***array, int *error_flag)
 	node = (t_node *)ft_calloc(1 ,sizeof(t_node));
 	if (!node)
 		return (NULL);
-	node = ft_fd_handler((*array), error_flag, node);
+	// node = ft_fd_handler((*array), error_flag, node);
 	node->full_cmd = get_node_cmd(array);
+	if (node->full_cmd)
+		node->full_cmd[0] = ft_get_exec_path(env, node->full_cmd[0]);
 	if (!**array)
 		node->next = NULL;
 	else
-		node->next = new_node(array, error_flag);
+		node->next = new_node(array, error_flag, env);
 	return (node);
 }
 
@@ -92,12 +94,15 @@ t_node	*ft_parse_args(char *line, t_vec env)
 {
 	t_node		*head;
 	char		**tokens;
+	char		**temp;
 	static int	error_flag = 0;
 
 	tokens = ft_cmd_trim(line);
 	ft_expand(env, tokens);
 	tokens = ft_split_operators(tokens);
 	tokens = ft_str_trim(tokens);
-	head = new_node(&tokens, &error_flag);
+	temp = tokens;
+	head = new_node(&tokens, &error_flag, env);
+	free_2d(temp);
 	return (head);
 }

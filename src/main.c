@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 16:00:55 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/22 16:54:16 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 int	main(int argc, char *argv[], char *env[])
 {
-	char	*line = "< Make < dud | echo \"/Users/druina/Desktop/github/minishell 'hola'\" /Users/druina/src | << dude  'tr' -d / > outfile | echo \"'hi'\"  >ok | echo \"hi\" | echo 'he'| echo << dean  >>yep";
+	char	*line = "< Make < dud | echo \"/Users/druina/Desktop/github/minishell 'hola'\"| < dude  'tr' -d / > outfile | echo $PWD  >ok | echo \"hi\" | echo 'he'| echo hi  >>yep";
 	char	*temp;
 	// char 	**temp1;
 	// char	**str;
 	// char	**str1;
 	t_node 	*head;
+	t_node 	*temp_node;
 	int		i;
 	t_vec	envs;
 	// line = readline("TERMINAL:");
@@ -47,6 +48,7 @@ int	main(int argc, char *argv[], char *env[])
 	// temp1 = str1;
 	envs = ft_copyenv(env);
 	head = ft_parse_args(line, envs);
+	temp_node = head;
 	while (head->next != NULL)
 	{
 		if (head->full_cmd == NULL)
@@ -77,6 +79,6 @@ int	main(int argc, char *argv[], char *env[])
 		printf("infile: %d\n", head->infile);
 		printf("outfile: %d\n", head->outfile);
 	// free_2d(temp1);
-
+	free_nodes(temp_node);
 	return (0);
 }

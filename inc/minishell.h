@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 15:54:53 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/22 16:48:16 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,10 @@ char			*ft_get_exec_path(t_vec env, char *cmd);
 int				ft_max(int a, int b);
 
 // node funtions
-t_node			*new_node(char ***array, int *flag);
+t_node			*new_node(char ***array, int *error_flag, t_vec env);
 char			**get_node_cmd(char ***array);
 int				cmd_len(char **array);
 void			case_only_redirections(char ***array);
+void			free_nodes(t_node *node);
 
 #endif
