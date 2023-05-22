@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 12:29:15 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/22 13:56:29 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	case_only_redirections(char ***array)
 		(*array)++;
 }
 
-int	len_node_cmd(char **array)
+int	cmd_len(char **array)
 {
 	int	len;
 	int	i;
@@ -48,9 +48,9 @@ char	**get_node_cmd(char ***array)
 	int		i;
 
 	i = 0;
-	if (len_node_cmd(*array) == 0)
+	if (cmd_len(*array) == 0)
 		return (case_only_redirections(array), NULL);
-	answer = (char **)malloc(sizeof(char *) * (len_node_cmd(*array) + 1));
+	answer = (char **)malloc(sizeof(char *) * (cmd_len(*array) + 1));
 	if (!answer)
 		return (NULL);
 	while (*(*array) && **(*array) != '|' && **(*array) != '\0')
@@ -70,7 +70,7 @@ char	**get_node_cmd(char ***array)
 	return (answer);
 }
 
-t_node	*new_node(char ***array, int *here_doc_case_of_error)
+t_node	*new_node(char ***array, int *error_flag)
 {
 	t_node	*node;
 
@@ -79,20 +79,20 @@ t_node	*new_node(char ***array, int *here_doc_case_of_error)
 	node = (t_node *)ft_calloc(1 ,sizeof(t_node));
 	if (!node)
 		return (NULL);
-	node = ft_fd_handler((*array), here_doc_case_of_error, node);
+	node = ft_fd_handler((*array), error_flag, node);
 	node->full_cmd = get_node_cmd(array);
 	if (!**array)
 		node->next = NULL;
 	else
-		node->next = new_node(array, here_doc_case_of_error);
+		node->next = new_node(array, error_flag);
 	return (node);
 }
 
 t_node	*ft_parse_args(char **array)
 {
 	t_node		*head;
-	static int	here_doc_case_of_error = 0;
+	static int	error_flag = 0;
 
-	head = new_node(&array, &here_doc_case_of_error);
+	head = new_node(&array, &error_flag);
 	return (head);
 }
