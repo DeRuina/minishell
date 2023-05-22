@@ -6,72 +6,13 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/20 23:54:09 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/22 15:59:34 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//finds the last fd to be an infile or outfile
-
-char	*find_infile_outfile(char **array, char *operator1, char *operator2,
-		int i)
-{
-	char	*last;
-	char	*oppsite1;
-	char	*oppsite2;
-
-	oppsite2 = "<<";
-	oppsite1 = "<";
-	if (operator2 == oppsite2)
-		oppsite2 = ">>";
-	if (operator1 == oppsite1)
-		oppsite1 = ">";
-	while (array[i] != '\0' && *array[i] != '|')
-	{
-		if (ft_strncmp(array[i], operator2, 2) == 0)
-			last = array[i];
-		else if (ft_strncmp(array[i], operator1, 1) == 0)
-			last = array[i];
-		else if (ft_strncmp(operator1, "<", 1) == 0 || ft_strncmp(operator2,
-				"<<", 2) == 0)
-			if ((ft_strncmp(array[i], oppsite2, 2) == 0) || ft_strncmp(array[i],
-					oppsite1, 1) == 0)
-				break ;
-		i++;
-	}
-	return (last);
-}
-// finds the infile fd and opens it
-
-int	get_infile_fd(char **array, int *flag)
-{
-	int		fd;
-	char	*infile;
-	int		i;
-
-	i = 0;
-	fd = 0;
-	infile = find_infile_outfile(array, "<", "<<", 0);
-	while (array[i] != '\0' && *array[i] != '|')
-	{
-		if (infile == array[i])
-		{
-			if (ft_strncmp(infile, "<", 1) == 0 && ft_strlen(infile) == 1)
-				fd = open(array[i + 1], O_RDONLY);
-			if (fd == -1 && (*flag) == 0)
-				return (here_doc_if_invalid_infile(array, i, fd), (*flag) = 1,
-					-1);
-			if (ft_strncmp(infile, "<<", 2) == 0 && (*flag) == 0)
-				fd = here_doc(array[i + 1]);
-			if (fd == -1)
-				perror(array[i + 1]);
-		}
-		i++;
-	}
-	return (fd);
-}
-// finds the outfile fd and opens it
+// finds and return the outfile fd
 
 int	get_outfile_fd(char **array)
 {
@@ -81,7 +22,7 @@ int	get_outfile_fd(char **array)
 
 	i = 0;
 	fd = 1;
-	outfile = find_infile_outfile(array, ">", ">>", 0);
+	outfile = find_last_outfile(array);
 	while (array[i] != '\0' && *array[i] != '|')
 	{
 		if (outfile == array[i])
@@ -99,42 +40,89 @@ int	get_outfile_fd(char **array)
 	return (fd);
 }
 
-//  opens the fd's and closing them, returns the infile and outfile
+//finds the last infile fd
 
-void 	find_and_open_fds(char **array)
+char	*find_last_infile(char **array)
 {
-	int fd;
-	int	i;
+	char	*last;
+	int		i;
 
-	fd = 1;
-	i  = 0;
+	last = NULL;
+	i = 0;
 	while (array[i] != '\0' && *array[i] != '|')
 	{
-		if (ft_strncmp(array[i], "<<", 2) == 0
-			&& array[i] != find_infile_outfile(array, "<", "<<", 0))
-			fd = here_doc(array[i + 1]);
-		else if (ft_strncmp(array[i], "<", 1) == 0 && ft_strlen(array[i]) != 2
-			&& array[i] != find_infile_outfile(array, "<", "<<", 0))
-			fd = open(array[i + 1], O_RDONLY);
-		else if (ft_strncmp(array[i], ">>", 2) == 0)
-			fd = open(array[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0664);
-		else if (ft_strncmp(array[i], ">", 1) == 0 && ft_strlen(array[i]) != 2)
-			fd = open(array[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-		if (fd == -1)
-			perror(array[i + 1]);
+		if (ft_strncmp(array[i], "<<", 2) == 0)
+			last = array[i];
+		else if (ft_strncmp(array[i], "<", 1) == 0)
+			last = array[i];
 		i++;
-		if (fd > 2)
-			close(fd);
+	}
+	return (last);
+}
+
+// finds and return the infile fd
+
+int	get_infile_fd(char **array, int *error_flag)
+{
+	int		fd;
+	char	*infile;
+	int		i;
+
+	i = 0;
+	fd = 0;
+	infile = find_last_infile(array);
+	while (array[i] != '\0' && *array[i] != '|')
+	{
+		if (infile == array[i])
+		{
+			if (ft_strncmp(infile, "<", 1) == 0 && ft_strlen(infile) == 1)
+				fd = open(array[i + 1], O_RDONLY);
+			if (fd == -1 && (*error_flag) == 0)
+				return ((*error_flag) = 1, here_doc_invalid_infile(array, i,
+						fd));
+			if (ft_strncmp(infile, "<<", 2) == 0 && (*error_flag) == 0)
+				fd = here_doc(array[i + 1]);
+			if (fd == -1)
+				perror(array[i + 1]);
+		}
+		i++;
+	}
+	return (fd);
+}
+
+// checks for invalid file before the infile, open here_docs if invalid
+
+void	check_for_invalid_file_before_infile(char **array)
+{
+	int		i;
+	char	*infile;
+	int		access_check;
+
+	i = 0;
+	access_check = 0;
+	infile = find_last_infile(array);
+	while (array[i] != '\0' && *array[i] != '|')
+	{
+		if (array[i] == infile)
+			return ;
+		if (ft_strncmp(array[i], "<", 1) == 0 && ft_strlen(array[i]) == 1)
+			access_check = access(array[i + 1], R_OK);
+		if (access_check == -1)
+		{
+			here_doc_invalid_infile(array, i, access_check);
+			return ;
+		}
+		i++;
 	}
 }
+
 // Returns the infile and outfile, creates any neccessary fds.
 
-t_node *ft_fd_handler(char **array, int *flag, t_node *node)
+t_node	*ft_fd_handler(char **array, int *error_flag, t_node *node)
 {
-
-node->infile = get_infile_fd(array, flag);
-node->outfile = get_outfile_fd(array);
-find_and_open_fds(array);
-	
+	check_for_invalid_file_before_infile(array);
+	node->infile = get_infile_fd(array, error_flag);
+	node->outfile = get_outfile_fd(array);
+	find_and_open_fds(array);
 	return (node);
 }
