@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/20 23:43:28 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/22 12:29:15 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**get_node_cmd(char ***array)
 	return (answer);
 }
 
-t_node	*new_node(char ***array, int *flag)
+t_node	*new_node(char ***array, int *here_doc_case_of_error)
 {
 	t_node	*node;
 
@@ -79,22 +79,20 @@ t_node	*new_node(char ***array, int *flag)
 	node = (t_node *)ft_calloc(1 ,sizeof(t_node));
 	if (!node)
 		return (NULL);
-	node = ft_fd_handler((*array), flag, node);
+	node = ft_fd_handler((*array), here_doc_case_of_error, node);
 	node->full_cmd = get_node_cmd(array);
-	if (node->full_cmd)
-		node->path_name = node->full_cmd[0];
 	if (!**array)
 		node->next = NULL;
 	else
-		node->next = new_node(array, flag);
+		node->next = new_node(array, here_doc_case_of_error);
 	return (node);
 }
 
 t_node	*ft_parse_args(char **array)
 {
 	t_node		*head;
-	static int	flag = 0;
+	static int	here_doc_case_of_error = 0;
 
-	head = new_node(&array, &flag);
+	head = new_node(&array, &here_doc_case_of_error);
 	return (head);
 }

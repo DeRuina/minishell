@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 08:04:19 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/22 12:33:52 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,12 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
-# include <string.h>
-
 # include <stdlib.h> // getenv
-
+# include <string.h>
 
 typedef struct node
 {
 	char		**full_cmd;
-	char		*path_name;
 	int			pid;
 	int			infile;
 	int			outfile;
@@ -96,10 +93,10 @@ int				token_is_double_quotes(char *str);
 // fd_handler
 void			find_and_open_fds(char **array);
 int				here_doc(char *delimiter);
-void			here_doc_if_invalid_infile(char **array, int i, int bad_fd);
+int				here_doc_if_invalid_infile(char **array, int i, int bad_fd);
 int				get_infile_fd(char **array, int *flag);
-char			*find_infile_outfile(char **array, char *operator1,
-					char *operator2, int i);
+char			*find_last_infile(char **array);
+char			*find_last_outfile(char **array);
 void			error_fd(int fd, char *array, char *error);
 
 // exec_path
