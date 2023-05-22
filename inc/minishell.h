@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 07:09:18 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/22 08:04:19 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,8 @@ typedef struct s_env
 	char		*value;
 }				t_env;
 
-
 // exec
-int	ft_executor(t_node *node);
+int				ft_executor(t_node *node);
 
 // Env
 int				ft_putenv(t_vec *envs_vec, char *str);
@@ -54,8 +53,7 @@ void			ft_expand(t_vec vars, char **line);
 char			**ft_split_operators(char **array);
 char			**ft_str_trim(char **array);
 t_node			*ft_parse_args(char **array);
-int				*ft_fd_handler(char **array, int *flag);
-
+t_node			*ft_fd_handler(char **array, int *flag, t_node *node);
 // expand
 
 void			ft_expand(t_vec env_vars, char **arr);
@@ -73,29 +71,30 @@ char			**ft_split_operators(char **array);
 char			**ft_str_trim(char **array);
 
 // cmd_trim
-char			*allocate_token(char *start, char *line);
-int				quotes_edge_cases(char first, char character, int *flag,
+char			*allocate_token(char *token_start, char *token_end);
+int				find_closing_quote(char *quote, int *closing_quote,
 					char **line);
-void			handle_quotes(char *whitespace, char **line);
+void			handle_quotes(char **line);
 char			*next_token_from_line(char **line);
+int				cmd_trim_len(char *line);
 
 // split_operators
 char			**divide_into_array(char **array, char **answer);
-void			*no_operator(char **answer, char **array, int *offset, int *i);
+char			*no_operator(char *array);
 char			*malloc_new_token(char **array);
-int				len_to_operator(char **array, int *flag);
-int				check_for_operator(char *array);
-int				find_new_array_len(char **array, int i);
-void			get_allocation_len(char *array, int *count);
+int				get_next_token(char **string);
+int				check_operators_num_in_string(char *array);
+int				split_operators_len(char **array);
+int				is_token_an_operator(char **str);
 
 // str_trim
 char			*check_for_trim(char *str);
-char			*null_term_and_free(char *answer, int i, char *temp);
-char			*trim_loop(char *str, char *answer, int i, char *c);
-char			*handle_trim_only_quotes_case(char *str, char *answer);
+int				is_trim_needed(char *str);
+char			*trim_token(char *str, char *answer, int i, char quote);
+int				token_is_double_quotes(char *str);
 
 // fd_handler
-int				*find_and_open_fds(char **array, int *fds, int i, int *flag);
+void			find_and_open_fds(char **array);
 int				here_doc(char *delimiter);
 void			here_doc_if_invalid_infile(char **array, int i, int bad_fd);
 int				get_infile_fd(char **array, int *flag);
@@ -110,7 +109,7 @@ char			*ft_get_exec_path(t_vec env, char *cmd);
 int				ft_max(int a, int b);
 
 // node funtions
-t_node			*new_node_and_link(char ***array, int *flag);
+t_node			*new_node(char ***array, int *flag);
 char			**get_node_cmd(char ***array);
 int				len_node_cmd(char **array);
 void			case_only_redirections(char ***array);

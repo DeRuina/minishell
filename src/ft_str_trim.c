@@ -6,93 +6,93 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:43:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/11 15:09:04 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/20 21:55:53 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// loops and trims the unnecessary
+// Sets the quote to 0 if pair is found. copying whats left to answer.
 
-char	*trim_loop(char *str, char *answer, int i, char *c)
+char	*trim_token(char *str, char *answer, int i, char quote)
 {
 	while (*str)
 	{
-		if (*str == (*c))
+		if (quote == *str)
 		{
-			(*c) = 0;
+			quote = 0;
 			str++;
 		}
 		if (*str == '\0')
 			break ;
-		if (ft_strchr("\"'", *str) && (*c) == 0)
-			(*c) = *str;
-		if (*str != (*c))
-			answer[i] = *str;
-		i++;
+		if (ft_strchr("\"'", *str) && !quote)
+			quote = *str;
+		if (*str != quote)
+			answer[i++] = *str;
 		str++;
-		answer[i] = '\0';
 	}
-	if ((*c) != 0)
-	{
-		free(answer);
-		return (NULL);
-	}
-	return (answer);
-}
-
-// Null terminates and frees
-
-char	*null_term_and_free(char *answer, int i, char *temp)
-{
 	answer[i] = '\0';
-	free(temp);
-	temp = NULL;
+	if (quote != 0)
+		return (free(answer), NULL);
 	return (answer);
 }
 
-// copies to malloced array in case of single quotes
+// Checks the edge case for a token of only double quotes.
 
-char	*handle_trim_only_quotes_case(char *str, char *answer)
+int	token_is_double_quotes(char *str)
 {
-	answer[0] = str[0];
-	answer[1] = str[1];
-	answer[2] = '\0';
-	return (answer);
+	if ((ft_strncmp(str, "\"\"", 2) == 0 || ft_strncmp(str, "''", 2) == 0)
+		&& ft_strlen(str) == 2)
+		return (1);
+	return (0);
+}
+// Checks if trim is needed, 0 if not.
+
+int	is_trim_needed(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (ft_strchr("\"'", str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-// Check if trim is needed and returns new arr
+// Checks edge cases, sets the openning quote and starts to write to answer.
 
 char	*check_for_trim(char *str)
 {
 	char	*answer;
 	char	*temp;
-	char	c;
+	char	quote;
 	int		i;
 
 	i = 0;
 	temp = str;
-	answer = (char *)malloc(sizeof(char) * ft_strlen(str) + 1);
+	if (is_trim_needed(str) == 0)
+		return (str);
+	if (token_is_double_quotes(str) == 1)
+		return (str);
+	answer = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!answer)
+		return (NULL);
 	while (*str != '\0')
 	{
 		if (ft_strchr("\"'", *str))
 			break ;
 		answer[i++] = *str++;
 	}
-	if (*str == '\0')
-		return (null_term_and_free(answer, i, temp));
-	if (ft_strncmp(str, "\"\"", 2) == 0 || ft_strncmp(str, "''", 2) == 0)
-		return (handle_trim_only_quotes_case(str, answer));
-	c = *str;
-	str++;
-	answer = trim_loop(str, answer, i, &c);
-	if (answer == NULL)
-		return (NULL);
-	free(temp);
+	quote = *str;
+	answer = trim_token(++str, answer, i, quote);
+	// free(temp);
 	return (answer);
 }
 
-// Loops through the array and return the new one
+// Trims any unnecessary quotes
 
 char	**ft_str_trim(char **array)
 {
@@ -101,12 +101,12 @@ char	**ft_str_trim(char **array)
 	if (array == NULL)
 		return (NULL);
 	answer = array;
-	while (*array != NULL)
+	while (*array)
 	{
 		*array = check_for_trim(*array);
 		if (*array == NULL)
 		{
-			free_2d(answer);
+			// free_2d(answer);
 			return (NULL);
 		}
 		array++;

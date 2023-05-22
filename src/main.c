@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/12 17:21:00 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/20 22:16:09 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	main(int argc, char *argv[]/*, char *env[]*/)
 {
-	char	*line = "< Makefile cat << dad | echo \"/Users/druina/Desktop/github/minishell 'hola'\" /Users/druina/src | <dean > ruina |'tr' -d / > outfile | echo \"'hi'\" >> dude >ok | echo \"hi\" | echo 'he'| echo << dean  >>yep";
+	char	*line = "< Makefile cat < ude | echo \"/Users/druina/Desktop/github/minishell 'hola'\" /Users/druina/src | <dean > ruina |'tr' -d / > outfile | echo \"'hi'\" >> dude >ok | echo \"hi\" | echo 'he'| echo << dean  >>yep";
 	char	*temp;
 	char 	**temp1;
 	char	**str;
@@ -51,7 +51,7 @@ int	main(int argc, char *argv[]/*, char *env[]*/)
 			printf("NULL");
 		else
 		{
-		while (head->full_cmd[i] != '\0')
+		while (head->full_cmd[i] != 0)
 		{
 			printf("%s ",head->full_cmd[i]);
 			i++;
@@ -64,7 +64,7 @@ int	main(int argc, char *argv[]/*, char *env[]*/)
 		printf("outfile: %d\n", head->outfile);
 		head = head->next;
 	}
-	while (head->full_cmd[i] != '\0')
+	while (head->full_cmd[i] != 0)
 		{
 			printf("%s ",head->full_cmd[i]);
 			i++;
