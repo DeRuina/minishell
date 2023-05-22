@@ -6,20 +6,34 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:09:15 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/19 13:25:23 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/22 17:09:56 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unity.h"
 #include "minishell.h"
 
+t_vec	envs;
+
+void	set_envs(void)
+{
+	if (vec_new(&envs, 10, sizeof(t_env)) < 0)
+		exit (1);
+	if(ft_putenv(&envs, "SHELL=/bin/zsh") < 0)
+		exit (1);
+	if(ft_putenv(&envs, "HOME=/Users/tspoof") < 0)
+		exit (1);
+	if(ft_putenv(&envs, "PWD=/Users/tspoof/Documents/HIVE/minishell") < 0)
+		exit (1);
+}
+
 t_node	get_node(void)
 {
 	t_node node;
-	char *full_cmd[] = {"ls", NULL};
+	char *full_cmd[] = {"/bin/ls", NULL};
 
 	node.full_cmd = full_cmd;
-	node.path_name = "/bin/ls";
+	// node.path_name = "/bin/ls";
 	node.infile = STDIN_FILENO;
 	node.outfile = STDOUT_FILENO;
 	node.next = NULL;
@@ -37,8 +51,8 @@ void test_ft_executor_0(void)
 }
 void test_ft_executor_1337(void)
 {
-	char	*array[] = {"ls", "|", "wc", NULL};
-	t_node *node = ft_parse_args(array);
+	char *str = "ls | wc";
+	t_node *node = ft_parse_args(str, envs);
 	ft_executor(node);
 
 	TEST_ASSERT_TRUE(1 == 1);
@@ -50,6 +64,7 @@ void test_ft_executor_1337(void)
 
 int test_ft_executor(void)
 {
+	set_envs();
 	UNITY_BEGIN();
 	RUN_TEST(test_ft_executor_0);
 	// RUN_TEST(test_ft_executor_1337);

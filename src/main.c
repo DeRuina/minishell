@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 16:54:16 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/22 17:05:04 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ int	main(int argc, char *argv[], char *env[])
 		printf("outfile: %d\n", head->outfile);
 	// free_2d(temp1);
 	free_nodes(temp_node);
+	vec_free(&envs);
 	return (0);
 }
