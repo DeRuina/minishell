@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/17 19:36:01 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/22 07:09:18 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <string.h>
+
+# include <stdlib.h> // getenv
+
 
 typedef struct node
 {
@@ -43,8 +46,7 @@ int	ft_executor(t_node *node);
 // Env
 int				ft_putenv(t_vec *envs_vec, char *str);
 char			*ft_getenv(t_vec envs_vec, char *key);
-char			*ft_getkey(char *str);
-char			*ft_getvalue(char *str);
+t_vec			ft_copyenv(char *env[]);
 
 // Parsing
 char			**ft_cmd_trim(char *line);

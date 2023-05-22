@@ -6,12 +6,14 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:45 by tspoof            #+#    #+#             */
-/*   Updated: 2023/04/29 16:46:49 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/22 07:05:42 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unity.h"
 #include "minishell.h"
+
+char **env_vars;
 
 void test_ft_env_getkey(void)
 {
@@ -85,10 +87,33 @@ void test_ft_getenv_0(void)
 	TEST_ASSERT_EQUAL_STRING("/bin/zsh", ft_getenv(envs, "SHELL"));
 	TEST_ASSERT_EQUAL_STRING("en_US.UTF-8", ft_getenv(envs, "LANG"));
 }
-
-
-int test_ft_env(void)
+void test_ft_copyenv_0(void)
 {
+	t_vec envs;
+	envs = ft_copyenv(env_vars);
+
+	t_env *jee = (t_env *)envs.memory;
+	size_t i = 0;
+	while (i < envs.len)
+	{
+		ft_putstr_fd(jee[i].key, 1);
+		ft_putchar_fd('=', 1);
+		ft_putendl_fd(jee[i].value, 1);
+		i++;
+	}
+}
+void test_ft_strenv_0(void)
+{
+	t_vec envs;
+	envs = ft_copyenv(env_vars);
+	char *envs_str;
+	envs_str = ft_strenv(env_vars);
+	ft_putendl_fd(envs_str, 1);
+}
+
+int test_ft_env(char **envp)
+{
+	env_vars = envp;
 	UNITY_BEGIN();
 	RUN_TEST(test_ft_env_getkey);
 	RUN_TEST(test_ft_env_getvalue);
@@ -96,5 +121,7 @@ int test_ft_env(void)
 	RUN_TEST(test_ft_putenv_1);
 	RUN_TEST(test_ft_putenv_2);
 	RUN_TEST(test_ft_getenv_0);
+	// RUN_TEST(test_ft_copyenv_0);
+	RUN_TEST(test_ft_strenv_0);
 	return UNITY_END();
 }
