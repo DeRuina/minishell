@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 08:04:19 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/22 16:21:17 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_env
 }				t_env;
 
 // exec
+// int				ft_executor(t_node *node, t_vec env);
 int				ft_executor(t_node *node);
 
 // Env
@@ -107,6 +108,7 @@ char			*ft_get_exec_path(t_vec env, char *cmd);
 
 // utils
 int				ft_max(int a, int b);
+void			ft_pexit(char *error_msg);
 
 // node funtions
 t_node			*new_node(char ***array, int *flag);
