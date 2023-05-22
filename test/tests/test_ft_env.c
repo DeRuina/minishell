@@ -6,12 +6,13 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:45 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 07:05:42 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/22 08:08:28 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unity.h"
 #include "minishell.h"
+#include "parser.h"
 
 char **env_vars;
 
@@ -102,14 +103,14 @@ void test_ft_copyenv_0(void)
 		i++;
 	}
 }
-void test_ft_strenv_0(void)
-{
-	t_vec envs;
-	envs = ft_copyenv(env_vars);
-	char *envs_str;
-	envs_str = ft_strenv(env_vars);
-	ft_putendl_fd(envs_str, 1);
-}
+// void test_ft_strenv_0(void)
+// {
+// 	t_vec envs;
+// 	envs = ft_copyenv(env_vars);
+// 	char *envs_str;
+// 	envs_str = ft_strenv(env_vars);
+// 	ft_putendl_fd(envs_str, 1);
+// }
 
 int test_ft_env(char **envp)
 {
@@ -122,6 +123,6 @@ int test_ft_env(char **envp)
 	RUN_TEST(test_ft_putenv_2);
 	RUN_TEST(test_ft_getenv_0);
 	// RUN_TEST(test_ft_copyenv_0);
-	RUN_TEST(test_ft_strenv_0);
+	// RUN_TEST(test_ft_strenv_0);
 	return UNITY_END();
 }
