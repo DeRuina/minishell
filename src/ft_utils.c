@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 17:02:54 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/23 16:03:05 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ void free_nodes(t_node *node)
 	while(node->next != NULL)
 	{
 		temp = node;
-		free_2d(node->full_cmd);
+		if (node->full_cmd)
+			free_2d(node->full_cmd);
 		node = node->next;
 		free(temp);
 	}
-	free_2d(node->full_cmd);
+	if (node->full_cmd)
+		free_2d(node->full_cmd);
 	free(node);
 }
 
