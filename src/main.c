@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/23 17:21:13 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/23 19:21:51 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char *argv[], char *env[])
 	// char 	**temp1;
 	// char	**str;
 	// char	**str1;
+	int			**pipe_nbr;
 	t_node 	*head;
 	t_node 	*temp_node;
 	int		i;
@@ -29,7 +30,7 @@ int	main(int argc, char *argv[], char *env[])
 	(void)argv;
 	argc = 0;
 	i = 0;
-
+	pipe_nbr = piper(line);
 	// while (*env)
 	// 	printf("%s\n", *env++);
 	// printf("(%s)\n", getenv("PWD"));
@@ -47,7 +48,7 @@ int	main(int argc, char *argv[], char *env[])
 	// str1 = ft_str_trim(str1);
 	// temp1 = str1;
 	envs = ft_copyenv(env);
-	head = ft_parse_args(line, envs);
+	head = ft_parse_args(line, envs, pipe_nbr);
 	vec_free(&envs);
 	temp_node = head;
 	while (head->next != NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 17:02:38 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/23 19:22:10 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char			**ft_cmd_trim(char *line);
 void			ft_expand(t_vec vars, char **line);
 char			**ft_split_operators(char **array);
 char			**ft_str_trim(char **array);
-t_node			*ft_parse_args(char *line, t_vec env);
+t_node			*ft_parse_args(char *line, t_vec env, int **pipe_nbr);
 t_node			*ft_fd_handler(char **array, int *flag, t_node *node);
 // expand
 
@@ -114,5 +114,10 @@ char			**get_node_cmd(char ***array);
 int				cmd_len(char **array);
 void			case_only_redirections(char ***array);
 void			free_nodes(t_node *node);
+
+// piper
+int				**piper(char *array);
+int				**allocate_pipes(char *array);
+int				num_of_pipes(char *array);
 
 #endif

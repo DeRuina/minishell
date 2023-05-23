@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/23 16:03:05 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/23 17:35:07 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int	ft_max(int a, int b)
 void	ft_pexit(char *error_msg)
 {
 	perror(error_msg);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
