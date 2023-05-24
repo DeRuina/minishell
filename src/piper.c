@@ -6,16 +6,45 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 10:06:54 by druina            #+#    #+#             */
-/*   Updated: 2023/05/23 19:24:33 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/24 18:17:33 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	change_infile_outfile_to_pipes(t_node **node, int **pipe_nbr)
+{
+	int			pipe_out;
+	int			i;
+
+	i = 0;
+	pipe_out = 0;
+	while ((*node)->next != NULL)
+	{
+		if ((*node)->infile == 0 && pipe_out == 1)
+		{
+			(*node)->infile = pipe_nbr[i - 1][IN];
+			pipe_out = 0;
+		}
+		if ((*node)->outfile == 1)
+		{
+			(*node)->outfile = pipe_nbr[i][OUT];
+			pipe_out = 1;
+		}
+		i++;
+		(*node) = (*node)->next;	
+	}
+		if ((*node)->infile == 0 && pipe_out == 1)
+			(*node)->infile = pipe_nbr[i - 1][IN];
+}
+
 t_node *insert_pipes(t_node *node, int **pipe_nbr)
 {
+	t_node *head;
 
-	
+	head = node;
+	change_infile_outfile_to_pipes(&node, pipe_nbr);
+	return(head);
 }
 
 int num_of_pipes(char *array)

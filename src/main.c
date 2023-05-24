@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/23 19:21:51 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/24 18:09:55 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 int	main(int argc, char *argv[], char *env[])
 {
 	char	*line; /*= "< Make cat < dud | echo \"/Users/druina/Desktop/github/minishell 'hola'\" hello| < dude  'tr' -d / > outfile | echo $PWD  >ok | echo \"hi\" | echo 'he'| echo hi  >>yep";*/
-	char	*temp;
 	// char 	**temp1;
 	// char	**str;
 	// char	**str1;
@@ -26,7 +25,6 @@ int	main(int argc, char *argv[], char *env[])
 	int		i;
 	t_vec	envs;
 	line = readline("TERMINAL:");
-	temp = line;
 	(void)argv;
 	argc = 0;
 	i = 0;
@@ -49,6 +47,7 @@ int	main(int argc, char *argv[], char *env[])
 	// temp1 = str1;
 	envs = ft_copyenv(env);
 	head = ft_parse_args(line, envs, pipe_nbr);
+	head = insert_pipes(head, pipe_nbr);
 	vec_free(&envs);
 	temp_node = head;
 	while (head->next != NULL)
