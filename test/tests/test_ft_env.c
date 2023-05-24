@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:45 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 08:08:28 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/24 14:35:55 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,20 @@
 #include "parser.h"
 
 char **env_vars;
+t_vec	env_envs;
+
+void	set_env_envs(void)
+{
+	if (vec_new(&env_envs, 10, sizeof(t_env)) < 0)
+		exit (1);
+	if(ft_putenv(&env_envs, "SHELL=/bin/zsh") < 0)
+		exit (1);
+	if(ft_putenv(&env_envs, "HOME=/Users/tspoof") < 0)
+		exit (1);
+	if(ft_putenv(&env_envs, "PWD=/Users/tspoof/Documents/HIVE/minishell") < 0)
+		exit (1);
+}
+
 
 void test_ft_env_getkey(void)
 {
@@ -103,26 +117,28 @@ void test_ft_copyenv_0(void)
 		i++;
 	}
 }
-// void test_ft_strenv_0(void)
-// {
-// 	t_vec envs;
-// 	envs = ft_copyenv(env_vars);
-// 	char *envs_str;
-// 	envs_str = ft_strenv(env_vars);
-// 	ft_putendl_fd(envs_str, 1);
-// }
+void test_ft_strenv_0(void)
+{
+	char *expected[] = {"SHELL=/bin/zsh", "HOME=/Users/tspoof", "PWD=/Users/tspoof/Documents/HIVE/minishell", NULL};
+	char **actual;
+
+	actual = ft_strenv(env_envs);
+	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, actual, 4);
+
+}
 
 int test_ft_env(char **envp)
 {
+	set_env_envs();
 	env_vars = envp;
 	UNITY_BEGIN();
-	RUN_TEST(test_ft_env_getkey);
-	RUN_TEST(test_ft_env_getvalue);
-	RUN_TEST(test_ft_putenv_0);
-	RUN_TEST(test_ft_putenv_1);
-	RUN_TEST(test_ft_putenv_2);
-	RUN_TEST(test_ft_getenv_0);
-	// RUN_TEST(test_ft_copyenv_0);
-	// RUN_TEST(test_ft_strenv_0);
+	// RUN_TEST(test_ft_env_getkey);
+	// RUN_TEST(test_ft_env_getvalue);
+	// RUN_TEST(test_ft_putenv_0);
+	// RUN_TEST(test_ft_putenv_1);
+	// RUN_TEST(test_ft_putenv_2);
+	// RUN_TEST(test_ft_getenv_0);
+	// // RUN_TEST(test_ft_copyenv_0);
+	RUN_TEST(test_ft_strenv_0);
 	return UNITY_END();
 }

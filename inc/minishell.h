@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 17:02:38 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/24 13:20:19 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int				ft_executor(t_node *node);
 int				ft_putenv(t_vec *envs_vec, char *str);
 char			*ft_getenv(t_vec envs_vec, char *key);
 t_vec			ft_copyenv(char *env[]);
+char			**ft_strenv(t_vec envs_vec);
 
 // Parsing
 char			**ft_cmd_trim(char *line);

@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 11:45:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 07:59:23 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/24 13:28:25 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,23 @@ t_vec	ft_copyenv(char *env[])
 		env++;
 	}
 	return (envs);
+}
+
+char	**ft_strenv(t_vec envs_vec)
+{
+	t_env	*envs;
+	char	**envs_str;
+	size_t	i;
+
+	envs = (t_env *)envs_vec.memory;
+	envs_str = ft_calloc(envs_vec.len + 1, sizeof(char *));
+	if (!envs_str)
+		ft_pexit("ft_calloc: ");
+	i = 0;
+	while (i < envs_vec.len)
+	{
+		envs_str[i] = ft_env_to_str(envs[i]);
+		i++;
+	}
+	return (envs_str);
 }
