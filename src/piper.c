@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 10:06:54 by druina            #+#    #+#             */
-/*   Updated: 2023/05/24 18:17:33 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/24 18:23:48 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	change_infile_outfile_to_pipes(t_node **node, int **pipe_nbr)
 {
-	int			pipe_out;
-	int			i;
+	int	pipe_out;
+	int	i;
 
 	i = 0;
 	pipe_out = 0;
@@ -32,25 +32,25 @@ void	change_infile_outfile_to_pipes(t_node **node, int **pipe_nbr)
 			pipe_out = 1;
 		}
 		i++;
-		(*node) = (*node)->next;	
+		(*node) = (*node)->next;
 	}
-		if ((*node)->infile == 0 && pipe_out == 1)
-			(*node)->infile = pipe_nbr[i - 1][IN];
+	if ((*node)->infile == 0 && pipe_out == 1)
+		(*node)->infile = pipe_nbr[i - 1][IN];
 }
 
-t_node *insert_pipes(t_node *node, int **pipe_nbr)
+t_node	*insert_pipes(t_node *node, int **pipe_nbr)
 {
-	t_node *head;
+	t_node	*head;
 
 	head = node;
 	change_infile_outfile_to_pipes(&node, pipe_nbr);
-	return(head);
+	return (head);
 }
 
-int num_of_pipes(char *array)
+int	num_of_pipes(char *array)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	len = 0;
 	i = 0;
@@ -60,7 +60,7 @@ int num_of_pipes(char *array)
 			len++;
 		i++;
 	}
-	return(len);
+	return (len);
 }
 
 int	**allocate_pipes(char *array)
@@ -71,7 +71,7 @@ int	**allocate_pipes(char *array)
 
 	len = num_of_pipes(array);
 	if (len == 0)
-		return(NULL);
+		return (NULL);
 	i = 0;
 	pipe_nbr = ft_calloc(len, sizeof(int *));
 	if (!pipe_nbr)
@@ -90,22 +90,22 @@ int	**allocate_pipes(char *array)
 	return (pipe_nbr);
 }
 
-int **piper(char *array)
+int	**piper(char *array)
 {
-	int **pipe_nbr;
-	int len;
-	int i;
+	int	**pipe_nbr;
+	int	len;
+	int	i;
 
 	i = 0;
 	pipe_nbr = allocate_pipes(array);
 	if (pipe_nbr == NULL)
-		return(NULL);
+		return (NULL);
 	len = num_of_pipes(array);
 	while (i < len)
 	{
-		if(pipe(pipe_nbr[i]) == -1)
+		if (pipe(pipe_nbr[i]) == -1)
 			ft_pexit("pipe :");
 		i++;
 	}
-	return(pipe_nbr);
+	return (pipe_nbr);
 }
