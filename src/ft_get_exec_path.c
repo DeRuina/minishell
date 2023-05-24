@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_exec_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:58:42 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/17 19:27:48 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/24 19:01:45 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,17 @@ char	*ft_get_exec_path(t_vec env, char *cmd)
 	if (!path_arr)
 		exit (1);
 	if (access(cmd, X_OK | F_OK) == 0)
-			return (cmd);
+			return (free_2d(path_arr), cmd);
 	i = 0;
 	while (path_arr[i] != '\0')
 	{
 		full_path = ft_full_path(path_arr[i], cmd);
 		if (access(full_path, X_OK | F_OK) == 0)
-			return (full_path);
+			return (free_2d(path_arr),free(cmd), full_path);
 		i++;
 	}
 	free(full_path);
 	free_2d(path_arr);
+	free(cmd);
 	return (NULL);
 }
