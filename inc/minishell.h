@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/24 13:20:19 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/25 13:22:42 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <stdio.h>
 # include <stdlib.h> // getenv
 # include <string.h>
+
+# define IN 0
+# define OUT 1
 
 typedef struct node
 {
@@ -115,5 +118,12 @@ char			**get_node_cmd(char ***array);
 int				cmd_len(char **array);
 void			case_only_redirections(char ***array);
 void			free_nodes(t_node *node);
+
+// piper
+int				**piper(char *array);
+int				**allocate_pipes(char *array);
+int				num_of_pipes(char *array);
+t_node			*insert_pipes(t_node *head, int **pipe_nbr);
+void			change_infile_outfile_to_pipes(t_node **node, int **pipe_nbr);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 17:05:04 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/25 09:02:09 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,20 @@
 
 int	main(int argc, char *argv[], char *env[])
 {
-	char	*line = "< Make < dud | echo \"/Users/druina/Desktop/github/minishell 'hola'\"| < dude  'tr' -d / > outfile | echo $PWD  >ok | echo \"hi\" | echo 'he'| echo hi  >>yep";
-	char	*temp;
+	char	*line; /*= "< Make cat < dud | echo \"/Users/druina/Desktop/github/minishell 'hola'\" hello| < dude  'tr' -d / > outfile | echo $PWD  >ok | echo \"hi\" | echo 'he'| echo hi  >>yep";*/
 	// char 	**temp1;
 	// char	**str;
 	// char	**str1;
+	int			**pipe_nbr;
 	t_node 	*head;
 	t_node 	*temp_node;
 	int		i;
 	t_vec	envs;
-	// line = readline("TERMINAL:");
-	temp = line;
+	line = readline("TERMINAL:");
 	(void)argv;
 	argc = 0;
 	i = 0;
-
+	pipe_nbr = piper(line);
 	// while (*env)
 	// 	printf("%s\n", *env++);
 	// printf("(%s)\n", getenv("PWD"));
@@ -48,6 +47,8 @@ int	main(int argc, char *argv[], char *env[])
 	// temp1 = str1;
 	envs = ft_copyenv(env);
 	head = ft_parse_args(line, envs);
+	head = insert_pipes(head, pipe_nbr);
+	vec_free(&envs);
 	temp_node = head;
 	while (head->next != NULL)
 	{
@@ -78,8 +79,6 @@ int	main(int argc, char *argv[], char *env[])
 		printf("\n");
 		printf("infile: %d\n", head->infile);
 		printf("outfile: %d\n", head->outfile);
-	// free_2d(temp1);
 	free_nodes(temp_node);
-	vec_free(&envs);
 	return (0);
 }
