@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 15:21:06 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/25 16:52:20 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void			check_for_invalid_file_before_infile(char **array);
 
 // exec_path
 char			*ft_get_exec_path(t_vec env, char *cmd);
+int				is_a_builtin(char *cmd);
 
 // utils
 int				ft_max(int a, int b);
