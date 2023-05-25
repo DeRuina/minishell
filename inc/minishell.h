@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 14:06:21 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/25 15:21:06 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int				ft_executor(t_node *node);
 int				ft_putenv(t_vec *envs_vec, char *str);
 char			*ft_getenv(t_vec envs_vec, char *key);
 t_vec			ft_copyenv(char *env[]);
+char			**ft_strenv(t_vec envs_vec);
 
 // Parsing
 char			**ft_cmd_trim(char *line);
