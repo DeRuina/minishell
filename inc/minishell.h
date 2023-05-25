@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 09:02:50 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/25 14:06:21 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void			ft_pexit(char *error_msg);
 
 // node funtions
 t_node			*new_node(char ***array, int *error_flag, t_vec env);
-char			**get_node_cmd(char ***array);
+char			**get_node_cmd(char ***array, char ***temp);
 int				cmd_len(char **array);
 void			case_only_redirections(char ***array);
 void			free_nodes(t_node *node);

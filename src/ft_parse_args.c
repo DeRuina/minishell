@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 10:55:47 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/25 14:19:23 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ int	cmd_len(char **array)
 	return (len);
 }
 
-char	**get_node_cmd(char ***array)
+char	**get_node_cmd(char ***array, char ***temp)
 {
 	char	**answer;
 	int		i;
 
 	i = 0;
+	temp = array;
 	if (cmd_len(*array) == 0)
 		return (case_only_redirections(array), NULL);
 	answer = (char **)malloc(sizeof(char *) * (cmd_len(*array) + 1));
@@ -60,7 +61,7 @@ char	**get_node_cmd(char ***array)
 			(*array) += 2;
 		else
 		{
-			answer[i++] = *(*array);
+			answer[i++] = ft_strdup(*(*array));
 			(*array)++;
 		}
 	}
@@ -73,14 +74,16 @@ char	**get_node_cmd(char ***array)
 t_node	*new_node(char ***array, int *error_flag, t_vec env)
 {
 	t_node	*node;
+	char	**temp;
 
 	if (array == NULL)
 		return (NULL);
+	temp = (*array);
 	node = (t_node *)ft_calloc(1 ,sizeof(t_node));
 	if (!node)
 		return (NULL);
 	node = ft_fd_handler((*array), error_flag, node);
-	node->full_cmd = get_node_cmd(array);
+	node->full_cmd = get_node_cmd(array, &temp);
 	if (node->full_cmd != NULL)
 		node->full_cmd[0] = ft_get_exec_path(env, node->full_cmd[0]);
 	if (!**array)
@@ -107,6 +110,6 @@ t_node	*ft_parse_args(char *line, t_vec env)
 	tokens = ft_str_trim(tokens);
 	temp = tokens;
 	head = new_node(&tokens, &error_flag, env);
-	// free_2d(temp);
+	free_2d(temp);
 	return (head);
 }

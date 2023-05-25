@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 10:41:59 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/25 14:19:01 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 int	main(int argc, char *argv[], char *env[])
 {
-	char	*line; /*= "< Make cat < dud | echo \"/Users/druina/Desktop/github/minishell 'hola'\" hello| < dude  'tr' -d / > outfile | echo $PWD  >ok | echo \"hi\" | echo 'he'| echo hi  >>yep";*/
+	char	*line = strdup("echo hello| cat this| echo hi");
+	 /*= "< Make cat < dud | echo \"/Users/druina/Desktop/github/minishell 'hola'\" hello| < dude  'tr' -d / > outfile | echo $PWD  >ok | echo \"hi\" | echo 'he'| echo hi  >>yep";*/
 	// char 	**temp1;
 	// char	**str;
 	// char	**str1;
@@ -24,7 +25,7 @@ int	main(int argc, char *argv[], char *env[])
 	t_node 	*temp_node;
 	int		i;
 	t_vec	envs;
-	line = readline("TERMINAL:");
+	// line = readline("TERMINAL:");
 	(void)argv;
 	argc = 0;
 	i = 0;
