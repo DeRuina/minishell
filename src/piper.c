@@ -3,48 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   piper.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 10:06:54 by druina            #+#    #+#             */
-/*   Updated: 2023/05/24 18:23:48 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/25 17:00:15 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	change_infile_outfile_to_pipes(t_node **node, int **pipe_nbr)
+void	change_infile_outfile_to_pipes(t_node *node, int **pipe_nbr)
 {
 	int	pipe_out;
 	int	i;
 
 	i = 0;
 	pipe_out = 0;
-	while ((*node)->next != NULL)
+	while (node->next != NULL)
 	{
-		if ((*node)->infile == 0 && pipe_out == 1)
+		if (node->infile == 0 && pipe_out == 1)
 		{
-			(*node)->infile = pipe_nbr[i - 1][IN];
+			node->infile = pipe_nbr[i - 1][IN];
 			pipe_out = 0;
 		}
-		if ((*node)->outfile == 1)
+		if (node->outfile == 1)
 		{
-			(*node)->outfile = pipe_nbr[i][OUT];
+			node->outfile = pipe_nbr[i][OUT];
 			pipe_out = 1;
 		}
 		i++;
-		(*node) = (*node)->next;
+		node = node->next;
 	}
-	if ((*node)->infile == 0 && pipe_out == 1)
-		(*node)->infile = pipe_nbr[i - 1][IN];
-}
-
-t_node	*insert_pipes(t_node *node, int **pipe_nbr)
-{
-	t_node	*head;
-
-	head = node;
-	change_infile_outfile_to_pipes(&node, pipe_nbr);
-	return (head);
+	if (node->infile == 0 && pipe_out == 1)
+		node->infile = pipe_nbr[i - 1][IN];
 }
 
 int	num_of_pipes(char *array)
@@ -62,6 +53,7 @@ int	num_of_pipes(char *array)
 	}
 	return (len);
 }
+
 
 int	**allocate_pipes(char *array)
 {
@@ -90,7 +82,7 @@ int	**allocate_pipes(char *array)
 	return (pipe_nbr);
 }
 
-int	**piper(char *array)
+int	**piper(char *array, t_node *node)
 {
 	int	**pipe_nbr;
 	int	len;
@@ -107,5 +99,6 @@ int	**piper(char *array)
 			ft_pexit("pipe :");
 		i++;
 	}
+	change_infile_outfile_to_pipes(node, pipe_nbr);
 	return (pipe_nbr);
 }

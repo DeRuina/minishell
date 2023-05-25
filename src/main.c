@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 15:10:13 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/25 16:46:40 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int argc, char *argv[], char *env[])
 	(void)argv;
 	argc = 0;
 	i = 0;
-	pipe_nbr = piper(line);
 	// while (*env)
 	// 	printf("%s\n", *env++);
 	// printf("(%s)\n", getenv("PWD"));
@@ -48,7 +47,8 @@ int	main(int argc, char *argv[], char *env[])
 	// temp1 = str1;
 	envs = ft_copyenv(env);
 	head = ft_parse_args(line, envs);
-	head = insert_pipes(head, pipe_nbr);
+	pipe_nbr = piper(line, head);
+	// head = insert_pipes(head, pipe_nbr);
 	// vec_free(&envs);
 	temp_node = head;
 	while (head->next != NULL)

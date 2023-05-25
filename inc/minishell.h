@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 15:21:06 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/25 17:10:44 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct s_env
 }				t_env;
 
 // exec
-// int				ft_executor(t_node *node, t_vec env);
-int				ft_executor(t_node *node);
+int				ft_executor(t_node *node, t_vec envv);
+// int				ft_executor(t_node *node);
 
 // Env
 int				ft_putenv(t_vec *envs_vec, char *str);
@@ -120,10 +120,10 @@ void			case_only_redirections(char ***array);
 void			free_nodes(t_node *node);
 
 // piper
-int				**piper(char *array);
+int				**piper(char *array, t_node *node);
 int				**allocate_pipes(char *array);
 int				num_of_pipes(char *array);
 t_node			*insert_pipes(t_node *head, int **pipe_nbr);
-void			change_infile_outfile_to_pipes(t_node **node, int **pipe_nbr);
+void			change_infile_outfile_to_pipes(t_node *node, int **pipe_nbr);
 
 #endif
