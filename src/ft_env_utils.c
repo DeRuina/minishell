@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 07:07:11 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/24 14:31:30 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/25 15:12:02 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,19 @@ char	*ft_getvalue(char *str)
 
 int	ft_env_update(t_env *envs, t_env env, int len)
 {
-	int	i;
+	int		i;
+	size_t	env_key_len;
 
 	i = 0;
+	env_key_len = ft_strlen(env.key);
 	while (i < len)
 	{
-		if (!ft_strncmp(envs[i].key, env.key, ft_strlen(envs[i].key)))
+		if (ft_strlen(envs[i].key) != env_key_len)
+		{
+			i++;
+			continue;
+		}
+		if (!ft_strncmp(envs[i].key, env.key, env_key_len))
 		{
 			free(envs[i].value);
 			envs[i].value = env.value;
@@ -59,4 +66,17 @@ char	*ft_env_to_str(t_env env)
 	ft_strlcpy(&(env_str[key_len]), "=", 2);
 	ft_strlcpy(&(env_str[key_len + 1]), env.value, val_len + 1);
 	return (env_str);
+}
+
+void	free_envs(t_vec envs)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < envs.len)
+	{
+		free(((t_env *)envs.memory)[i].key);
+		free(((t_env *)envs.memory)[i].value);
+		i++;
+	}
 }

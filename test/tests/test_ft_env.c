@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:45 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/24 14:35:55 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/25 13:40:00 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void test_ft_getenv_0(void)
 	TEST_ASSERT_EQUAL_STRING("/bin/zsh", ft_getenv(envs, "SHELL"));
 	TEST_ASSERT_EQUAL_STRING("en_US.UTF-8", ft_getenv(envs, "LANG"));
 }
+
 void test_ft_copyenv_0(void)
 {
 	t_vec envs;
@@ -116,6 +117,8 @@ void test_ft_copyenv_0(void)
 		ft_putendl_fd(jee[i].value, 1);
 		i++;
 	}
+	free_envs(envs);
+	vec_free(&envs);
 }
 void test_ft_strenv_0(void)
 {
@@ -129,7 +132,7 @@ void test_ft_strenv_0(void)
 
 int test_ft_env(char **envp)
 {
-	set_env_envs();
+	// set_env_envs();
 	env_vars = envp;
 	UNITY_BEGIN();
 	// RUN_TEST(test_ft_env_getkey);
@@ -138,7 +141,7 @@ int test_ft_env(char **envp)
 	// RUN_TEST(test_ft_putenv_1);
 	// RUN_TEST(test_ft_putenv_2);
 	// RUN_TEST(test_ft_getenv_0);
-	// // RUN_TEST(test_ft_copyenv_0);
-	RUN_TEST(test_ft_strenv_0);
+	RUN_TEST(test_ft_copyenv_0);
+	// RUN_TEST(test_ft_strenv_0);
 	return UNITY_END();
 }
