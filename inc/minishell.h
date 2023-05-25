@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/24 18:21:55 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/25 09:02:50 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char			**ft_cmd_trim(char *line);
 void			ft_expand(t_vec vars, char **line);
 char			**ft_split_operators(char **array);
 char			**ft_str_trim(char **array);
-t_node			*ft_parse_args(char *line, t_vec env, int **pipe_nbr);
+t_node			*ft_parse_args(char *line, t_vec env);
 t_node			*ft_fd_handler(char **array, int *flag, t_node *node);
 // expand
 

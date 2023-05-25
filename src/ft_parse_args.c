@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/24 18:57:20 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/25 09:01:49 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ char	**get_node_cmd(char ***array)
 t_node	*new_node(char ***array, int *error_flag, t_vec env)
 {
 	t_node	*node;
-	char		*temp;
 
 	if (array == NULL)
 		return (NULL);
@@ -91,12 +90,12 @@ t_node	*new_node(char ***array, int *error_flag, t_vec env)
 	return (node);
 }
 
-t_node	*ft_parse_args(char *line, t_vec env, int **pipe_nbr)
+t_node	*ft_parse_args(char *line, t_vec env)
 {
 	t_node		*head;
 	char		**tokens;
 	char		**temp;
-	
+
 	static int	error_flag = 0;
 
 
