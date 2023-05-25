@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 14:19:23 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/25 15:16:24 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,14 @@ char	**get_node_cmd(char ***array, char ***temp)
 t_node	*new_node(char ***array, int *error_flag, t_vec env)
 {
 	t_node	*node;
-	char	**temp;
 
 	if (array == NULL)
 		return (NULL);
-	temp = (*array);
 	node = (t_node *)ft_calloc(1 ,sizeof(t_node));
 	if (!node)
 		return (NULL);
 	node = ft_fd_handler((*array), error_flag, node);
-	node->full_cmd = get_node_cmd(array, &temp);
+	node->full_cmd = get_node_cmd(array, array);
 	if (node->full_cmd != NULL)
 		node->full_cmd[0] = ft_get_exec_path(env, node->full_cmd[0]);
 	if (!**array)
@@ -98,9 +96,7 @@ t_node	*ft_parse_args(char *line, t_vec env)
 	t_node		*head;
 	char		**tokens;
 	char		**temp;
-
 	static int	error_flag = 0;
-
 
 	tokens = ft_cmd_trim(line);
 	if (!tokens)

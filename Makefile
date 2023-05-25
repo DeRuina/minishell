@@ -6,7 +6,7 @@ I			= inc/
 LIBFT_I		= libft/inc
 
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -O3
+CFLAGS		= -Wall -Werror -Wextra
 INCLUDES	= -I$I -I$(LIBFT_I)
 LIBRARIES	= -L./libft -lft
 
