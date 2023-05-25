@@ -20,7 +20,6 @@ $S/ft_fd_handler.c	$S/here_doc.c	$S/ft_expand_utils.c	$S/ft_parse_args.c						\
 $S/ft_get_exec_path.c	$S/ft_executor.c	$S/ft_env_utils.c	$S/ft_fd_handler_utils.c		\
 $S/piper.c
 
-
 OBJ			= $(SRC:$S%=$O%.o)
 
 RM			= /bin/rm -f
@@ -28,7 +27,8 @@ RMDIR		= /bin/rm -rf
 
 LIBFT_DIR	= ./libft
 LIBFT		= $(LIBFT_DIR)/libft.a
-LIBFT_FLAGS	= $(CFLAGS)
+# LIBFT_FLAGS	= $(CFLAGS)
+LIBFT_FLAGS	=
 
 .PHONY: all clean fclean re
 
@@ -46,7 +46,7 @@ $(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(OBJ) $(LIBRARIES) -o $(NAME) -lreadline
 
 $(LIBFT):
-	make -C $(LIBFT_DIR)
+	make FLAGS=$(LIBFT_FLAGS) -C $(LIBFT_DIR)
 
 cleanobjdir: $O
 	$(RMDIR) $O
@@ -66,4 +66,5 @@ run_test: $(LIBFT)
 
 debug: CFLAGS := $(filter-out -O3,$(CFLAGS))
 debug: CFLAGS += -g
+debug: LIBFT_FLAGS += -g
 debug: $(NAME)
