@@ -6,33 +6,15 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/26 15:32:31 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/26 15:51:31 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-void close_pipes(t_node *head, int infile, int outfile)
+void	ft_child(t_node *node, t_vec envv)
 {
-
-	while (head)
-	{
-		if (&infile == &head->infile)
-			close(head->infile);
-		if (&outfile == &head->outfile)
-			close(head->outfile);
-		head = head->next;
-	}
-	if (&infile == &head->infile)
-			close(head->infile);
-		if (&outfile == &head->outfile)
-			close(head->outfile);
-}
-
-void	ft_child(t_node *head ,t_node *node, t_vec envv)
-{
-	close_pipes(head, node->infile, node->outfile);
 	if (node->infile != 0)
 		if (dup2(node->infile, STDIN_FILENO) < 0)
 			ft_pexit("ft_child: dup2");
@@ -49,18 +31,16 @@ void	ft_child(t_node *head ,t_node *node, t_vec envv)
 
 int	ft_executor(t_node *node, t_vec envv)
 {
-	t_node *head;
 	int i;
 
 	i = 0;
-	head = node;
 	while (node)
 	{
 		node->pid = fork();
 		if (node->pid == -1)
 			perror("ft_executor: fork");
 		if (node->pid == 0)
-			ft_child(head ,node, envv);
+			ft_child(node, envv);
 		if (node->pid > 0)
 		{
 			i++;
