@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 16:51:45 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/26 12:14:23 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parser.h"
 
 void	case_only_redirections(char ***array)
 {
@@ -81,7 +82,7 @@ t_node	*new_node(char ***array, int *error_flag, t_vec env)
 		return (NULL);
 	node = ft_fd_handler((*array), error_flag, node);
 	node->full_cmd = get_node_cmd(array, array);
-	if (node->full_cmd != NULL && is_a_builtin(node->full_cmd[0]) != 1)
+	if (node->full_cmd != NULL && is_builtin(node->full_cmd[0]) != 1)
 		node->full_cmd[0] = ft_get_exec_path(env, node->full_cmd[0]);
 	if (!**array)
 		node->next = NULL;

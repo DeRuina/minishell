@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/26 10:38:17 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/26 12:14:16 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,9 @@ void			check_for_invalid_file_before_infile(char **array);
 
 // exec_path
 char			*ft_get_exec_path(t_vec env, char *cmd);
-int				is_a_builtin(char *cmd);
 
 // utils
-int				ft_max(int a, int b);
+// int				ft_max(int a, int b);
 void			ft_pexit(char *error_msg);
 
 // node funtions

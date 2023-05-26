@@ -8,5 +8,6 @@ int test_ft_split_operators(void);
 int test_ft_str_trim(void);
 int test_ft_get_exec_path(void);
 int test_ft_executor(void);
+int test_ft_utils(void);
 
 #endif
