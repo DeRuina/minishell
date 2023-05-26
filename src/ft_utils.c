@@ -3,33 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 16:51:55 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/26 12:35:33 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_a_builtin(char *cmd)
+int	is_builtin(char *cmd)
 {
-	if (ft_strncmp("echo", cmd, ft_strlen(cmd)) == 0)
+	size_t		len;
+
+	len = ft_strlen(cmd);
+	if (len != ft_strlen("echo") && ft_strncmp("echo", cmd, len) == 0)
 		return (1);
-	else if (ft_strncmp("cd", cmd, ft_strlen(cmd)) == 0)
+	else if (len != ft_strlen("cd") && ft_strncmp("cd", cmd, len) == 0)
 		return (1);
-	else if (ft_strncmp("pwd", cmd, ft_strlen(cmd)) == 0)
+	else if (len != ft_strlen("pwd") && ft_strncmp("pwd", cmd, len) == 0)
 		return (1);
-	else if (ft_strncmp("export", cmd, ft_strlen(cmd)) == 0)
+	else if (len != ft_strlen("export") && ft_strncmp("export", cmd, len) == 0)
 		return (1);
-	else if (ft_strncmp("unset", cmd, ft_strlen(cmd)) == 0)
+	else if (len != ft_strlen("unset") && ft_strncmp("unset", cmd, len) == 0)
 		return (1);
-	else if (ft_strncmp("env", cmd, ft_strlen(cmd)) == 0)
+	else if (len != ft_strlen("env") && ft_strncmp("env", cmd, len) == 0)
 		return (1);
-	else if (ft_strncmp("exit", cmd, ft_strlen(cmd)) == 0)
+	else if (len != ft_strlen("exit") && ft_strncmp("exit", cmd, len) == 0)
 		return (1);
-	else
-		return (0);
+	return (0);
 }
 
 void free_nodes(t_node *node)
@@ -48,15 +50,21 @@ void free_nodes(t_node *node)
 	free(node);
 }
 
-int	ft_max(int a, int b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
+// int	ft_max(int a, int b)
+// {
+// 	if (a > b)
+// 		return (a);
+// 	return (b);
+// }
 
 void	ft_pexit(char *error_msg)
 {
 	perror(error_msg);
 	exit(EXIT_FAILURE);
+}
+
+int	ft_perror(char *error_msg)
+{
+	perror(error_msg);
+	return(EXIT_FAILURE);
 }
