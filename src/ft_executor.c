@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/26 14:53:44 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/26 15:02:36 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	ft_executor(t_node *node, t_vec envv)
 			perror("ft_executor: fork");
 		if (node->pid == 0)
 			ft_child(node, envv);
-
 		if (i != 0)
 		{
 			close(node->infile);
@@ -62,6 +61,7 @@ int	ft_executor(t_node *node, t_vec envv)
 		{
 			i++;
 			node = node->next;
+		}
 	}
 	return (1);
 }
