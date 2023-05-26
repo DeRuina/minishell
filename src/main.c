@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 16:46:40 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/26 10:25:20 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int argc, char *argv[], char *env[])
 	envs = ft_copyenv(env);
 	head = ft_parse_args(line, envs);
 	pipe_nbr = piper(line, head);
+	ft_executor(head, envs);
 	// head = insert_pipes(head, pipe_nbr);
 	// vec_free(&envs);
 	temp_node = head;

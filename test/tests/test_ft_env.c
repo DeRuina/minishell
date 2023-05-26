@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:45 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 13:40:00 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/26 09:43:20 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,16 +132,16 @@ void test_ft_strenv_0(void)
 
 int test_ft_env(char **envp)
 {
-	// set_env_envs();
+	set_env_envs();
 	env_vars = envp;
 	UNITY_BEGIN();
-	// RUN_TEST(test_ft_env_getkey);
-	// RUN_TEST(test_ft_env_getvalue);
-	// RUN_TEST(test_ft_putenv_0);
-	// RUN_TEST(test_ft_putenv_1);
-	// RUN_TEST(test_ft_putenv_2);
-	// RUN_TEST(test_ft_getenv_0);
-	RUN_TEST(test_ft_copyenv_0);
-	// RUN_TEST(test_ft_strenv_0);
+	RUN_TEST(test_ft_env_getkey);
+	RUN_TEST(test_ft_env_getvalue);
+	RUN_TEST(test_ft_putenv_0);
+	RUN_TEST(test_ft_putenv_1);
+	RUN_TEST(test_ft_putenv_2);
+	RUN_TEST(test_ft_getenv_0);
+	// RUN_TEST(test_ft_copyenv_0);
+	RUN_TEST(test_ft_strenv_0);
 	return UNITY_END();
 }
