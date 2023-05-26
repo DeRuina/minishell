@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/26 12:14:16 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/26 15:51:43 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 # define IN 0
 # define OUT 1
 
-typedef struct node
+typedef struct s_node
 {
-	char		**full_cmd;
-	int			pid;
-	int			infile;
-	int			outfile;
-	struct node	*next;
+	char			**full_cmd;
+	int				pid;
+	int				infile;
+	int				outfile;
+	struct s_node	*next;
 }				t_node;
 
 typedef struct s_env
