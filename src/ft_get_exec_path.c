@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_exec_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:58:42 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 10:55:03 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/26 16:17:51 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,5 @@ char	*ft_get_exec_path(t_vec env, char *cmd)
 		i++;
 	}
 	free_2d(path_arr);
-	free(cmd);
-	return (NULL);
+	return (cmd);
 }
