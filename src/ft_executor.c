@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/26 15:51:31 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/29 09:25:21 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ void	ft_child(t_node *node, t_vec envv)
 
 int	ft_executor(t_node *node, t_vec envv)
 {
-	int i;
 
-	i = 0;
 	while (node)
 	{
 		node->pid = fork();
@@ -41,11 +39,12 @@ int	ft_executor(t_node *node, t_vec envv)
 			perror("ft_executor: fork");
 		if (node->pid == 0)
 			ft_child(node, envv);
+		if (node->infile != 0)
+			close(node->infile);
+		if (node->outfile != 1)
+			close(node->outfile);
 		if (node->pid > 0)
-		{
-			i++;
 			node = node->next;
-		}
 	}
 	return (1);
 }
