@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 10:06:54 by druina            #+#    #+#             */
-/*   Updated: 2023/05/29 15:59:41 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/29 16:04:41 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	**allocate_pipes(char *array)
 	if (len == 0)
 		return (NULL);
 	i = 0;
-	pipe_nbr = ft_calloc(len + 1, sizeof(int *));
+	pipe_nbr = ft_calloc(len , sizeof(int *));
 	if (!pipe_nbr)
 		return (NULL);
 	while (i < len)
@@ -92,8 +92,6 @@ int	**allocate_pipes(char *array)
 		}
 		i++;
 	}
-	pipe_nbr[i] = ft_calloc(1, sizeof(int));
-	pipe_nbr[i] = NULL;
 	return (pipe_nbr);
 }
 
