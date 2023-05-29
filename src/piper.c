@@ -6,27 +6,11 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 10:06:54 by druina            #+#    #+#             */
-/*   Updated: 2023/05/29 16:04:41 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/29 17:16:21 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void write_outfile_to_pipe(int fd, int pipe)
-{
-	char *line;
-
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			break;
-		if (write(pipe, line, ft_strlen(line)) == -1)
-			perror("write to file");
-		free(line);
-	}
-	close(fd);
-}
 
 void	change_infile_outfile_to_pipes(t_node *node, int **pipe_nbr)
 {
@@ -42,7 +26,6 @@ void	change_infile_outfile_to_pipes(t_node *node, int **pipe_nbr)
 			node->infile = pipe_nbr[i - 1][IN];
 			pipe_out = 0;
 		}
-		node->outfile = pipe_nbr[i][OUT];
 		pipe_out = 1;
 		i++;
 		node = node->next;
