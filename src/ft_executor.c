@@ -6,10 +6,9 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/29 09:25:21 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/29 11:46:41 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -31,7 +30,6 @@ void	ft_child(t_node *node, t_vec envv)
 
 int	ft_executor(t_node *node, t_vec envv)
 {
-
 	while (node)
 	{
 		node->pid = fork();
@@ -44,7 +42,11 @@ int	ft_executor(t_node *node, t_vec envv)
 		if (node->outfile != 1)
 			close(node->outfile);
 		if (node->pid > 0)
+		{
+			printf("infile - %d\n", node->infile);
+			printf("outfile - %d\n", node->outfile);
 			node = node->next;
+		}
 	}
 	return (1);
 }

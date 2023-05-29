@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:21:48 by druina            #+#    #+#             */
-/*   Updated: 2023/05/22 14:52:18 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/29 15:41:55 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ void	error_fd(int fd, char *array, char *error)
 		write(2, error, ft_strlen(error));
 		write(2, "\n", 1);
 	}
+}
+
+int	reopen_file_and_check(char *name)
+{
+	int infile;
+
+	infile = open(name, O_RDWR);
+	if (infile == -1)
+	{
+		unlink("here_doc");
+		perror("here_doc");
+	}
+	return (infile);
 }
 
 // creates and closes here_docs in case of invalid infile
@@ -55,7 +68,7 @@ int	here_doc(char *delimiter)
 	int		infile;
 	char	*line;
 
-	infile = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	infile = open("here_doc", O_CREAT | O_RDWR | O_TRUNC, 0664);
 	if (infile == -1)
 		perror("here_doc file opening problem");
 	while (1)
@@ -66,10 +79,13 @@ int	here_doc(char *delimiter)
 			return (-1);
 		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
 			break ;
-		write(infile, line, ft_strlen(line));
+		if (write(infile, line, ft_strlen(line)) == -1)
+			perror("here_doc writing");
 		free(line);
 	}
 	free(line);
+	close(infile);
+	infile = reopen_file_and_check("here_doc");
 	unlink("here_doc");
 	return (infile);
 }

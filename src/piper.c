@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   piper.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 10:06:54 by druina            #+#    #+#             */
-/*   Updated: 2023/05/25 17:00:15 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/29 15:59:41 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void write_outfile_to_pipe(int fd, int pipe)
+{
+	char *line;
+
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break;
+		if (write(pipe, line, ft_strlen(line)) == -1)
+			perror("write to file");
+		free(line);
+	}
+	close(fd);
+}
 
 void	change_infile_outfile_to_pipes(t_node *node, int **pipe_nbr)
 {
@@ -26,11 +42,8 @@ void	change_infile_outfile_to_pipes(t_node *node, int **pipe_nbr)
 			node->infile = pipe_nbr[i - 1][IN];
 			pipe_out = 0;
 		}
-		if (node->outfile == 1)
-		{
-			node->outfile = pipe_nbr[i][OUT];
-			pipe_out = 1;
-		}
+		node->outfile = pipe_nbr[i][OUT];
+		pipe_out = 1;
 		i++;
 		node = node->next;
 	}
@@ -65,7 +78,7 @@ int	**allocate_pipes(char *array)
 	if (len == 0)
 		return (NULL);
 	i = 0;
-	pipe_nbr = ft_calloc(len, sizeof(int *));
+	pipe_nbr = ft_calloc(len + 1, sizeof(int *));
 	if (!pipe_nbr)
 		return (NULL);
 	while (i < len)
@@ -79,6 +92,8 @@ int	**allocate_pipes(char *array)
 		}
 		i++;
 	}
+	pipe_nbr[i] = ft_calloc(1, sizeof(int));
+	pipe_nbr[i] = NULL;
 	return (pipe_nbr);
 }
 

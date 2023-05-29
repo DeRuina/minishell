@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/22 15:59:34 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/29 15:41:58 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	get_outfile_fd(char **array)
 		if (outfile == array[i])
 		{
 			if (ft_strncmp(outfile, ">>", 1) == 0)
-				fd = open(array[i + 1], O_CREAT | O_WRONLY | O_APPEND, 0664);
+				fd = open(array[i + 1], O_CREAT | O_RDWR | O_APPEND, 0664);
 			else
-				fd = open(array[i + 1], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+				fd = open(array[i + 1], O_CREAT | O_RDWR | O_TRUNC, 0664);
 			if (fd == -1)
 				return (perror(array[i + 1]), -1);
 			break ;
@@ -76,7 +76,7 @@ int	get_infile_fd(char **array, int *error_flag)
 		if (infile == array[i])
 		{
 			if (ft_strncmp(infile, "<", 1) == 0 && ft_strlen(infile) == 1)
-				fd = open(array[i + 1], O_RDONLY);
+				fd = open(array[i + 1], O_RDWR);
 			if (fd == -1 && (*error_flag) == 0)
 				return ((*error_flag) = 1, here_doc_invalid_infile(array, i,
 						fd));
