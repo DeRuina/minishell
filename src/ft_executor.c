@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/29 17:17:46 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/30 10:16:56 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	ft_child(t_node *node, t_vec envv)
 {
-	if (node->infile != 0)
-		if (dup2(node->infile, STDIN_FILENO) < 0)
-			ft_pexit("ft_child: dup2");
+	if (node->infile == -1)
+		exit(EXIT_FAILURE);
+	else if (node->infile != 0)
+			if (dup2(node->infile, STDIN_FILENO) < 0)
+				ft_pexit("ft_child: dup2");
 	if (node->infile != 0)
 		close (node->infile);
 	if (node->outfile != 1)
@@ -48,5 +50,5 @@ int	ft_executor(t_node *node, t_vec envv)
 			node = node->next;
 		}
 	}
-	return (1);
+	return (0);
 }

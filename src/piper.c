@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 10:06:54 by druina            #+#    #+#             */
-/*   Updated: 2023/05/29 17:16:21 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/30 09:09:31 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,27 @@
 
 void	change_infile_outfile_to_pipes(t_node *node, int **pipe_nbr)
 {
-	int	pipe_out;
+	int	write_to_pipe;
 	int	i;
 
 	i = 0;
-	pipe_out = 0;
+	write_to_pipe = 0;
 	while (node->next != NULL)
 	{
-		if (node->infile == 0 && pipe_out == 1)
+		if (node->infile == 0 && write_to_pipe == 1)
 		{
 			node->infile = pipe_nbr[i - 1][IN];
-			pipe_out = 0;
+			write_to_pipe = 0;
 		}
-		pipe_out = 1;
-		i++;
+		if (node->outfile == 1)
+		{
+			node->outfile = pipe_nbr[i][OUT];
+			write_to_pipe = 1;
+			i++;
+		}
 		node = node->next;
 	}
-	if (node->infile == 0 && pipe_out == 1)
+	if (node->infile == 0 && write_to_pipe == 1)
 		node->infile = pipe_nbr[i - 1][IN];
 }
 
