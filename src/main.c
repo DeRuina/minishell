@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/29 17:17:32 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/30 11:14:49 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void minishell(char *line, char *env[])
 
 	envs = ft_copyenv(env);
 	head = ft_parse_args(line, envs);
+	if (!head)
+		return;
 	pipe_nbr = piper(line, head);
 	ft_executor(head, envs);
 	free_nodes(head);

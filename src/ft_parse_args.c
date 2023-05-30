@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/29 09:02:35 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/30 11:14:13 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_node	*ft_parse_args(char *line, t_vec env)
 
 	tokens = ft_cmd_trim(line);
 	if (!tokens)
-		exit(EXIT_FAILURE);
+		return(NULL);
 	ft_expand(env, tokens);
 	tokens = ft_split_operators(tokens);
 	tokens = ft_str_trim(tokens);
