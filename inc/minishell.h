@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/30 10:18:31 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/30 10:35:49 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int					get_infile_fd(char **array, int *flag);
 char				*find_last_infile(char **array);
 char				*find_last_outfile(char **array);
 void				error_fd(int fd, char *array, char *error);
-void				check_for_invalid_file_before_infile(char **array);
+int					check_for_invalid_file_before_infile(char **array);
 
 // exec_path
 char				*ft_get_exec_path(t_vec env, char *cmd);

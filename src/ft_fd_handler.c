@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/29 15:41:58 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/30 10:45:55 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	get_infile_fd(char **array, int *error_flag)
 
 // checks for invalid file before the infile, open here_docs if invalid
 
-void	check_for_invalid_file_before_infile(char **array)
+int	check_for_invalid_file_before_infile(char **array)
 {
 	int		i;
 	char	*infile;
@@ -104,24 +104,27 @@ void	check_for_invalid_file_before_infile(char **array)
 	while (array[i] != '\0' && *array[i] != '|')
 	{
 		if (array[i] == infile)
-			return ;
+			return (0);
 		if (ft_strncmp(array[i], "<", 1) == 0 && ft_strlen(array[i]) == 1)
 			access_check = access(array[i + 1], R_OK);
 		if (access_check == -1)
 		{
 			here_doc_invalid_infile(array, i, access_check);
-			return ;
+			return (-1);
 		}
 		i++;
 	}
+	return (0);
 }
 
 // Returns the infile and outfile, creates any neccessary fds.
 
 t_node	*ft_fd_handler(char **array, int *error_flag, t_node *node)
 {
-	check_for_invalid_file_before_infile(array);
-	node->infile = get_infile_fd(array, error_flag);
+	if (check_for_invalid_file_before_infile(array) == -1)
+		node->infile = -1;
+	else
+		node->infile = get_infile_fd(array, error_flag);
 	node->outfile = get_outfile_fd(array);
 	find_and_open_fds(array);
 	return (node);
