@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/30 10:45:55 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/30 13:15:38 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ int	get_infile_fd(char **array, int *error_flag)
 			if (ft_strncmp(infile, "<", 1) == 0 && ft_strlen(infile) == 1)
 				fd = open(array[i + 1], O_RDWR);
 			if (fd == -1 && (*error_flag) == 0)
-				return ((*error_flag) = 1, here_doc_invalid_infile(array, i,
-						fd));
+				return ((*error_flag) = 1, -1);
 			if (ft_strncmp(infile, "<<", 2) == 0 && (*error_flag) == 0)
 				fd = here_doc(array[i + 1]);
 			if (fd == -1)
@@ -92,7 +91,7 @@ int	get_infile_fd(char **array, int *error_flag)
 
 // checks for invalid file before the infile, open here_docs if invalid
 
-int	check_for_invalid_file_before_infile(char **array)
+int	check_for_invalid_file_before_infile(char **array, int **error_here_docs)
 {
 	int		i;
 	char	*infile;
@@ -109,7 +108,7 @@ int	check_for_invalid_file_before_infile(char **array)
 			access_check = access(array[i + 1], R_OK);
 		if (access_check == -1)
 		{
-			here_doc_invalid_infile(array, i, access_check);
+			here_doc_invalid_infile(array, i, access_check, error_here_docs);
 			return (-1);
 		}
 		i++;
@@ -119,9 +118,9 @@ int	check_for_invalid_file_before_infile(char **array)
 
 // Returns the infile and outfile, creates any neccessary fds.
 
-t_node	*ft_fd_handler(char **array, int *error_flag, t_node *node)
+t_node	*ft_fd_handler(char **array, int *error_flag, t_node *node, int **error_here_docs)
 {
-	if (check_for_invalid_file_before_infile(array) == -1)
+	if (check_for_invalid_file_before_infile(array, error_here_docs) == -1)
 		node->infile = -1;
 	else
 		node->infile = get_infile_fd(array, error_flag);

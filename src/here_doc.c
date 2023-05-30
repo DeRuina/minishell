@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:21:48 by druina            #+#    #+#             */
-/*   Updated: 2023/05/29 15:41:55 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/30 13:15:19 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,24 @@ int	reopen_file_and_check(char *name)
 
 // creates and closes here_docs in case of invalid infile
 
-int	here_doc_invalid_infile(char **array, int i, int bad_fd)
+int	here_doc_invalid_infile(char **array, int i, int bad_fd, int **error_here_docs)
 {
 	int		fd;
 	char	*error_var;
 	char	*error;
+	int		j;
 
 	error = strerror(errno);
 	error_var = array[i + 1];
 	fd = 0;
+	j = 0;
 	while (array[i] != '\0')
 	{
 		if (ft_strncmp(array[i], "<<", 2) == 0)
 			fd = here_doc(array[i + 1]);
-		if (fd != 0)
-			close(fd);
+			(*error_here_docs)[j] = fd;
 		i++;
+		j++;
 	}
 	error_fd(bad_fd, error_var, error);
 	return(-1);

@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/30 11:14:13 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/30 13:16:10 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	**get_node_cmd(char ***array, char ***temp)
 	return (answer);
 }
 
-t_node	*new_node(char ***array, int *error_flag, t_vec env)
+t_node	*new_node(char ***array, int *error_flag, t_vec env, int **error_here_docs)
 {
 	t_node	*node;
 
@@ -80,14 +80,14 @@ t_node	*new_node(char ***array, int *error_flag, t_vec env)
 	node = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (!node)
 		return (NULL);
-	node = ft_fd_handler((*array), error_flag, node);
+	node = ft_fd_handler((*array), error_flag, node, error_here_docs);
 	node->full_cmd = get_node_cmd(array, array);
 	if (node->full_cmd != NULL /*&& is_builtin(node->full_cmd[0]) != 1*/)
 		node->full_cmd[0] = ft_get_exec_path(env, node->full_cmd[0]);
 	if (!**array)
 		node->next = NULL;
 	else
-		node->next = new_node(array, error_flag, env);
+		node->next = new_node(array, error_flag, env, error_here_docs);
 	return (node);
 }
 
@@ -97,7 +97,11 @@ t_node	*ft_parse_args(char *line, t_vec env)
 	char		**tokens;
 	char		**temp;
 	static int	error_flag = 0;
+	static int *error_here_docs;
 
+	error_here_docs = ft_calloc(num_of_pipes(line) + 1, sizeof(int));
+	if (!error_here_docs)
+		return (NULL);
 	tokens = ft_cmd_trim(line);
 	if (!tokens)
 		return(NULL);
@@ -105,7 +109,8 @@ t_node	*ft_parse_args(char *line, t_vec env)
 	tokens = ft_split_operators(tokens);
 	tokens = ft_str_trim(tokens);
 	temp = tokens;
-	head = new_node(&tokens, &error_flag, env);
+	head = new_node(&tokens, &error_flag, env, &error_here_docs);
 	free_2d(temp);
+	free (error_here_docs);
 	return (head);
 }
