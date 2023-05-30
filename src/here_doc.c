@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:21:48 by druina            #+#    #+#             */
-/*   Updated: 2023/05/30 13:15:19 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/30 15:09:36 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,16 @@ int	here_doc_invalid_infile(char **array, int i, int bad_fd, int **error_here_do
 	while (array[i] != '\0')
 	{
 		if (ft_strncmp(array[i], "<<", 2) == 0)
+		{
 			fd = here_doc(array[i + 1]);
-			(*error_here_docs)[j] = fd;
+			if (array[i] == find_last_infile(&array[i]))
+				(*error_here_docs)[j] = fd;
+			else
+				close(fd);
+		}
+		if (ft_strncmp(array[i], "|", 1) == 0 && ft_strlen(array[i]) == 1)
+			j++;
 		i++;
-		j++;
 	}
 	error_fd(bad_fd, error_var, error);
 	return(-1);

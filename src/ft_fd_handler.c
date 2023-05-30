@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/30 13:15:38 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/30 15:09:05 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*find_last_infile(char **array)
 
 // finds and return the infile fd
 
-int	get_infile_fd(char **array, int *error_flag)
+int	get_infile_fd(char **array, int *error_flag, int error_here_doc)
 {
 	int		fd;
 	char	*infile;
@@ -80,7 +80,12 @@ int	get_infile_fd(char **array, int *error_flag)
 			if (fd == -1 && (*error_flag) == 0)
 				return ((*error_flag) = 1, -1);
 			if (ft_strncmp(infile, "<<", 2) == 0 && (*error_flag) == 0)
-				fd = here_doc(array[i + 1]);
+			{
+				if (error_here_doc != 0)
+					fd = error_here_doc;
+				else
+					fd = here_doc(array[i + 1]);
+			}
 			if (fd == -1)
 				perror(array[i + 1]);
 		}
@@ -102,8 +107,6 @@ int	check_for_invalid_file_before_infile(char **array, int **error_here_docs)
 	infile = find_last_infile(array);
 	while (array[i] != '\0' && *array[i] != '|')
 	{
-		if (array[i] == infile)
-			return (0);
 		if (ft_strncmp(array[i], "<", 1) == 0 && ft_strlen(array[i]) == 1)
 			access_check = access(array[i + 1], R_OK);
 		if (access_check == -1)
@@ -118,12 +121,12 @@ int	check_for_invalid_file_before_infile(char **array, int **error_here_docs)
 
 // Returns the infile and outfile, creates any neccessary fds.
 
-t_node	*ft_fd_handler(char **array, int *error_flag, t_node *node, int **error_here_docs)
+t_node	*ft_fd_handler(char **array, int *error_flag, t_node *node, int *error_here_docs, int i)
 {
-	if (check_for_invalid_file_before_infile(array, error_here_docs) == -1)
+	if (check_for_invalid_file_before_infile(array, &error_here_docs) == -1)
 		node->infile = -1;
 	else
-		node->infile = get_infile_fd(array, error_flag);
+		node->infile = get_infile_fd(array, error_flag, error_here_docs[i]);
 	node->outfile = get_outfile_fd(array);
 	find_and_open_fds(array);
 	return (node);

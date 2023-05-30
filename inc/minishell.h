@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/30 13:17:13 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/30 15:01:33 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void				ft_expand(t_vec vars, char **line);
 char				**ft_split_operators(char **array);
 char				**ft_str_trim(char **array);
 t_node				*ft_fd_handler(char **array, int *error_flag, t_node *node,
-						int **error_here_docs);
+						int *error_here_docs, int i);
 // expand
 
 void				ft_expand(t_vec env_vars, char **arr);
@@ -102,12 +102,13 @@ int					here_doc(char *delimiter);
 int					here_doc_invalid_infile(char **array, int i, int bad_fd,
 						int **error_here_docs);
 int					reopen_file_and_check(char *name);
-int					get_infile_fd(char **array, int *flag);
+int					get_infile_fd(char **array, int *error_flag,
+						int error_here_doc);
 char				*find_last_infile(char **array);
 char				*find_last_outfile(char **array);
 void				error_fd(int fd, char *array, char *error);
-int					check_for_invalid_file_before_infile(char **array,
-						int **error_here_docs);
+int	check_for_invalid_file_before_infile(char **array,
+											int **error_here_docs);
 
 // exec_path
 char				*ft_get_exec_path(t_vec env, char *cmd);
@@ -118,7 +119,7 @@ void				ft_pexit(char *error_msg);
 
 // node funtions
 t_node				*new_node(char ***array, int *error_flag, t_vec env,
-						int **error_here_docs);
+						int *error_here_docs, int i);
 char				**get_node_cmd(char ***array, char ***temp);
 int					cmd_len(char **array);
 void				case_only_redirections(char ***array);
@@ -129,7 +130,7 @@ int					**piper(char *array, t_node *node);
 int					**allocate_pipes(char *array);
 int					num_of_pipes(char *array);
 t_node				*insert_pipes(t_node *head, int **pipe_nbr);
-void				change_infile_outfile_to_pipes(t_node *node,
-						int **pipe_nbr);
+void	change_infile_outfile_to_pipes(t_node *node,
+									int **pipe_nbr);
 
 #endif
