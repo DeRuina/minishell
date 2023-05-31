@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/31 07:41:21 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/31 10:00:53 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ typedef struct s_env
 
 // exec
 t_node				*ft_parse_args(char *line, t_vec env);
-void				ft_child(t_node *node, t_vec envv);
+int					ft_child(t_node *node, t_vec envv);
 int					ft_executor(t_node *node, t_vec envv);
+int					builtin_commands(char **cmd);
 
 // Env
 int					ft_putenv(t_vec *envs_vec, char *str);
@@ -117,6 +118,7 @@ char				*ft_get_exec_path(t_vec env, char *cmd);
 // utils
 // int				ft_max(int a, int b);
 void				ft_pexit(char *error_msg);
+int					is_builtin(char *cmd);
 
 // node funtions
 t_node				*new_node(char ***array, t_vec env, int *error_here_docs,
@@ -132,5 +134,10 @@ int					**allocate_pipes(char *array);
 int					num_of_pipes(char *array);
 void	change_infile_outfile_to_pipes(t_node *node,
 									int **pipe_nbr);
+
+// Builtinså
+
+void				ft_echo(char **full_cmd);
+void				ft_exit(void);
 
 #endif

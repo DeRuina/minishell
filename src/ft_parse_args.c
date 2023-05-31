@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/31 07:47:18 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/31 09:03:00 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_node	*new_node(char ***array, t_vec env, int *error_here_docs,
 		return (NULL);
 	node = ft_fd_handler((*array), node, error_here_docs, node_counter);
 	node->full_cmd = get_node_cmd(array, array);
-	if (node->full_cmd != NULL /*&& is_builtin(node->full_cmd[0]) != 1*/)
+	if (node->full_cmd != NULL && is_builtin(node->full_cmd[0]) == 0)
 		node->full_cmd[0] = ft_get_exec_path(env, node->full_cmd[0]);
 	if (!**array)
 		node->next = NULL;

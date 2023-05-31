@@ -6,13 +6,32 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/31 07:48:47 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/31 11:06:01 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_child(t_node *node, t_vec envv)
+int builtin_commands(char **cmd)
+{
+	if (is_builtin(cmd[0]) == 1)
+		ft_echo(cmd);
+	// if (is_builtin(cmd[0]) == 2)
+	// 	ft_cd(cmd);
+	// if (is_builtin(cmd[0]) == 3)
+	// 	ft_pwd(cmd);
+	// if (is_builtin(cmd[0]) == 4)
+	// 	ft_export(cmd);
+	// if (is_builtin(cmd[0]) == 5)
+	// 	ft_unset(cmd);
+	// if (is_builtin(cmd[0]) == 6)
+	// 	ft_env(cmd);
+	if (is_builtin(cmd[0]) == 7)
+		ft_exit();
+	exit(EXIT_SUCCESS);
+}
+
+int	ft_child(t_node *node, t_vec envv)
 {
 	if (node->infile == -1)
 		exit(EXIT_FAILURE);
@@ -26,8 +45,11 @@ void	ft_child(t_node *node, t_vec envv)
 			ft_pexit("ft_child: dup2");
 	if (node->outfile != 1)
 		close(node->outfile);
-	if (execve(node->full_cmd[0], node->full_cmd, ft_strenv(envv)) < 0)
+	if (is_builtin(node->full_cmd[0]) != 0)
+		builtin_commands(node->full_cmd);
+	else if (execve(node->full_cmd[0], node->full_cmd, ft_strenv(envv)) < 0)
 		ft_pexit(node->full_cmd[0]);
+	return (0);
 }
 
 int	ft_executor(t_node *node, t_vec envv)
@@ -47,6 +69,7 @@ int	ft_executor(t_node *node, t_vec envv)
 		{
 			printf("infile - %d\n", node->infile);
 			printf("outfile - %d\n", node->outfile);
+			printf("cmd - %s\n", node->full_cmd[0]);
 			node = node->next;
 		}
 	}
