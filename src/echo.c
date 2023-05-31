@@ -6,22 +6,21 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/05/26 13:48:48 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/31 07:49:44 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void echo(char **full_cmd)
+void	echo(char **full_cmd)
 {
-  int i;
+	int	i;
 
-  i = 1;
-  if (full_cmd[1])
-  while(full_cmd[i] != 0)
-  {
-    printf("%s", full_cmd[i]);
-	i++;
-  }
-  printf("\n");
+	i = 1;
+	while (full_cmd[i] != 0)
+	{
+		printf("%s", full_cmd[i]);
+		i++;
+	}
+	printf("\n");
 }

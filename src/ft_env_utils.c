@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 07:07:11 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 15:12:02 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/31 07:50:38 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
-
 
 char	*ft_getkey(char *str)
 {
@@ -39,7 +38,7 @@ int	ft_env_update(t_env *envs, t_env env, int len)
 		if (ft_strlen(envs[i].key) != env_key_len)
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		if (!ft_strncmp(envs[i].key, env.key, env_key_len))
 		{
@@ -51,6 +50,7 @@ int	ft_env_update(t_env *envs, t_env env, int len)
 	}
 	return (0);
 }
+
 char	*ft_env_to_str(t_env env)
 {
 	char	*env_str;
@@ -59,7 +59,7 @@ char	*ft_env_to_str(t_env env)
 
 	key_len = ft_strlen(env.key);
 	val_len = ft_strlen(env.value);
-	env_str = ft_calloc( key_len + val_len + 2, sizeof(char));
+	env_str = ft_calloc(key_len + val_len + 2, sizeof(char));
 	if (!env_str)
 		ft_pexit("ft_calloc: ");
 	ft_strlcpy(env_str, env.key, key_len + 1);

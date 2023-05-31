@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/31 07:28:22 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/31 07:47:18 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@ char	**get_node_cmd(char ***array, char ***temp)
 	return (answer);
 }
 
-t_node	*new_node(char ***array, t_vec env, int *error_here_docs, int node_counter)
+t_node	*new_node(char ***array, t_vec env, int *error_here_docs,
+		int node_counter)
 {
 	t_node	*node;
+
 	if (array == NULL)
 		return (NULL);
 	node = (t_node *)ft_calloc(1, sizeof(t_node));
@@ -95,20 +97,20 @@ t_node	*ft_parse_args(char *line, t_vec env)
 	t_node		*head;
 	char		**tokens;
 	char		**temp;
-	static int *error_here_docs;
+	static int	*error_here_docs;
 
 	error_here_docs = ft_calloc(num_of_pipes(line) + 1, sizeof(int));
 	if (!error_here_docs)
 		return (NULL);
 	tokens = ft_cmd_trim(line);
 	if (!tokens)
-		return(NULL);
+		return (NULL);
 	ft_expand(env, tokens);
 	tokens = ft_split_operators(tokens);
 	tokens = ft_str_trim(tokens);
 	temp = tokens;
 	head = new_node(&tokens, env, error_here_docs, 0);
 	free_2d(temp);
-	free (error_here_docs);
+	free(error_here_docs);
 	return (head);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/26 12:35:33 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/05/31 07:49:08 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_builtin(char *cmd)
 {
-	size_t		len;
+	size_t	len;
 
 	len = ft_strlen(cmd);
 	if (len != ft_strlen("echo") && ft_strncmp("echo", cmd, len) == 0)
@@ -34,10 +34,11 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-void free_nodes(t_node *node)
+void	free_nodes(t_node *node)
 {
-	t_node *temp;
-	while(node->next != NULL)
+	t_node	*temp;
+
+	while (node->next != NULL)
 	{
 		temp = node;
 		if (node->full_cmd)
@@ -66,5 +67,5 @@ void	ft_pexit(char *error_msg)
 int	ft_perror(char *error_msg)
 {
 	perror(error_msg);
-	return(EXIT_FAILURE);
+	return (EXIT_FAILURE);
 }

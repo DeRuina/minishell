@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/31 07:43:40 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/31 07:45:38 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 int	get_outfile_fd(char **array, char *outfile)
 {
-	int		fd;
-	int		i;
+	int	fd;
+	int	i;
 
 	i = 0;
 	fd = 1;
@@ -62,8 +62,8 @@ char	*find_last_infile(char **array)
 
 int	get_infile_fd(char **array, int error_here_doc, char *infile)
 {
-	int		fd;
-	int		i;
+	int	fd;
+	int	i;
 
 	i = 0;
 	fd = 0;
@@ -90,10 +90,11 @@ int	get_infile_fd(char **array, int error_here_doc, char *infile)
 
 // checks for invalid file before the infile, open here_docs if invalid
 
-int	check_for_invalid_file_before_infile(char **array, int **error_here_docs, int node_counter)
+int	check_for_invalid_file_before_infile(char **array, int **error_here_docs,
+		int node_counter)
 {
-	int		i;
-	int		access_check;
+	int	i;
+	int	access_check;
 
 	i = 0;
 	access_check = 0;
@@ -114,17 +115,20 @@ int	check_for_invalid_file_before_infile(char **array, int **error_here_docs, in
 
 // Returns the infile and outfile, creates any neccessary fds.
 
-t_node	*ft_fd_handler(char **array, t_node *node, int *error_here_docs, int node_counter)
+t_node	*ft_fd_handler(char **array, t_node *node, int *error_here_docs,
+		int node_counter)
 {
-	char *infile;
-	char *outfile;
+	char	*infile;
+	char	*outfile;
 
 	infile = find_last_infile(array);
 	outfile = find_last_outfile(array);
-	if (check_for_invalid_file_before_infile(array, &error_here_docs, node_counter) == -1)
+	if (check_for_invalid_file_before_infile(array, &error_here_docs,
+			node_counter) == -1)
 		node->infile = -1;
 	else
-		node->infile = get_infile_fd(array, error_here_docs[node_counter], infile);
+		node->infile = get_infile_fd(array, error_here_docs[node_counter],
+				infile);
 	node->outfile = get_outfile_fd(array, outfile);
 	find_and_open_fds(array);
 	return (node);

@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:21:48 by druina            #+#    #+#             */
-/*   Updated: 2023/05/31 07:19:44 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/31 07:46:02 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	reopen_file_and_check(char *name)
 {
-	int infile;
+	int	infile;
 
 	infile = open(name, O_RDWR);
 	if (infile == -1)
@@ -27,9 +27,10 @@ int	reopen_file_and_check(char *name)
 
 // creates and closes here_docs in case of invalid infile
 
-int	here_doc_invalid_infile(char **array, int i, int **error_here_docs, int node_counter)
+int	here_doc_invalid_infile(char **array, int i, int **error_here_docs,
+		int node_counter)
 {
-	int		fd;
+	int	fd;
 
 	fd = 0;
 	while (array[i] != '\0')
@@ -46,7 +47,7 @@ int	here_doc_invalid_infile(char **array, int i, int **error_here_docs, int node
 			node_counter++;
 		i++;
 	}
-	return(-1);
+	return (-1);
 }
 
 // reads from 0 and creates a here_doc
