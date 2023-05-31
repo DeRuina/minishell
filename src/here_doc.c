@@ -6,24 +6,11 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:21:48 by druina            #+#    #+#             */
-/*   Updated: 2023/05/30 15:09:36 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/31 07:19:44 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// error message in case of -1 fd and here_doc after
-
-void	error_fd(int fd, char *array, char *error)
-{
-	if (fd == -1)
-	{
-		write(2, array, ft_strlen(array));
-		write(2, ": ", 2);
-		write(2, error, ft_strlen(error));
-		write(2, "\n", 1);
-	}
-}
 
 int	reopen_file_and_check(char *name)
 {
@@ -40,32 +27,25 @@ int	reopen_file_and_check(char *name)
 
 // creates and closes here_docs in case of invalid infile
 
-int	here_doc_invalid_infile(char **array, int i, int bad_fd, int **error_here_docs)
+int	here_doc_invalid_infile(char **array, int i, int **error_here_docs, int node_counter)
 {
 	int		fd;
-	char	*error_var;
-	char	*error;
-	int		j;
 
-	error = strerror(errno);
-	error_var = array[i + 1];
 	fd = 0;
-	j = 0;
 	while (array[i] != '\0')
 	{
 		if (ft_strncmp(array[i], "<<", 2) == 0)
 		{
 			fd = here_doc(array[i + 1]);
 			if (array[i] == find_last_infile(&array[i]))
-				(*error_here_docs)[j] = fd;
+				(*error_here_docs)[node_counter] = fd;
 			else
 				close(fd);
 		}
 		if (ft_strncmp(array[i], "|", 1) == 0 && ft_strlen(array[i]) == 1)
-			j++;
+			node_counter++;
 		i++;
 	}
-	error_fd(bad_fd, error_var, error);
 	return(-1);
 }
 

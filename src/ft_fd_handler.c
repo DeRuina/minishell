@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/30 15:09:05 by druina           ###   ########.fr       */
+/*   Updated: 2023/05/31 07:43:40 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 // finds and return the outfile fd
 
-int	get_outfile_fd(char **array)
+int	get_outfile_fd(char **array, char *outfile)
 {
 	int		fd;
 	int		i;
-	char	*outfile;
 
 	i = 0;
 	fd = 1;
-	outfile = find_last_outfile(array);
 	while (array[i] != '\0' && *array[i] != '|')
 	{
 		if (outfile == array[i])
@@ -62,24 +60,20 @@ char	*find_last_infile(char **array)
 
 // finds and return the infile fd
 
-int	get_infile_fd(char **array, int *error_flag, int error_here_doc)
+int	get_infile_fd(char **array, int error_here_doc, char *infile)
 {
 	int		fd;
-	char	*infile;
 	int		i;
 
 	i = 0;
 	fd = 0;
-	infile = find_last_infile(array);
 	while (array[i] != '\0' && *array[i] != '|')
 	{
 		if (infile == array[i])
 		{
 			if (ft_strncmp(infile, "<", 1) == 0 && ft_strlen(infile) == 1)
 				fd = open(array[i + 1], O_RDWR);
-			if (fd == -1 && (*error_flag) == 0)
-				return ((*error_flag) = 1, -1);
-			if (ft_strncmp(infile, "<<", 2) == 0 && (*error_flag) == 0)
+			if (ft_strncmp(infile, "<<", 2) == 0)
 			{
 				if (error_here_doc != 0)
 					fd = error_here_doc;
@@ -87,7 +81,7 @@ int	get_infile_fd(char **array, int *error_flag, int error_here_doc)
 					fd = here_doc(array[i + 1]);
 			}
 			if (fd == -1)
-				perror(array[i + 1]);
+				return (perror(array[i + 1]), -1);
 		}
 		i++;
 	}
@@ -96,22 +90,21 @@ int	get_infile_fd(char **array, int *error_flag, int error_here_doc)
 
 // checks for invalid file before the infile, open here_docs if invalid
 
-int	check_for_invalid_file_before_infile(char **array, int **error_here_docs)
+int	check_for_invalid_file_before_infile(char **array, int **error_here_docs, int node_counter)
 {
 	int		i;
-	char	*infile;
 	int		access_check;
 
 	i = 0;
 	access_check = 0;
-	infile = find_last_infile(array);
 	while (array[i] != '\0' && *array[i] != '|')
 	{
 		if (ft_strncmp(array[i], "<", 1) == 0 && ft_strlen(array[i]) == 1)
 			access_check = access(array[i + 1], R_OK);
 		if (access_check == -1)
 		{
-			here_doc_invalid_infile(array, i, access_check, error_here_docs);
+			here_doc_invalid_infile(array, i, error_here_docs, node_counter);
+			perror(array[i + 1]);
 			return (-1);
 		}
 		i++;
@@ -121,13 +114,18 @@ int	check_for_invalid_file_before_infile(char **array, int **error_here_docs)
 
 // Returns the infile and outfile, creates any neccessary fds.
 
-t_node	*ft_fd_handler(char **array, int *error_flag, t_node *node, int *error_here_docs, int i)
+t_node	*ft_fd_handler(char **array, t_node *node, int *error_here_docs, int node_counter)
 {
-	if (check_for_invalid_file_before_infile(array, &error_here_docs) == -1)
+	char *infile;
+	char *outfile;
+
+	infile = find_last_infile(array);
+	outfile = find_last_outfile(array);
+	if (check_for_invalid_file_before_infile(array, &error_here_docs, node_counter) == -1)
 		node->infile = -1;
 	else
-		node->infile = get_infile_fd(array, error_flag, error_here_docs[i]);
-	node->outfile = get_outfile_fd(array);
+		node->infile = get_infile_fd(array, error_here_docs[node_counter], infile);
+	node->outfile = get_outfile_fd(array, outfile);
 	find_and_open_fds(array);
 	return (node);
 }
