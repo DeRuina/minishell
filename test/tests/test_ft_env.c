@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:45 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/26 09:43:20 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/01 13:50:57 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,23 @@ void test_ft_putenv_2(void)
 	TEST_ASSERT_EQUAL_STRING("/Users/tspoof/src", ((t_env *)envs.memory)[0].value);
 }
 
+// int	ft_putenv_key(t_vec *envs_vec, char *key, char *str)
+void test_ft_putenv_key_0(void)
+{
+	t_vec	envs;
+
+	if (vec_new(&envs, 10, sizeof(t_env)) < 0)
+		exit (1);
+	if (ft_putenv_key(&envs, "HOME", ft_strdup("/Users/tspoof")) < 0)
+		exit (1);
+	TEST_ASSERT_EQUAL_STRING("HOME", ((t_env *)envs.memory)[0].key);
+	TEST_ASSERT_EQUAL_STRING("/Users/tspoof", ((t_env *)envs.memory)[0].value);
+	if (ft_putenv_key(&envs, "HOME", ft_strdup("/Users/tspoof/src")) < 0)
+		exit (1);
+	TEST_ASSERT_EQUAL_STRING("HOME", ((t_env *)envs.memory)[0].key);
+	TEST_ASSERT_EQUAL_STRING("/Users/tspoof/src", ((t_env *)envs.memory)[0].value);
+}
+
 void test_ft_getenv_0(void)
 {
 	t_vec	envs;
@@ -140,6 +157,7 @@ int test_ft_env(char **envp)
 	RUN_TEST(test_ft_putenv_0);
 	RUN_TEST(test_ft_putenv_1);
 	RUN_TEST(test_ft_putenv_2);
+	RUN_TEST(test_ft_putenv_key_0);
 	RUN_TEST(test_ft_getenv_0);
 	// RUN_TEST(test_ft_copyenv_0);
 	RUN_TEST(test_ft_strenv_0);

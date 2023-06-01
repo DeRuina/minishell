@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/01 12:54:38 by druina           ###   ########.fr       */
+=======
+/*   Updated: 2023/06/01 13:46:15 by tspoof           ###   ########.fr       */
+>>>>>>> af4144400f57f29ad42b37b04a91ce0560324afd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +52,7 @@ int					builtin_commands(char **cmd, t_vec envv);
 
 // Env
 int					ft_putenv(t_vec *envs_vec, char *str);
+int					ft_putenv_key(t_vec *envs_vec, char *key, char *str);
 char				*ft_getenv(t_vec envs_vec, char *key);
 t_vec				ft_copyenv(char *env[]);
 char				**ft_strenv(t_vec envs_vec);
