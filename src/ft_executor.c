@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 12:35:28 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/01 14:35:19 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 
 int	g_exit_status = 0;
 
-int builtin_commands(char **cmd)
+int builtin_commands(char **cmd, t_vec envv)
 {
+
 	if (is_builtin(cmd[0]) == 1)
 		ft_echo(cmd);
-	// if (is_builtin(cmd[0]) == 2)
-	// 	ft_cd(cmd);
-	// if (is_builtin(cmd[0]) == 3)
-	// 	ft_pwd(cmd);
+	if (is_builtin(cmd[0]) == 2)
+		ft_cd(cmd, &envv);
+	if (is_builtin(cmd[0]) == 3)
+		ft_pwd();
 	// if (is_builtin(cmd[0]) == 4)
 	// 	ft_export(cmd);
 	// if (is_builtin(cmd[0]) == 5)
 	// 	ft_unset(cmd);
-	// if (is_builtin(cmd[0]) == 6)
-	// 	ft_env(cmd);
+	if (is_builtin(cmd[0]) == 6)
+		ft_env(envv);
 	if (is_builtin(cmd[0]) == 7)
 		ft_exit();
 	exit(EXIT_SUCCESS);
@@ -48,7 +49,7 @@ int	ft_child(t_node *node, t_vec envv)
 	if (node->outfile != 1)
 		close(node->outfile);
 	if (is_builtin(node->full_cmd[0]) != 0)
-		builtin_commands(node->full_cmd);
+		builtin_commands(node->full_cmd, envv);
 	else if (execve(node->full_cmd[0], node->full_cmd, ft_strenv(envv)) < 0)
 		ft_pexit(node->full_cmd[0]);
 	return (0);

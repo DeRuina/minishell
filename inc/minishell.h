@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 13:46:15 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/01 14:53:50 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <stdlib.h> // getenv
 # include <string.h>
+# include <sys/syslimits.h>
 
 # define IN 0
 # define OUT 1
@@ -43,7 +44,7 @@ typedef struct s_env
 t_node				*ft_parse_args(char *line, t_vec env);
 int					ft_child(t_node *node, t_vec envv);
 int					ft_executor(t_node *node, t_vec envv);
-int					builtin_commands(char **cmd);
+int					builtin_commands(char **cmd, t_vec envv);
 
 // Env
 int					ft_putenv(t_vec *envs_vec, char *str);
@@ -140,5 +141,8 @@ void	change_infile_outfile_to_pipes(t_node *node,
 
 void				ft_echo(char **full_cmd);
 void				ft_exit(void);
+void				ft_pwd(void);
+void				ft_cd(char **full_cmd, t_vec *envs);
+void				ft_env(t_vec envs);
 
 #endif
