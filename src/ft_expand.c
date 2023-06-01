@@ -6,12 +6,14 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/17 19:36:33 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/01 11:30:17 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
+
+extern int	g_exit_status;
 
 char	*ft_handle_dollar(t_vec env_vars, char *line, char *token)
 {
@@ -64,7 +66,7 @@ char	*ft_handle_expand(t_vec env_vars, char **result, char *token,
 		ft_tmp_to_result(result, &tmp);
 		token++;
 	}
-	if ((*token == '$' && !ft_isalnum(*(token + 1))) || *token == '~')
+	if ((*token == '$' && !ft_isalnum(*(token + 1))) || *token == '~') // not expanded
 	{
 		sub_str = ft_substr(token, 0, 1);
 		tmp = ft_strjoin(*result, sub_str);

@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 12:42:13 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/01 12:47:49 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,32 @@ int	ft_child(t_node *node, t_vec envv)
 	return (0);
 }
 
+static void	ft_close(t_node *node)
+{
+	if (node->infile != 0)
+		close(node->infile);
+	if (node->outfile != 1)
+		close(node->outfile);
+}
+
+static void	ft_wait(t_node *head)
+{
+	int	stat_loc;
+
+	while (head)
+	{
+		wait(&stat_loc);
+		if (WIFEXITED(stat_loc))
+			g_exit_status = WEXITSTATUS(stat_loc);
+		head = head->next;
+	}
+}
+
 int	ft_executor(t_node *node, t_vec envv)
 {
+	t_node	*head;
+
+	head = node;
 	while (node)
 	{
 		node->pid = fork();
@@ -62,10 +86,7 @@ int	ft_executor(t_node *node, t_vec envv)
 			perror("ft_executor: fork");
 		if (node->pid == 0)
 			ft_child(node, envv);
-		if (node->infile != 0)
-			close(node->infile);
-		if (node->outfile != 1)
-			close(node->outfile);
+		ft_close(node);
 		if (node->pid > 0)
 		{
 			printf("infile - %d\n", node->infile);
@@ -74,5 +95,6 @@ int	ft_executor(t_node *node, t_vec envv)
 			node = node->next;
 		}
 	}
+	ft_wait(head);
 	return (0);
 }
