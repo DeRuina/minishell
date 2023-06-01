@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/06/01 12:54:38 by druina           ###   ########.fr       */
-=======
-/*   Updated: 2023/06/01 13:46:15 by tspoof           ###   ########.fr       */
->>>>>>> af4144400f57f29ad42b37b04a91ce0560324afd
+/*   Updated: 2023/06/01 14:53:50 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +142,7 @@ void	change_infile_outfile_to_pipes(t_node *node,
 void				ft_echo(char **full_cmd);
 void				ft_exit(void);
 void				ft_pwd(void);
-void				ft_cd(char **full_cmd, char **env);
+void				ft_cd(char **full_cmd, t_vec *envs);
+void				ft_env(t_vec envs);
 
 #endif

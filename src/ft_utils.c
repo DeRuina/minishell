@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 11:58:19 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/01 13:10:49 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	is_builtin(char *cmd)
 	len = ft_strlen(cmd);
 	if (len == ft_strlen("echo") && ft_strncmp("echo", cmd, len) == 0)
 		return (1);
-	// else if (len == ft_strlen("cd") && ft_strncmp("cd", cmd, len) == 0)
-	// 	return (2);
+	else if (len == ft_strlen("cd") && ft_strncmp("cd", cmd, len) == 0)
+		return (2);
 	else if (len == ft_strlen("pwd") && ft_strncmp("pwd", cmd, len) == 0)
 		return (3);
 	else if (len == ft_strlen("export") && ft_strncmp("export", cmd, len) == 0)
