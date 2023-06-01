@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/31 11:15:34 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/01 09:24:37 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	main(int argc, char *argv[], char *env[])
 	{
 		printf("TERMINAL:");
 		line = readline(NULL);
-		add_history(line);
+		if (strlen(line) > 0)
+				add_history(line);
 		minishell(line, env);
 		wait_times = num_of_pipes(line);
 		free(line);
