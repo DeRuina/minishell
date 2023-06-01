@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/17 19:38:55 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/01 17:26:18 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void test_ft_expand_token_2(void)
 	char *expected = "";
 	char *actual = ft_expand_token(vars, "$SOMETHING");
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
-	free(actual);
+	// free(actual);
 }
 
 void test_ft_expand_token_3(void)
@@ -189,7 +189,7 @@ void test_ft_expand_$2(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
-	free(line[0]);
+	// free(line[0]);
 	free(line);
 }
 
