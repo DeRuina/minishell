@@ -6,13 +6,13 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/01 11:57:50 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/01 13:00:33 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_cd(char **full_cmd, t_vec envv)
+void ft_cd(char **full_cmd, char **env)
 {
 
 }
