@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:26:23 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/18 12:23:20 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/01 15:34:47 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_var_end(char *str)
 		str++;
 	while (*str)
 	{
-		if (!ft_isalnum(*str))
+		if (!ft_isalnum(*str) && *str != '?')
 			break ;
 		str++;
 	}

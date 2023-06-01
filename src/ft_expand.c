@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 11:30:17 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/01 15:31:41 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ char	*ft_handle_dollar(t_vec env_vars, char *line, char *token)
 	char	*result;
 
 	result = line;
-	expanded_var = ft_var_expand(env_vars, token);
+	if (*(token + 1) == '?')
+		expanded_var = ft_itoa(g_exit_status);
+	else
+		expanded_var = ft_var_expand(env_vars, token);
 	if (!expanded_var)
 		return (NULL);
 	return (ft_strjoin(line, expanded_var));
@@ -54,7 +57,7 @@ char	*ft_handle_expand(t_vec env_vars, char **result, char *token,
 	char	*tmp;
 	char	*sub_str;
 
-	if (*token == '$' && ft_isalnum(*(token + 1)))
+	if (*token == '$' && (ft_isalnum(*(token + 1)) || *(token + 1) == '?'))
 	{
 		tmp = ft_handle_dollar(env_vars, *result, token);
 		ft_tmp_to_result(result, &tmp);
