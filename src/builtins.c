@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/02 15:08:02 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/02 22:55:43 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void ft_cd(char **full_cmd, t_vec *envs)
 {
 	char *pwd;
+	char *old_pwd;
 
-	pwd = get_path();
+	old_pwd = get_path();
+	ft_putenv_key(envs, "OLDPWD", old_pwd); // Updates old pwd
 	if (!full_cmd[1])
 	{
 		if (chdir(ft_expand_token(*envs, "~")) == -1)
@@ -24,12 +26,13 @@ void ft_cd(char **full_cmd, t_vec *envs)
 	}
 	else if (chdir(full_cmd[1]) == -1)
 		perror(full_cmd[1]);
-	ft_putenv_key(envs, "OLDPWD", ft_getenv(*envs, "PWD")); // Updates old pwd
+	pwd = get_path();
 	ft_putenv_key(envs, "PWD",pwd);
 	// printf("PWD=%s\n", ft_getenv(*envs, "PWD"));
 	// printf("OLDPWD=%s\n", ft_getenv(*envs, "OLDPWD"));
-	// ft_env(*envs);
+	// ft_env((*envs));
 	free(pwd);
+	free(old_pwd);
 }
 char	*get_path(void)
 {
@@ -55,7 +58,8 @@ void ft_env(t_vec envs)
 	env = ft_strenv(envs);
 	temp = env;
 	while (*env++)
-		printf("%s\n", *env);
+		if (*env)
+			printf("%s\n", *env);
 	free_2d(temp);
 }
 
