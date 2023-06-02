@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 07:07:11 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 14:51:01 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/02 09:29:59 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	ft_env_update(t_env *envs, t_env env, int len)
 		}
 		if (!ft_strncmp(envs[i].key, env.key, env_key_len))
 		{
-			free(envs[i].value);
+			// if (envs[i].value)
+			// 	free(envs[i].value);
 			envs[i].value = env.value;
 			return (1);
 		}

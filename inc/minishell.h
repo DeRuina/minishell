@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 14:53:50 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/02 11:07:40 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h> // getenv
 # include <string.h>
 # include <sys/syslimits.h>
+# include <unistd.h>
 
 # define IN 0
 # define OUT 1
@@ -142,6 +143,7 @@ void	change_infile_outfile_to_pipes(t_node *node,
 void				ft_echo(char **full_cmd);
 void				ft_exit(void);
 void				ft_pwd(void);
+char				*get_path(void);
 void				ft_cd(char **full_cmd, t_vec *envs);
 void				ft_env(t_vec envs);
 

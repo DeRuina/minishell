@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 14:54:20 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/02 13:35:05 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	minishell(char *line, char *env[])
 	if (is_builtin(head->full_cmd[0]) == 7 && head->next == NULL)
 		exit(EXIT_SUCCESS);
 	if (is_builtin(head->full_cmd[0]) == 2 && head->next == NULL)
-		ft_cd(head->full_cmd, &envs);
+		return (ft_cd(head->full_cmd, &envs));
 	pipe_nbr = piper(line, head);
 	ft_executor(head, envs);
 	free_nodes(head);
