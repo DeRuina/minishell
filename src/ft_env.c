@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 11:45:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 16:02:48 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/02 19:57:19 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,21 @@ char	*ft_getenv(t_vec envs_vec, char *key)
 {
 	size_t	i;
 	t_env	*envs;
+	int		key_len;
 
 	if (!envs_vec.memory || *key == '\0')
 		return (NULL);
 	envs = (t_env *)envs_vec.memory;
 	i = 0;
+	key_len = ft_strlen(key);
 	while (i < envs_vec.len)
 	{
-		if (!ft_strncmp(envs[i].key, key, ft_strlen(key)))
+		if (ft_strlen(envs[i].key) != key_len)
+		{
+			i++;
+			continue ;
+		}
+		if (!ft_strncmp(envs[i].key, key, key_len))
 			return (envs[i].value);
 		i++;
 	}
