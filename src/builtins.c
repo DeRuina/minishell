@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/02 15:08:02 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/02 22:04:28 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ void ft_env(t_vec envs)
 	char **temp;
 	env = ft_strenv(envs);
 	temp = env;
-	while (*env++)
+	while (*env)
+	{
 		printf("%s\n", *env);
+		env++;
+	}
 	free_2d(temp);
 }
 
