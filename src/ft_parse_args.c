@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/31 09:03:00 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/02 19:10:33 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ char	**get_node_cmd(char ***array, char ***temp)
 	int		i;
 
 	i = 0;
-	temp = array;
+	temp = array; // ?
+	(void)temp;
 	if (cmd_len(*array) == 0)
 		return (case_only_redirections(array), NULL);
 	answer = (char **)malloc(sizeof(char *) * (cmd_len(*array) + 1));

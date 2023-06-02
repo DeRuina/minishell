@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/02 13:35:05 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/02 19:14:20 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	minishell(char *line, char *env[])
 	if (is_builtin(head->full_cmd[0]) == 2 && head->next == NULL)
 		return (ft_cd(head->full_cmd, &envs));
 	pipe_nbr = piper(line, head);
+	(void)pipe_nbr; // yeah
 	ft_executor(head, envs);
 	free_nodes(head);
 }
