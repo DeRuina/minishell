@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/02 23:48:19 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/03 00:03:06 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <stdlib.h> // getenv
 # include <string.h>
 /* #include <sys/syslimits.h>*/
-// # include <linux/limits.h>
+# include <linux/limits.h> // need it for PATH_MAX in linux
 # include <limits.h> // this should work in linux
 # include <sys/wait.h> // for linux
 # include <unistd.h>
