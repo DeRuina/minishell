@@ -43,7 +43,7 @@ $(OBJ): $O%.o: $S%
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(OBJ) $(LIBRARIES) -o $(NAME) -lreadline -fsanitize=address
+	$(CC) $(OBJ) $(LIBRARIES) -o $(NAME) -lreadline 
 
 $(LIBFT):
 	make FLAGS=$(LIBFT_FLAGS) -C $(LIBFT_DIR)

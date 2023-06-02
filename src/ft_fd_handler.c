@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/05/31 07:45:38 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/02 21:27:06 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	get_outfile_fd(char **array, char *outfile)
 
 	i = 0;
 	fd = 1;
-	while (array[i] != '\0' && *array[i] != '|')
+	while (array[i] != 0 && *array[i] != '|')
 	{
 		if (outfile == array[i])
 		{
@@ -47,7 +47,7 @@ char	*find_last_infile(char **array)
 
 	last = NULL;
 	i = 0;
-	while (array[i] != '\0' && *array[i] != '|')
+	while (array[i] != 0 && *array[i] != '|')
 	{
 		if (ft_strncmp(array[i], "<<", 2) == 0)
 			last = array[i];
@@ -67,7 +67,7 @@ int	get_infile_fd(char **array, int error_here_doc, char *infile)
 
 	i = 0;
 	fd = 0;
-	while (array[i] != '\0' && *array[i] != '|')
+	while (array[i] != 0 && *array[i] != '|')
 	{
 		if (infile == array[i])
 		{
@@ -98,7 +98,7 @@ int	check_for_invalid_file_before_infile(char **array, int **error_here_docs,
 
 	i = 0;
 	access_check = 0;
-	while (array[i] != '\0' && *array[i] != '|')
+	while (array[i] != 0 && *array[i] != '|')
 	{
 		if (ft_strncmp(array[i], "<", 1) == 0 && ft_strlen(array[i]) == 1)
 			access_check = access(array[i + 1], R_OK);
