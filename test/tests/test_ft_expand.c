@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 17:26:18 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/02 13:23:44 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void test_ft_var_end_0(void)
 {
 	char *str = "$PWD";
 
-	TEST_ASSERT_EQUAL_HEX32(&(str[4]), ft_var_end(str));
+	TEST_ASSERT_EQUAL_STRING(&(str[4]), ft_var_end(str));
 }
 
 void test_ft_var_end_1(void)
