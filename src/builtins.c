@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/02 22:04:28 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/02 22:41:21 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void ft_cd(char **full_cmd, t_vec *envs)
 {
-	char *pwd;
-
-	pwd = get_path();
 	if (!full_cmd[1])
 	{
 		if (chdir(ft_expand_token(*envs, "~")) == -1)
@@ -25,11 +22,7 @@ void ft_cd(char **full_cmd, t_vec *envs)
 	else if (chdir(full_cmd[1]) == -1)
 		perror(full_cmd[1]);
 	ft_putenv_key(envs, "OLDPWD", ft_getenv(*envs, "PWD")); // Updates old pwd
-	ft_putenv_key(envs, "PWD",pwd);
-	// printf("PWD=%s\n", ft_getenv(*envs, "PWD"));
-	// printf("OLDPWD=%s\n", ft_getenv(*envs, "OLDPWD"));
-	// ft_env(*envs);
-	free(pwd);
+	ft_putenv_key(envs, "PWD", get_path());
 }
 char	*get_path(void)
 {
