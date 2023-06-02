@@ -5,12 +5,13 @@
 
 ```mermaid
 flowchart TD
-    A --- B[ft_env]
-    A[Main] --- C[minishell]
-    C --- D[parse_args]
+    A --- |Copies the env| B[ft_copyenv]
+    A[Main] --- |Passes the env to minishell| C[minishell]
+    C --- |parse_args returns nodes| D[parse_args]
     D --- E[ft_cmd_trim]
     D --- F[ft_expand]
     D --- G[ft_split_operators]
     D --- H[ft_str_trim]
-    C --- I[ft_executor]
+    D --- I[new_node]
+    C --- |Nodes are passed to ft_executor| J[ft_executor]
 ```

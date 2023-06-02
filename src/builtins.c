@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/02 22:55:43 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/02 23:56:34 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,11 @@ void ft_env(t_vec envs)
 	char **temp;
 	env = ft_strenv(envs);
 	temp = env;
-	while (*env++)
-		if (*env)
-			printf("%s\n", *env);
+	while (*env)
+	{
+		printf("%s\n", *env);
+		env++;
+	}
 	free_2d(temp);
 }
 

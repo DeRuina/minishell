@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 13:10:49 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/02 23:47:32 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,24 @@ int	is_builtin(char *cmd)
 {
 	size_t	len;
 
+	if (!cmd)
+		return (-1);
 	len = ft_strlen(cmd);
 	if (len == ft_strlen("echo") && ft_strncmp("echo", cmd, len) == 0)
-		return (1);
+		return (ECHO);
 	else if (len == ft_strlen("cd") && ft_strncmp("cd", cmd, len) == 0)
-		return (2);
+		return (CD);
 	else if (len == ft_strlen("pwd") && ft_strncmp("pwd", cmd, len) == 0)
-		return (3);
+		return (PWD);
 	else if (len == ft_strlen("export") && ft_strncmp("export", cmd, len) == 0)
-		return (4);
+		return (EXPORT);
 	else if (len == ft_strlen("unset") && ft_strncmp("unset", cmd, len) == 0)
-		return (5);
+		return (UNSET);
 	else if (len == ft_strlen("env") && ft_strncmp("env", cmd, len) == 0)
-		return (6);
+		return (ENV);
 	else if (len == ft_strlen("exit") && ft_strncmp("exit", cmd, len) == 0)
-		return (7);
-	return (0);
+		return (EXIT);
+	return (NONE);
 }
 
 void	free_nodes(t_node *node)
