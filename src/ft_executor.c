@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/02 10:15:59 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/02 23:46:03 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ int	g_exit_status = 0;
 int builtin_commands(char **cmd, t_vec envv)
 {
 
-	if (is_builtin(cmd[0]) == 1)
+	if (is_builtin(cmd[0]) == ECHO)
 		ft_echo(cmd);
-	if (is_builtin(cmd[0]) == 2)
+	if (is_builtin(cmd[0]) == CD)
 		ft_cd(cmd, &envv);
-	if (is_builtin(cmd[0]) == 3)
+	if (is_builtin(cmd[0]) == PWD)
 		ft_pwd();
-	// if (is_builtin(cmd[0]) == 4)
+	// if (is_builtin(cmd[0]) == EXPORT)
 	// 	ft_export(cmd);
-	// if (is_builtin(cmd[0]) == 5)
+	// if (is_builtin(cmd[0]) == UNSET)
 	// 	ft_unset(cmd);
-	if (is_builtin(cmd[0]) == 6)
+	if (is_builtin(cmd[0]) == ENV)
 		ft_env(envv);
-	if (is_builtin(cmd[0]) == 7)
+	if (is_builtin(cmd[0]) == EXIT)
 		ft_exit();
 	exit(EXIT_SUCCESS);
 }

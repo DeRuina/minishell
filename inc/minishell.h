@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/02 22:10:52 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/02 23:48:19 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,18 @@ typedef struct s_env
 	char			*key;
 	char			*value;
 }					t_env;
+
+enum e_builtins
+{
+	NONE,
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT
+};
 
 // exec
 t_node				*ft_parse_args(char *line, t_vec env);
