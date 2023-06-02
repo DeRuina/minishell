@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/02 19:13:55 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/02 21:02:48 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 # include "libft.h"
 # include <errno.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <stdio.h>
 # include <stdlib.h> // getenv
 # include <string.h>
-// # include <sys/syslimits.h>
+/* #include <sys/syslimits.h>*/
+# include <linux/limits.h> // for linux
 # include <limits.h>
-#include <sys/wait.h> // for linux
+# include <sys/wait.h> // for linux
 # include <unistd.h>
 
 # define IN 0

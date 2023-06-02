@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:31:40 by druina            #+#    #+#             */
-/*   Updated: 2023/05/30 10:54:12 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/02 21:28:35 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	find_and_open_fds(char **array)
 
 	fd = 0;
 	i = 0;
-	while (array[i] != '\0' && *array[i] != '|')
+	while (array[i] != 0 && *array[i] != '|')
 	{
 		if (ft_strncmp(array[i], "<<", 2) == 0
 			&& array[i] != find_last_infile(array))
@@ -48,7 +48,7 @@ char	*find_last_outfile(char **array)
 
 	i = 0;
 	last = NULL;
-	while (array[i] != '\0' && *array[i] != '|')
+	while (array[i] != 0 && *array[i] != '|')
 	{
 		if (ft_strncmp(array[i], ">>", 2) == 0)
 			last = array[i];
