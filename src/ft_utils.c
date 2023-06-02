@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 13:10:49 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/02 23:06:31 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	is_builtin(char *cmd)
 {
 	size_t	len;
 
+	if (!cmd)
+		return (-1);
 	len = ft_strlen(cmd);
 	if (len == ft_strlen("echo") && ft_strncmp("echo", cmd, len) == 0)
 		return (1);
