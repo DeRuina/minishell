@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/03 13:59:01 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/03 15:19:57 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,5 +162,7 @@ void				ft_pwd(void);
 char				*get_path(void);
 void				ft_cd(char **full_cmd, t_vec *envs);
 void				ft_env(t_vec envs);
+void				ft_export(char **full_cmd, t_vec *envs);
+void				export_no_arg(t_vec *envs);
 
 #endif

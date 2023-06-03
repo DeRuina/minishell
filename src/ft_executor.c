@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/03 12:59:43 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/03 15:00:58 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	builtin_commands(char **cmd, t_vec envv)
 		ft_cd(cmd, &envv);
 	if (is_builtin(cmd[0]) == PWD)
 		ft_pwd();
-	// if (is_builtin(cmd[0]) == EXPORT)
-	// 	ft_export(cmd);
+	if (is_builtin(cmd[0]) == EXPORT)
+		ft_export(cmd, &envv);
 	// if (is_builtin(cmd[0]) == UNSET)
 	// 	ft_unset(cmd);
 	if (is_builtin(cmd[0]) == ENV)
