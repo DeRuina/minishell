@@ -6,19 +6,19 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/03 15:43:46 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/03 15:46:08 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void export_no_arg(t_vec *envs)
+void	export_no_arg(t_vec *envs)
 {
 	char	**env;
 	char	**temp;
 
 	env = ft_strenv((*envs));
-	temp = env;	
+	temp = env;
 	while (*env)
 	{
 		printf("declare -x %s\n", *env);
@@ -27,11 +27,10 @@ void export_no_arg(t_vec *envs)
 	free_2d(temp);
 }
 
-
-void ft_export(char **full_cmd, t_vec *envs)
+void	ft_export(char **full_cmd, t_vec *envs)
 {
 	if (!full_cmd[1])
-		return(export_no_arg(envs));
+		return (export_no_arg(envs));
 	ft_putenv(envs, full_cmd[1]);
 }
 
