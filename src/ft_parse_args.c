@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/02 19:10:33 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/03 13:08:13 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,12 @@ int	cmd_len(char **array)
 	return (len);
 }
 
-char	**get_node_cmd(char ***array, char ***temp)
+char	**get_node_cmd(char ***array)
 {
 	char	**answer;
 	int		i;
 
 	i = 0;
-	temp = array; // ?
-	(void)temp;
 	if (cmd_len(*array) == 0)
 		return (case_only_redirections(array), NULL);
 	answer = (char **)malloc(sizeof(char *) * (cmd_len(*array) + 1));
@@ -83,7 +81,7 @@ t_node	*new_node(char ***array, t_vec env, int *error_here_docs,
 	if (!node)
 		return (NULL);
 	node = ft_fd_handler((*array), node, error_here_docs, node_counter);
-	node->full_cmd = get_node_cmd(array, array);
+	node->full_cmd = get_node_cmd(array);
 	if (node->full_cmd != NULL && is_builtin(node->full_cmd[0]) == 0)
 		node->full_cmd[0] = ft_get_exec_path(env, node->full_cmd[0]);
 	if (!**array)

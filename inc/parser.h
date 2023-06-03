@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:32:22 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/26 12:14:08 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/03 12:26:07 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSER_H
 
 #include "libft.h"
+#include "minishell.h"
 
 // Expand utils
 void	ft_tmp_to_result(char **result, char **tmp);

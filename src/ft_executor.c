@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/02 23:46:03 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/03 12:59:43 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_exit_status = 0;
+int			g_exit_status = 0;
 
-int builtin_commands(char **cmd, t_vec envv)
+int	builtin_commands(char **cmd, t_vec envv)
 {
-
 	if (is_builtin(cmd[0]) == ECHO)
 		ft_echo(cmd);
 	if (is_builtin(cmd[0]) == CD)
@@ -90,12 +89,7 @@ int	ft_executor(t_node *node, t_vec envv)
 			ft_child(node, envv);
 		ft_close(node);
 		if (node->pid > 0)
-		{
-			printf("infile - %d\n", node->infile);
-			printf("outfile - %d\n", node->outfile);
-			printf("cmd - %s\n", node->full_cmd[0]);
 			node = node->next;
-		}
 	}
 	ft_wait(head);
 	return (0);

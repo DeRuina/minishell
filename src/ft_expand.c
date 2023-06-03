@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 17:55:15 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/03 13:00:16 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*ft_handle_nonexpand(char **result, char *token)
 }
 
 char	*ft_handle_expand(t_vec env_vars, char **result, char *token,
-			char *token_init)
+		char *token_init)
 {
 	char	*tmp;
 	char	*sub_str;
@@ -67,7 +67,7 @@ char	*ft_handle_expand(t_vec env_vars, char **result, char *token,
 		ft_tmp_to_result(result, &tmp);
 		token++;
 	}
-	if ((*token == '$' && !ft_isalnum(*(token + 1))) || *token == '~') // not expanded
+	if ((*token == '$' && !ft_isalnum(*(token + 1))) || *token == '~')
 	{
 		sub_str = ft_substr(token, 0, 1);
 		tmp = ft_strjoin(*result, sub_str);

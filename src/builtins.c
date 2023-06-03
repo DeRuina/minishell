@@ -6,55 +6,53 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/02 23:56:34 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/03 13:00:39 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_cd(char **full_cmd, t_vec *envs)
+void	ft_cd(char **full_cmd, t_vec *envs)
 {
-	char *pwd;
-	char *old_pwd;
+	char	*pwd;
+	char	*old_pwd;
 
 	old_pwd = get_path();
-	ft_putenv_key(envs, "OLDPWD", old_pwd); // Updates old pwd
+	ft_putenv_key(envs, "OLDPWD", old_pwd);
 	if (!full_cmd[1])
 	{
 		if (chdir(ft_expand_token(*envs, "~")) == -1)
-			 perror(full_cmd[1]);
+			perror(full_cmd[1]);
 	}
 	else if (chdir(full_cmd[1]) == -1)
 		perror(full_cmd[1]);
 	pwd = get_path();
-	ft_putenv_key(envs, "PWD",pwd);
-	// printf("PWD=%s\n", ft_getenv(*envs, "PWD"));
-	// printf("OLDPWD=%s\n", ft_getenv(*envs, "OLDPWD"));
-	// ft_env((*envs));
-	free(pwd);
-	free(old_pwd);
+	ft_putenv_key(envs, "PWD", pwd);
 }
+
 char	*get_path(void)
 {
-	char path[PATH_MAX];
+	char	path[PATH_MAX];
 
 	if (getcwd(path, sizeof(path)) == NULL)
 		perror("PWD :");
-	return(ft_strdup(path));
+	return (ft_strdup(path));
 }
 
 void	ft_pwd(void)
 {
-	char *pwd;
+	char	*pwd;
 
 	pwd = get_path();
 	printf("%s\n", pwd);
 	free(pwd);
 }
-void ft_env(t_vec envs)
+
+void	ft_env(t_vec envs)
 {
-	char **env;
-	char **temp;
+	char	**env;
+	char	**temp;
+
 	env = ft_strenv(envs);
 	temp = env;
 	while (*env)
@@ -65,7 +63,7 @@ void ft_env(t_vec envs)
 	free_2d(temp);
 }
 
-void ft_exit(void)
+void	ft_exit(void)
 {
 	exit(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/03 00:03:06 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/03 13:07:32 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 # include "libft.h"
 # include <errno.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <stdio.h>
 # include <stdlib.h> // getenv
 # include <string.h>
 /* #include <sys/syslimits.h>*/
+# include <limits.h>       // this should work in linux
 # include <linux/limits.h> // need it for PATH_MAX in linux
-# include <limits.h> // this should work in linux
-# include <sys/wait.h> // for linux
+# include <sys/wait.h>     // for linux
 # include <unistd.h>
 
 # define IN 0
@@ -44,7 +44,7 @@ typedef struct s_env
 	char			*value;
 }					t_env;
 
-enum e_builtins
+enum				e_builtins
 {
 	NONE,
 	ECHO,
@@ -141,7 +141,7 @@ int					is_builtin(char *cmd);
 // node funtions
 t_node				*new_node(char ***array, t_vec env, int *error_here_docs,
 						int node_counter);
-char				**get_node_cmd(char ***array, char ***temp);
+char				**get_node_cmd(char ***array);
 int					cmd_len(char **array);
 void				case_only_redirections(char ***array);
 void				free_nodes(t_node *node);
