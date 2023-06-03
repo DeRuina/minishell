@@ -6,11 +6,28 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 10:06:54 by druina            #+#    #+#             */
-/*   Updated: 2023/05/31 07:49:17 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/03 13:58:31 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void free_pipes(int **pipe_nbr ,char *array)
+{
+	int len;
+	int i;
+
+	i = 0;
+	len = num_of_pipes(array);
+	if (len == 0)
+		return ;
+	while (i < len)
+	{
+		free(pipe_nbr[i]);
+		i++;
+	}
+	free(pipe_nbr);
+}
 
 void	change_infile_outfile_to_pipes(t_node *node, int **pipe_nbr)
 {

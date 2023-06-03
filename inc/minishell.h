@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/03 13:07:32 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/03 13:59:01 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ int					**allocate_pipes(char *array);
 int					num_of_pipes(char *array);
 void	change_infile_outfile_to_pipes(t_node *node,
 									int **pipe_nbr);
+void				free_pipes(int **pipe_nbr, char *array);
 
 // Builtinså
 

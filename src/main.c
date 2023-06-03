@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/03 13:00:56 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/03 13:59:53 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	minishell(char *line, t_vec *envs)
 	if (is_builtin(head->full_cmd[0]) == 2 && head->next == NULL)
 		return (ft_cd(head->full_cmd, envs));
 	pipe_nbr = piper(line, head);
-	// gotta create a function free_piper
-	(void)pipe_nbr;
+	free_pipes(pipe_nbr, line);
 	ft_executor(head, *envs);
 	free_nodes(head);
 }
