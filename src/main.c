@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 11:17:09 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/05 18:46:30 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	minishell(char *line, t_vec *envs)
 			return (ft_cd(head->full_cmd, envs));
 		if (is_builtin(head->full_cmd[0]) == EXPORT && head->next == NULL)
 			return (ft_export(head->full_cmd, envs));
+		if (is_builtin(head->full_cmd[0]) == UNSET && head->next == NULL)
+			return (ft_unset(envs, head->full_cmd));
 	}
 	pipe_nbr = piper(line, head);
 	free_pipes(pipe_nbr, line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:25:33 by druina            #+#    #+#             */
-/*   Updated: 2023/06/05 17:46:21 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/05 18:53:26 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,14 @@ void	ft_env(t_vec envs)
 	free_2d(temp);
 }
 
-void	ft_unset(t_vec *envs, char *key)
+void	ft_unset(t_vec *envs, char **full_cmd)
 {
 	t_env	*envs_array;
 	int		index;
 
-	envs_array = ft_envfind(envs, key);
+	if (!full_cmd[1])
+		return ;
+	envs_array = ft_envfind(envs, full_cmd[1]);
 	index = ((unsigned char *)envs_array - envs->memory) / envs->elem_size;
 	vec_remove(envs, index);
 }
