@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/25 10:48:25 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/05 08:23:40 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	split_operators_len(char **array)
 		while (get_next_token(&array[i]))
 			num_of_tokens++;
 		array[i] = temp;
+		if (*array[i] == '\0')
+			num_of_tokens++;
 		i++;
 	}
 	return (num_of_tokens);

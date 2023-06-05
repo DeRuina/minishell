@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_trim.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/05/25 17:14:56 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/05 09:20:40 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	**ft_cmd_trim(char *line)
 	len = cmd_trim_len(line);
 	if (len == -1)
 		return (NULL);
-	cmds = (char **)malloc(sizeof(char *) * (len + 1));
+	cmds = ft_calloc((len + 1), sizeof(char *));
 	if (!cmds)
 		return (NULL);
 	cmds[len] = 0;

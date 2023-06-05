@@ -6,16 +6,16 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 10:06:54 by druina            #+#    #+#             */
-/*   Updated: 2023/06/03 13:58:31 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/05 09:34:30 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_pipes(int **pipe_nbr ,char *array)
+void	free_pipes(int **pipe_nbr, char *array)
 {
-	int len;
-	int i;
+	int	len;
+	int	i;
 
 	i = 0;
 	len = num_of_pipes(array);

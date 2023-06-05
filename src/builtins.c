@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/03 15:46:08 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/05 09:55:31 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,18 @@ void	ft_echo(char **full_cmd)
 
 	i = 1;
 	flag_n = 0;
-	if (ft_strncmp(full_cmd[1], "-n", 2) == 0 && ft_strlen(full_cmd[1]) == 2)
+	if (!full_cmd[1])
 	{
-		flag_n = 1;
-		i++;
+		printf("\n");
+		return ;
 	}
+	if (ft_strncmp(full_cmd[1], "-n", 2) == 0 && ft_strlen(full_cmd[1]) == 2
+		&& i++)
+		flag_n = 1;
 	while (1)
 	{
-		printf("%s", full_cmd[i]);
+		if (full_cmd[i])
+			printf("%s", full_cmd[i]);
 		i++;
 		if (full_cmd[i] == 0)
 			break ;
