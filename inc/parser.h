@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:32:22 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/03 12:26:07 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/05 16:36:21 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*ft_getvalue(char *str);
 int		ft_env_update(t_env *envs, t_env env, int len);
 char	*ft_env_to_str(t_env env);
 void	free_envs(t_vec envs);
+t_env	*ft_envfind(t_vec *envs_vec, char *key);
 
 // Utils
 int		ft_perror(char *error_msg);
