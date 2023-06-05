@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 18:24:55 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/05 19:17:38 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	minishell(char *line, t_vec *envs)
 	call_buildin(head, envs);
 	pipe_nbr = piper(line, head);
 	free_pipes(pipe_nbr, line);
-	ft_executor(head, envs);
+	ft_executor(head, *envs);
 	free_nodes(head);
 }
 
