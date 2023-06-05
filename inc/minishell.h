@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 16:35:25 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/05 18:01:04 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ enum				e_builtins
 
 // exec
 t_node				*ft_parse_args(char *line, t_vec env);
-int					ft_child(t_node *node, t_vec envv);
-int					ft_executor(t_node *node, t_vec envv);
-int					builtin_commands(char **cmd, t_vec envv);
+int					ft_child(t_node *node, t_vec *envv);
+int					ft_executor(t_node *node, t_vec *envv);
+int					builtin_commands(char **cmd, t_vec *envv);
 
 // Env
 int					ft_putenv(t_vec *envs_vec, char *str);
