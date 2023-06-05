@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 18:55:25 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/05 19:34:44 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <stdio.h> 
-	// please don't move this. It needs to be here. Otherwise it wont build on linux.
+# include <stdio.h>
+// please don't move this. It needs to be here. Otherwise it wont build on linux.
 # include <stdlib.h> // getenv
 # include <string.h>
 /* #include <sys/syslimits.h>*/
@@ -165,6 +165,6 @@ void				ft_cd(char **full_cmd, t_vec *envs);
 void				ft_env(t_vec envs);
 void				ft_export(char **full_cmd, t_vec *envs);
 void				export_no_arg(t_vec *envs);
-void				ft_unset(t_vec *envs, char **full_cmd);
+void				ft_unset(t_vec *envs, char *key);
 
 #endif

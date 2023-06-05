@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:25:33 by druina            #+#    #+#             */
-/*   Updated: 2023/06/05 19:26:15 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/05 19:37:16 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,13 @@ void	ft_env(t_vec envs)
 	free_2d(temp);
 }
 
-void	ft_unset(t_vec *envs, char **full_cmd)
+void	ft_unset(t_vec *envs, char *key)
 {
 	t_env	*envs_array;
 	int		index;
 
+	if (!key)
+		return ;
 	envs_array = ft_envfind(envs, key);
 	index = ((unsigned char *)envs_array - envs->memory) / envs->elem_size;
 	vec_remove(envs, index);
