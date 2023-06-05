@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 09:12:50 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/05 11:18:58 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	**get_node_cmd(char ***array)
 	int		i;
 
 	i = 0;
+	if (**(*array) == '\0')
+		return ((*array) += 2, NULL);
 	if (cmd_len(*array) == 0)
 		return (case_only_redirections(array), NULL);
 	answer = ft_calloc((cmd_len(*array) + 1), sizeof(char *));
@@ -66,7 +68,6 @@ char	**get_node_cmd(char ***array)
 	}
 	if (*(*array))
 		(*array)++;
-	answer[i] = 0;
 	return (answer);
 }
 
