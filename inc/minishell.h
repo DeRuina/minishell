@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 18:29:20 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/05 19:23:35 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 # include "libft.h"
 # include <errno.h>
 # include <fcntl.h>
-# include <stdio.h> // please don't move this. It needs to be here. Otherwise it wont build on linux.
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <stdio.h> 
+	// please don't move this. It needs to be here. Otherwise it wont build on linux.
 # include <stdlib.h> // getenv
 # include <string.h>
 /* #include <sys/syslimits.h>*/
 # include <limits.h>       // this should work in linux
-//# include <linux/limits.h> // need it for PATH_MAX in linux
+# include <linux/limits.h> // need it for PATH_MAX in linux
 # include <sys/wait.h>     // for linux
 # include <unistd.h>
 
@@ -164,6 +165,6 @@ void				ft_cd(char **full_cmd, t_vec *envs);
 void				ft_env(t_vec envs);
 void				ft_export(char **full_cmd, t_vec *envs);
 void				export_no_arg(t_vec *envs);
-void				ft_unset(t_vec *envs, char *key);
+void				ft_unset(t_vec *envs, char **full_cmd);
 
 #endif
