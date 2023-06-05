@@ -6,25 +6,32 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 19:38:46 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/05 20:19:41 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	call_buildin(t_node *head, t_vec *envs)
+static int	call_buildin(t_node *head, t_vec *envs)
 {
 	if (head->full_cmd)
 	{
 		if (is_builtin(head->full_cmd[0]) == EXIT && head->next == NULL)
 			exit(EXIT_SUCCESS);
 		if (is_builtin(head->full_cmd[0]) == CD && head->next == NULL)
-			return (ft_cd(head->full_cmd, envs));
+			return (ft_cd(head->full_cmd, envs), 1);
 		if (is_builtin(head->full_cmd[0]) == EXPORT && head->next == NULL)
-			return (ft_export(head->full_cmd, envs));
+			return (ft_export(head->full_cmd, envs), 1);
 		if (is_builtin(head->full_cmd[0]) == UNSET && head->next == NULL)
-			return (ft_unset(envs, head->full_cmd[1]));
+			return (ft_unset(envs, head->full_cmd[1]), 1);
+		if (is_builtin(head->full_cmd[0]) == ENV && head->next == NULL)
+			return (ft_env(*envs), 1);
+		if (is_builtin(head->full_cmd[0]) == PWD && head->next == NULL)
+			return (ft_pwd(), 1);
+		if (is_builtin(head->full_cmd[0]) == ECHO && head->next == NULL)
+			return (ft_echo(head->full_cmd), 1);
 	}
+	return (0);
 }
 
 static void	minishell(char *line, t_vec *envs)
@@ -35,7 +42,8 @@ static void	minishell(char *line, t_vec *envs)
 	head = ft_parse_args(line, *envs);
 	if (!head)
 		return ;
-	call_buildin(head, envs);
+	if (call_buildin(head, envs) != 0)
+		return ;
 	pipe_nbr = piper(line, head);
 	free_pipes(pipe_nbr, line);
 	ft_executor(head, *envs);
@@ -44,10 +52,10 @@ static void	minishell(char *line, t_vec *envs)
 
 int	main(int argc, char *argv[], char *env[])
 {
-	char	*line;
-	int		wait_times;
-	int		i;
-	t_vec	envs;
+	char *line;
+	int wait_times;
+	int i;
+	t_vec envs;
 
 	if (argc != 1)
 		return (ft_putstr_fd("Error: Arguments invalid\n", 0), 1);
