@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 18:45:50 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/05 19:40:40 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	builtin_commands(char **cmd, t_vec envv)
 	if (is_builtin(cmd[0]) == EXPORT)
 		ft_export(cmd, &envv);
 	if (is_builtin(cmd[0]) == UNSET)
-		ft_unset(&envv, cmd);
+		ft_unset(&envv, cmd[1]);
 	if (is_builtin(cmd[0]) == ENV)
 		ft_env(envv);
 	if (is_builtin(cmd[0]) == EXIT)
