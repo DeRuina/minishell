@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:45 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/01 13:50:57 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/05 17:50:46 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,11 @@ void test_ft_strenv_0(void)
 
 	actual = ft_strenv(env_envs);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, actual, 4);
-
+}
+void test_ft_unset_0(void)
+{
+	ft_unset(&env_envs, "HOME");
+	TEST_ASSERT_EQUAL(NULL, ft_getenv(env_envs, "HOME"));
 }
 
 int test_ft_env(char **envp)
@@ -161,5 +165,6 @@ int test_ft_env(char **envp)
 	RUN_TEST(test_ft_getenv_0);
 	// RUN_TEST(test_ft_copyenv_0);
 	RUN_TEST(test_ft_strenv_0);
+	RUN_TEST(test_ft_unset_0);
 	return UNITY_END();
 }

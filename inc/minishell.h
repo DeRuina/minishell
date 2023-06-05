@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 07:41:10 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/05 16:35:25 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,6 @@ void				ft_cd(char **full_cmd, t_vec *envs);
 void				ft_env(t_vec envs);
 void				ft_export(char **full_cmd, t_vec *envs);
 void				export_no_arg(t_vec *envs);
+void				ft_unset(t_vec *envs, char *key);
 
 #endif

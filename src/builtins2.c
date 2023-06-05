@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:25:33 by druina            #+#    #+#             */
-/*   Updated: 2023/06/05 11:27:10 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/05 17:46:21 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parser.h"
 
 void	export_no_arg(t_vec *envs)
 {
@@ -47,4 +48,14 @@ void	ft_env(t_vec envs)
 		env++;
 	}
 	free_2d(temp);
+}
+
+void	ft_unset(t_vec *envs, char *key)
+{
+	t_env	*envs_array;
+	int		index;
+
+	envs_array = ft_envfind(envs, key);
+	index = ((unsigned char *)envs_array - envs->memory) / envs->elem_size;
+	vec_remove(envs, index);
 }
