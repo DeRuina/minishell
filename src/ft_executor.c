@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 19:40:40 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/06 22:09:58 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ int	builtin_commands(char **cmd, t_vec envv)
 
 int	ft_child(t_node *node, t_vec envv)
 {
+	char **env;
+
+	env = ft_strenv(envv);
 	if (node->infile == -1)
 		exit(EXIT_FAILURE);
 	else if (node->infile != 0)
@@ -49,7 +52,7 @@ int	ft_child(t_node *node, t_vec envv)
 		close(node->outfile);
 	if (is_builtin(node->full_cmd[0]) != 0)
 		builtin_commands(node->full_cmd, envv);
-	else if (execve(node->full_cmd[0], node->full_cmd, ft_strenv(envv)) < 0)
+	else if (execve(node->full_cmd[0], node->full_cmd, env) < 0)
 		ft_pexit(node->full_cmd[0]);
 	return (0);
 }

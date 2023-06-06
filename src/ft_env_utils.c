@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 07:07:11 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/06 12:44:21 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/06 22:05:25 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	ft_env_update(t_env *envs, t_env env, int len)
 		}
 		if (!ft_strncmp(envs[i].key, env.key, env_key_len))
 		{
-			// if (envs[i].value)
-			// 	free(envs[i].value);
+			if (envs[i].value)
+				free(envs[i].value);
 			envs[i].value = env.value;
 			return (1);
 		}
