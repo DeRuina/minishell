@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/03 13:00:16 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/06 23:42:59 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*ft_handle_expand(t_vec env_vars, char **result, char *token,
 	}
 	if (*token == '~' && ft_should_expand_tilde(token, token_init))
 	{
-		tmp = ft_strjoin(*result, ft_var_expand(env_vars, "HOME"));
+		tmp = ft_strjoin(*result, ft_var_expand(env_vars, ft_strdup("HOME")));
 		ft_tmp_to_result(result, &tmp);
 		token++;
 	}
