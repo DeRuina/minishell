@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 11:45:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 19:53:30 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/06 13:07:12 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	ft_putenv(t_vec *envs_vec, char *str)
 	env.key = ft_getkey(str);
 	env.value = ft_getvalue(str);
 	if (!env.key || !env.value)
-		exit (1);
+		return (1);
 	if (ft_env_update(envs, env, envs_vec->len))
 		return (1);
 	if (vec_push(envs_vec, &env) < 0)
-		exit (1);
+		ft_pexit("ft_putenv: vec_push");
 	return (1);
 }
 

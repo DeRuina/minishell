@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 07:07:11 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/02 09:29:59 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/06 12:44:21 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*ft_getvalue(char *str)
 	char	*value_start;
 
 	value_start = ft_strchr(str, '=');
+	if (!value_start)
+		return (NULL);
 	return (ft_substr(str, value_start - str + 1, ft_strlen(value_start)));
 }
 
