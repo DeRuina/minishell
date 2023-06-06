@@ -6,41 +6,12 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 11:18:58 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/06 23:07:15 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
-
-void	case_only_redirections(char ***array)
-{
-	while (*(*array) && **(*array) != '|' && **(*array) != '\0')
-		(*array)++;
-	if (*(*array))
-		(*array)++;
-}
-
-int	cmd_len(char **array)
-{
-	int	len;
-	int	i;
-
-	len = 0;
-	i = 0;
-	while (array[i] && ft_strncmp(array[i], "|", 1) != 0)
-	{
-		if (ft_strncmp(array[i], "<", 1) == 0 || ft_strncmp(array[i], ">",
-				1) == 0)
-			i += 2;
-		else
-		{
-			len++;
-			i++;
-		}
-	}
-	return (len);
-}
 
 char	**get_node_cmd(char ***array)
 {
@@ -49,7 +20,7 @@ char	**get_node_cmd(char ***array)
 
 	i = 0;
 	if (**(*array) == '\0')
-		return ((*array) += 2, NULL);
+		return (case_empty_cmd(array), NULL);
 	if (cmd_len(*array) == 0)
 		return (case_only_redirections(array), NULL);
 	answer = ft_calloc((cmd_len(*array) + 1), sizeof(char *));

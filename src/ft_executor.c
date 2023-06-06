@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/06 22:09:58 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/06 23:06:13 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	builtin_commands(char **cmd, t_vec envv)
 
 int	ft_child(t_node *node, t_vec envv)
 {
-	char **env;
+	char	**env;
 
 	env = ft_strenv(envv);
 	if (node->infile == -1)

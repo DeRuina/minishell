@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/06/05 09:20:40 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/06 22:29:33 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ char	**ft_cmd_trim(char *line)
 	cmds = ft_calloc((len + 1), sizeof(char *));
 	if (!cmds)
 		return (NULL);
-	cmds[len] = 0;
 	i = 0;
 	while (i != len)
 		cmds[i++] = next_token_from_line(&temp);
