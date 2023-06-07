@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/05 11:26:39 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/07 16:42:39 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,13 @@ void	ft_echo(char **full_cmd)
 		flag_n = 1;
 	while (1)
 	{
-		if (full_cmd[i])
+		if (full_cmd[i] && *full_cmd[i] != '\0')
 			printf("%s", full_cmd[i]);
 		i++;
 		if (full_cmd[i] == 0)
 			break ;
-		printf(" ");
+		if (*full_cmd[i] != '\0')
+			printf(" ");
 	}
 	if (flag_n != 1)
 		printf("\n");

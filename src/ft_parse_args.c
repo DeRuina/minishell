@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/06 23:13:57 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/07 16:26:46 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**get_node_cmd(char ***array)
 	answer = ft_calloc((cmd_len(*array) + 1), sizeof(char *));
 	if (!answer)
 		return (NULL);
-	while (*(*array) && **(*array) != '|' && **(*array) != '\0')
+	while (*(*array) && **(*array) != '|')
 	{
 		if (ft_strncmp(*(*array), "<", 1) == 0 || ft_strncmp(*(*array), ">",
 				1) == 0)
