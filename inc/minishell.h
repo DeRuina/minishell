@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/07 12:36:32 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/07 13:56:52 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,7 @@ char				*ft_getenv(t_vec envs_vec, char *key);
 t_vec				ft_copyenv(char *env[]);
 char				**ft_strenv(t_vec envs_vec);
 
-// Parsing
-char				**ft_cmd_trim(char *line);
-void				ft_expand(t_vec vars, char **line);
-char				**ft_split_operators(char **array);
-char				**ft_str_trim(char **array);
+
 // expand
 
 void				ft_expand(t_vec env_vars, char **arr);
@@ -86,12 +82,9 @@ char				*ft_expand_token(t_vec env_vars, char *str);
 // void			ft_tmp_to_result(char **result, char **tmp);
 // int				ft_should_expand_tilde(char *token, char *token_init);
 
-// split_operators
-
-char				**ft_split_operators(char **array);
-char				**ft_str_trim(char **array);
 
 // cmd_trim
+char				**ft_cmd_trim(char *line);
 char				*allocate_token(char *token_start, char *token_end);
 int					find_closing_quote(char *quote, int *closing_quote,
 						char **line);
@@ -100,6 +93,7 @@ char				*next_token_from_line(char **line);
 int					cmd_trim_len(char *line);
 
 // split_operators
+char				**ft_split_operators(char **array);
 char				**divide_into_array(char **array, char **answer);
 char				*no_operator(char *array);
 char				*malloc_new_token(char **array);
@@ -109,24 +103,140 @@ int					split_operators_len(char **array);
 int					is_token_an_operator(char **str);
 
 // str_trim
+/**
+ * @brief takes the tokens and trimmes them from any unnecessary quotes
+ * @note   
+ * @param  array pointer to a string. so the value could be changed. 
+ * @retval 2D array of tokens, trimmed if needed.
+ */
+char				**ft_str_trim(char **array);
+/**
+ * @brief Checks for edge cases, and trims the token if needed.
+ * @note  subfunction of ft_str_trim 
+ * @param  str string. 
+ * @retval returns the token after checking trim, trims if needed.
+ */
 char				*check_for_trim(char *str);
+/**
+ * @brief  Checks if the token needs to be trimmed.
+ * @note subfunction of ft_str_trim  
+ * @param  str string.
+ * @retval if needed 1 returned, 0 if not.
+ */
 int					is_trim_needed(char *str);
+/**
+ * @brief Trims the token and returns it without the quotes 
+ * @note  subfunction of ft_str_trim 
+ * @param  str string. 
+ * @param  answer string.
+ * @param  i index
+ * @param  quote char - which quote to trim 
+ * @retval returns the trimmed token
+ */
 char				*trim_token(char *str, char *answer, int i, char quote);
+/**
+ * @brief Checks if the token is only double quotes
+ * @note EXAMPLE : "" or ''. subfunction of ft_str_trim
+ * @param  str string.
+ * @retval returns 1 if it is, 0 if not.
+ */
 int					token_is_double_quotes(char *str);
 
 // fd_handler
+/**
+ * @brief takes the current node and returns it with the infile and outfile of the process  
+ * @note if pipes are needed piper function will change them later.  
+ * @param   array 2D string array. 
+ * @param  node t_node pointer.
+ * @param  error_here_docs int array to keep here_docs if invalid file,
+ * they need to be opened before the error message
+ * @param  node_counter keeps counter of the node to know which here_doc 
+ * is associated with each node. 
+ * @retval The node after addidng the fd's.
+ */
 t_node				*ft_fd_handler(char **array, t_node *node,
 						int *error_here_docs, int node_counter);
+/**
+ * @brief opens other fd's that are not infile or outfile 
+ * @note subfunction of ft_fd_handler. closes them after openning 
+ * @param  array 2D string array.  
+ * @retval None
+ */
 void				find_and_open_fds(char **array);
+/**
+ * @brief  Creates a here_doc and opens it.
+ * @note   
+ * @param  delimiter string. 
+ * @retval returns the fd
+ */
 int					here_doc(char *delimiter);
+/**
+ * @brief opens and stores all the here_doc fd's
+ * if there is an invalid file and all the here_docs 
+ * need to be opened before the error message
+ * @note subfunction of check_for_invalid_file_before_infile  
+ * @param  array 2D string array. 
+ * @param  i int
+ * @param  error_here_docs pointer to and int array
+ * to change the values from the funtion
+ * @param  node_counter keeps counter of the node to know which here_doc 
+ * is associated with each node.
+ * @retval -1
+ */
 int					here_doc_invalid_infile(char **array, int i,
 						int **error_here_docs, int node_counter);
+/**
+ * @brief  reopens the here_doc to reset the file "cursor" and checks if valid.
+ * @note subfunction of here_doc 
+ * @param  name string, here_doc name
+ * @retval fd if valid, -1 if not
+ */
 int					reopen_file_and_check(char *name);
+/**
+ * @brief Opens the infile, crates a here_doc if that's the infile.
+ * If there was an invalid infile in any other node and here_doc was already created
+ * it gets it from error_here_doc
+ * @note  subfunction of ft_fd_handler.  
+ * @param  array 2D string array. 
+ * @param  error_here_doc here_doc fd for associated node if there was invalid file.
+ * @param  infile string, last infile from find_last_infile
+ * @retval fd of infile.
+ */
 int					get_infile_fd(char **array, int error_here_doc,
 						char *infile);
+/**
+ * @brief  Creates the outfile and returns the fd.
+ * @note   subfunction of ft_fd_handler. 
+ * @param  array 2D string array.  
+ * @param  outfile string, last outfile from find_last_outfile
+ * @retval fd of outfile.
+ */
 int					get_outfile_fd(char **array, char *outfile);
+/**
+ * @brief  finds the last redirection which is the infile.
+ * @note  subfunction of ft_fd_handler. 
+ * @param array 2D string array. 
+ * @retval returns infile.
+ */
 char				*find_last_infile(char **array);
+/**
+ * @brief  finds the last redirection which is the outfile.
+ * @note subfunction of ft_fd_handler.  
+ * @param array 2D string array. 
+ * @retval returns outfile. 
+ */
 char				*find_last_outfile(char **array);
+/**
+ * @brief Check if there is any invalid file before the infile or
+ * if the infile is invalid and then opening all the here_docs before the error.
+ * @note subfunction of ft_fd_handler. uses the function here_doc_invalid_infile to keep
+ * all the here_docs opened before the error in error_here_docs int array.
+ * @param  array 2D string array. 
+ * @param  error_here_docs a pointer to an int array so the value could be changed.
+ * @param  node_counter keeps counter of the node to know which here_doc 
+ * is associated with each node.
+ * @retval -1 if invalid file 0 if not.
+ */
 int	check_for_invalid_file_before_infile(char **array,
 											int **error_here_docs,
 											int node_counter);
@@ -151,7 +261,7 @@ char				*ft_get_exec_path(t_vec env, char *cmd);
  * @param  cmd	string.
  * @retval returns them joined. 
  */
-static char			*ft_full_path(char *path, char *cmd);
+char			*ft_full_path(char *path, char *cmd);
 /**
  * @brief  Uses perror for errno error message and exits.
  * @note   

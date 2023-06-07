@@ -6,13 +6,13 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:43:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/05/22 14:19:50 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/07 13:43:43 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Sets the quote to 0 if pair is found. copying whats left to answer.
+// Sets the quote to 0 if pair is found. returns without the quotes
 
 char	*trim_token(char *str, char *answer, int i, char quote)
 {
@@ -62,7 +62,7 @@ int	is_trim_needed(char *str)
 	return (0);
 }
 
-// Checks edge cases, sets the openning quote and starts to write to answer.
+// Checks for edge cases, and trims the token if needed.
 
 char	*check_for_trim(char *str)
 {
