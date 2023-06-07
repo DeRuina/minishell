@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:26:23 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/06 23:22:14 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/07 14:30:01 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ char	*ft_var_expand(t_vec env_vars, char *str)
 {
 	char	*key;
 	char	*value;
-	char	*temp;
 
-	temp = str;
 	if (*str == '$' && *(str + 1) && ft_isalnum(*(str + 1)))
 		str++;
 	key = ft_substr(str, 0, ft_var_end(str) - str);
@@ -53,7 +51,6 @@ char	*ft_var_expand(t_vec env_vars, char *str)
 	else
 		value = ft_getenv(env_vars, key);
 	free(key);
-	free(temp);
 	return (value);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:32:22 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 16:36:21 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/07 14:13:36 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	ft_tmp_to_result(char **result, char **tmp);
 int		ft_should_expand_tilde(char *token, char *token_init);
 char	*ft_var_end(char *str);
 char	*ft_var_expand(t_vec env_vars, char *str);
+char	*ft_varible(t_vec env_vars, char **result, char *token);
+char	*ft_tilde(t_vec env_vars, char **result, char *token);
+char	*ft_noexpand(char **result, char *token);;
 
 // Env utils
 char	*ft_getkey(char *str);

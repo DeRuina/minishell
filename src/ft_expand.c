@@ -3,30 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/06 23:42:59 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/07 14:30:20 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
-
-extern int	g_exit_status;
-
-char	*ft_handle_dollar(t_vec env_vars, char *line, char *token)
-{
-	char	*expanded_var;
-
-	if (*(token + 1) == '?')
-		expanded_var = ft_itoa(g_exit_status);
-	else
-		expanded_var = ft_var_expand(env_vars, token);
-	if (!expanded_var)
-		return (ft_strdup(line));
-	return (ft_strjoin(line, expanded_var));
-}
 
 static char	*ft_handle_nonexpand(char **result, char *token)
 {
@@ -52,29 +37,12 @@ static char	*ft_handle_nonexpand(char **result, char *token)
 char	*ft_handle_expand(t_vec env_vars, char **result, char *token,
 		char *token_init)
 {
-	char	*tmp;
-	char	*sub_str;
-
 	if (*token == '$' && (ft_isalnum(*(token + 1)) || *(token + 1) == '?'))
-	{
-		tmp = ft_handle_dollar(env_vars, *result, token);
-		ft_tmp_to_result(result, &tmp);
-		token = ft_var_end(token);
-	}
+		token = ft_varible(env_vars, result, token);
 	if (*token == '~' && ft_should_expand_tilde(token, token_init))
-	{
-		tmp = ft_strjoin(*result, ft_var_expand(env_vars, ft_strdup("HOME")));
-		ft_tmp_to_result(result, &tmp);
-		token++;
-	}
+		token = ft_tilde(env_vars, result, token);
 	if ((*token == '$' && !ft_isalnum(*(token + 1))) || *token == '~')
-	{
-		sub_str = ft_substr(token, 0, 1);
-		tmp = ft_strjoin(*result, sub_str);
-		free(sub_str);
-		ft_tmp_to_result(result, &tmp);
-		token++;
-	}
+		token = ft_noexpand(result, token);
 	return (token);
 }
 

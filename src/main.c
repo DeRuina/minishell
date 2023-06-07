@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/06 22:04:35 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/07 14:44:25 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ int	main(int argc, char *argv[], char *env[])
 	i = -1;
 	while (1)
 	{
-		printf("TERMINAL:");
-		line = readline(NULL);
+		line = readline("TERMINAL:");
 		if (strlen(line) > 0)
 			add_history(line);
 		minishell(line, &envs);

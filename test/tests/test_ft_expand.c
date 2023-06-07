@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/02 13:23:44 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/07 14:53:48 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,44 +68,59 @@ void test_ft_var_end_4(void)
 void test_ft_var_expand_0(void)
 {
 	char *expected = "/Users/tspoof/Documents/HIVE/minishell";
-	char *result = ft_var_expand(vars, "$PWD");
+	char *val = ft_strdup("$PWD");
+	char *result = ft_var_expand(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, result);
+	free(val);
 }
 void test_ft_var_expand_1(void)
 {
 	char *expected = "/Users/tspoof/Documents/HIVE/minishell";
-	char *result = ft_var_expand(vars, "$PWD test");
+	char *val = ft_strdup("$PWD test");
+	char *result = ft_var_expand(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, result);
+	free(val);
 }
 void test_ft_var_expand_2(void)
 {
 	char *expected = "/Users/tspoof/Documents/HIVE/minishell";
-	char *result = ft_var_expand(vars, "$PWD$PWD");
+	char *val = ft_strdup("$PWD$PWD");
+	char *result = ft_var_expand(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, result);
+	free(val);
 }
 void test_ft_var_expand_3(void)
 {
 	char *expected = "$";
-	char *result = ft_var_expand(vars, "$");
+	char *val = ft_strdup("$");
+	char *result = ft_var_expand(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, result);
+	free(val);
+	// free(result);
 }
 void test_ft_var_expand_4(void)
 {
 	char *expected = NULL;
-	char *result = ft_var_expand(vars, "$SOMETHING");
+	char *val =  ft_strdup("$SOMETHING");
+	char *result = ft_var_expand(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, result);
+	free(val);
 }
 void test_ft_var_expand_5(void)
 {
 	char *expected = NULL;
-	char *result = ft_var_expand(vars, "$SOMETHING$");
+	char *val = ft_strdup("$SOMETHING$");
+	char *result = ft_var_expand(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, result);
+	free(val);
 }
 void test_ft_var_expand_6(void)
 {
 	char *expected = "$";
-	char *result = ft_var_expand(vars, "$ ");
+	char *val = ft_strdup("$ ");
+	char *result = ft_var_expand(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, result);
+	free(val);
 }
 
 // ft_expand_token
@@ -113,41 +128,51 @@ void test_ft_var_expand_6(void)
 void test_ft_expand_token_0(void)
 {
 	char *expected = "/Users/tspoof/Documents/HIVE/minishell";
-	char *actual = ft_expand_token(vars, "$PWD");
+	char *val = ft_strdup("$PWD");
+	char *actual = ft_expand_token(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
+	free(val);
 	free(actual);
 }
 
 void test_ft_expand_token_1(void)
 {
 	char *expected = "/Users/tspoof/Documents/HIVE/minishell$";
-	char *actual = ft_expand_token(vars, "$PWD$");
+	char *val = ft_strdup("$PWD$");
+	char *actual = ft_expand_token(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
+	free(val);
 	free(actual);
 }
 
 void test_ft_expand_token_2(void)
 {
 	char *expected = "";
-	char *actual = ft_expand_token(vars, "$SOMETHING");
+	char *val = ft_strdup("$SOMETHING");
+	char *actual = ft_expand_token(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
+	free(val);
 	// free(actual);
 }
 
 void test_ft_expand_token_3(void)
 {
 	char *expected = "$";
-	char *actual = ft_expand_token(vars, "$");
+	char *val = ft_strdup("$");
+	char *actual = ft_expand_token(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
+	free(val);
 	free(actual);
 }
 
 void test_ft_expand_token_4(void)
 {
 	char *expected = "$ test";
-	char *actual = ft_expand_token(vars, "$ test");
+	char *val = ft_strdup("$ test");
+	char *actual = ft_expand_token(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
 	free(actual);
+	free(val);
 }
 
 // $ tests
@@ -370,5 +395,7 @@ int test_ft_expand(void)
 	RUN_TEST(test_ft_expand_3);
 	RUN_TEST(test_ft_expand_4);
 	RUN_TEST(test_ft_expand_5);
+	free_envs(vars);
+	vec_free(&vars);
 	return UNITY_END();
 }
