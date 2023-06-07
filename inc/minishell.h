@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/06 23:08:01 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/07 12:36:32 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,40 +132,199 @@ int	check_for_invalid_file_before_infile(char **array,
 											int node_counter);
 
 // exec_path
+/**
+ * @brief takes the cmd, checks through all the env which is the correct path
+ * and finds the full path of the executable using the access function. 
+ * @note   
+ * @param  env t_vec pointer.
+ * @param  cmd string.
+ * @retval returns the full path of the cmd.
+ */
 char				*ft_get_exec_path(t_vec env, char *cmd);
 
 // utils
 // int				ft_max(int a, int b);
+/**
+ * @brief  Adds the path and the cmd together. 
+ * @note   subfunction of ft_get_exec_path
+ * @param  path string. 
+ * @param  cmd	string.
+ * @retval returns them joined. 
+ */
+static char			*ft_full_path(char *path, char *cmd);
+/**
+ * @brief  Uses perror for errno error message and exits.
+ * @note   
+ * @param  error_msg string for perror 
+ * @retval None
+ */
 void				ft_pexit(char *error_msg);
+/**
+ * @brief  Checks if the command is a builtin.
+ * @note echo = 1, cd 2, pwd 3, export 4, unset 5, env 6, exit 7.
+ * @param  cmd string.
+ * @retval 0 if not a builtin, the number associated if is.
+ */
 int					is_builtin(char *cmd);
 
 // node funtions
+/**
+ * @brief  Creates all the nodes recursively, adds full_cmd, infile, outfile,
+	and node.next.
+ * @note  pid is added later when forked
+ * @param  array Takes a pointer to a 2D array so it could be changed. 
+ * @param  env vector environment for get_exact_path 
+ * @param  error_here_docs int pointer array for here_docs if invalid infile.
+ * @param  node_counter: keeps counter of the node to know which here_doc 
+ * is associated with each node.
+ * @retval The Head of the node list. 
+ */
 t_node				*new_node(char ***array, t_vec env, int *error_here_docs,
 						int node_counter);
+/**
+ * @brief  Gets the node full_cmd.
+ * @note   new_node subfunction.
+ * @param  array Takes a pointer to a 2D array so it could be changed.
+ * @retval returns the full_cmd of the current node.
+ */
 char				**get_node_cmd(char ***array);
+/**
+	* @brief  Checks if the current arguemnts until the pipe have
+	any cmds that are not redirections.
+ * @note  get_node_cmd subfunction. EXAMPLES < infile > outfile
+	- returns 0. echo hi returns - 2
+ * @param  array 2D string array.
+ * @retval number of cmds 
+ */
 int					cmd_len(char **array);
+/**
+ * @brief Case of having only redirections without any executables.  
+ * @note get_node_cmd subfunction. EXAMPLE : < infile > outfile  
+ * @param  array Takes a pointer to a 2D array so it could be changed.
+ * @retval None
+ */
 void				case_only_redirections(char ***array);
+/**
+	* @brief Case of having an empthy token after parsing. Moves the pointer to be NULL. 
+	* @note get_node_cmd subfunction. EXAMPLE : $asdas becomes an empthy token after parsing. 
+ * @param  array Takes a pointer to a 2D array so it could be changed.
+ * @retval None
+ */
 void				case_empty_cmd(char ***array);
+/**
+ * @brief loops through the nodes and frees them. 
+ * @note   
+ * @param  node t_node pointer. node list head. 
+ * @retval None
+ */
 void				free_nodes(t_node *node);
 
 // piper
+/**
+	* @brief Creates 2D int array of allocated pipes. Loops through the nodes and changes the infile and outfile to be the IN end and OUT end of the pipe if needed.
+ * @note   
+ * @param  array string 
+ * @param  node t_node pointer. node list head. 
+ * @retval 2D int array with allocated pipes.
+ */
 int					**piper(char *array, t_node *node);
+/**
+ * @brief Allocates 2D int array for the number of pipes needed. 
+ * @note piper subfunction.  
+ * @param  array string
+ * @retval 2D int array
+ */
 int					**allocate_pipes(char *array);
+/**
+ * @brief goes through the string and checks how many pipes there are.
+ * @note  piper subfunction. 
+ * @param  array string
+ * @retval returns number of pipes (len) for memory allocation.
+ */
 int					num_of_pipes(char *array);
+/**
+	* @brief Loops through the nodes and checks if a pipe is needed for the processes,
+	if it does it changes the infile and outfile to the in end and out end of the pipe. 
+ * @note piper subfunction. IN OUT macros for read and write ends of the pipe.
+ * @param  node t_node pointer. node list head.
+ * @param  pipe_nbr 2D int array
+ * @retval None
+ */
 void	change_infile_outfile_to_pipes(t_node *node,
 									int **pipe_nbr);
+/**
+ * @brief Frees the allocated pipes. 
+ * @note  piper subfunction. 
+ * @param  pipe_nbr 2D int array. 
+ * @param  array string 
+ * @retval None
+ */
 void				free_pipes(int **pipe_nbr, char *array);
 
 // Builtinså
 
+/**
+ * @brief  prints the arguments on the screen. 
+ * @note option -n prints without newline. no args prints only newline.
+ * @param  full_cmd 2D array. 
+ * @retval None
+ */
 void				ft_echo(char **full_cmd);
+/**
+ * @brief  Exits the program when called
+ * @note Exits the process if used with pipes
+ * @retval None
+ */
 void				ft_exit(void);
+/**
+ * @brief prints the current path when called
+ * @note   
+ * @retval None
+ */
 void				ft_pwd(void);
+/**
+ * @brief  Gets the current full path
+ * @note  Subfunction of ft_pwd & ft_cd
+ * @retval string of the current path
+ */
 char				*get_path(void);
+/**
+ * @brief changing directories with only a relative or absolute path
+ * @note   
+ * @param  full_cmd 2D array.  
+ * @param  envs t_vec pointer.
+ * @retval None
+ */
 void				ft_cd(char **full_cmd, t_vec *envs);
+/**
+ * @brief prints the environment.
+ * @note   
+ * @param  envs t_vec pointer. 
+ * @retval None
+ */
 void				ft_env(t_vec envs);
+/**
+ * @brief  adds a variable to the environment
+ * @note   EXAMPLE : TEEMU=king
+ * @param  full_cmd  2D array 
+ * @param  envs t_vec pointer.
+ * @retval None
+ */
 void				ft_export(char **full_cmd, t_vec *envs);
+/**
+ * @brief prints the declare list when export is called with no arguments
+ * @note  subfunction of ft_export
+ * @param  envs t_vec pointer.
+ * @retval None
+ */
 void				export_no_arg(t_vec *envs);
+/**
+ * @brief Takes the variable and deletes it from the environment
+ * @note  EXAMPLE : unset TEEMU=king
+ * @param  envs t_vec pointer.
+ * @param  key char pointer - string.
+ * @retval None
+ */
 void				ft_unset(t_vec *envs, char *key);
 
 #endif
