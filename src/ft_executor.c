@@ -6,13 +6,17 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/06 23:06:13 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:18:01 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// Global variable for exit status
+
 int			g_exit_status = 0;
+
+// If command is builtin, we execute
 
 int	builtin_commands(char **cmd, t_vec envv)
 {
@@ -32,6 +36,9 @@ int	builtin_commands(char **cmd, t_vec envv)
 		ft_exit();
 	exit(EXIT_SUCCESS);
 }
+
+//Changes the STDIN & STDOUT of the process to be the infile and outfile.
+// executes the commands using execve.
 
 int	ft_child(t_node *node, t_vec envv)
 {
@@ -57,6 +64,8 @@ int	ft_child(t_node *node, t_vec envv)
 	return (0);
 }
 
+// Closes the infile and outfile in the parent
+
 static void	ft_close(t_node *node)
 {
 	if (node->infile != 0)
@@ -64,6 +73,8 @@ static void	ft_close(t_node *node)
 	if (node->outfile != 1)
 		close(node->outfile);
 }
+
+// Gets the exit status
 
 static void	ft_wait(t_node *head)
 {
@@ -77,6 +88,8 @@ static void	ft_wait(t_node *head)
 		head = head->next;
 	}
 }
+
+// Loops through the nodes, forks and enters child processes
 
 int	ft_executor(t_node *node, t_vec envv)
 {

@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 14:04:55 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:40:10 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
-// please don't move this. It needs to be here. Otherwise it wont build on linux.
-# include <stdlib.h> // getenv
+# include <stdlib.h> 
 # include <string.h>
 /* #include <sys/syslimits.h>*/
 # include <limits.h>       // this should work in linux -IT DOESN'T!!
@@ -64,7 +63,6 @@ char				*ft_getenv(t_vec envs_vec, char *key);
 t_vec				ft_copyenv(char *env[]);
 char				**ft_strenv(t_vec envs_vec);
 
-
 // expand
 
 void				ft_expand(t_vec env_vars, char **arr);
@@ -78,7 +76,8 @@ char				*ft_expand_token(t_vec env_vars, char *str);
 
 // PARSE ARGS
 /**
- * @brief parses the line and sets each node to have the information needed for each proccess. 
+ * @brief parses the line and sets each node to have the information 
+ * needed for each proccess. 
  * @note   
  * @param  line string. line from user. 
  * @param  env t_vec.
@@ -174,7 +173,8 @@ int					cmd_trim_len(char *line);
  */
 char				**ft_split_operators(char **array);
 /**
- * @brief Creates the new array of tokens after they're splitted if they're together.
+ * @brief Creates the new array of tokens after they're 
+ * splitted if they're together.
  * @note subfunction of ft_split_operators.  
  * @param  array 2D array.
  * @param  answer 2D array.
@@ -230,7 +230,7 @@ int					is_token_an_operator(char **str);
 
 // str_trim
 /**
- * @brief takes the tokens and trimmes them from any unnecessary quotes
+ * @brief takes the tokens and trims them from any unnecessary quotes
  * @note   
  * @param  array pointer to a string. so the value could be changed. 
  * @retval 2D array of tokens, trimmed if needed.
@@ -270,7 +270,8 @@ int					token_is_double_quotes(char *str);
 
 // fd_handler
 /**
- * @brief takes the current node and returns it with the infile and outfile of the process  
+ * @brief takes the current node and returns it with 
+ * the infile and outfile of the process  
  * @note if pipes are needed piper function will change them later.  
  * @param   array 2D string array. 
  * @param  node t_node pointer.
@@ -320,11 +321,11 @@ int					here_doc_invalid_infile(char **array, int i,
 int					reopen_file_and_check(char *name);
 /**
  * @brief Opens the infile, crates a here_doc if that's the infile.
- * If there was an invalid infile in any other node and here_doc was already created
- * it gets it from error_here_doc
+ * If there was an invalid infile in any other node and here_doc 
+ * was already created it gets it from error_here_doc
  * @note  subfunction of ft_fd_handler.  
  * @param  array 2D string array. 
- * @param  error_here_doc here_doc fd for associated node if there was invalid file.
+ * @param  error_here_doc here_doc fd for associated node if invalid file.
  * @param  infile string, last infile from find_last_infile
  * @retval fd of infile.
  */
@@ -353,19 +354,22 @@ char				*find_last_infile(char **array);
  */
 char				*find_last_outfile(char **array);
 /**
- * @brief Check if there is any invalid file before the infile or
- * if the infile is invalid and then opening all the here_docs before the error.
- * @note subfunction of ft_fd_handler. uses the function here_doc_invalid_infile to keep
- * all the here_docs opened before the error in error_here_docs int array.
+ * @brief Check if there is any invalid file before the infile 
+ * or if the infile is invalid and then opening all the here_docs 
+ * before the error.
+ * @note subfunction of ft_fd_handler. uses the function 
+ * here_doc_invalid_infile to keep all the here_docs opened before 
+ * the error in error_here_docs int array.
  * @param  array 2D string array. 
- * @param  error_here_docs a pointer to an int array so the value could be changed.
+ * @param  error_here_docs a pointer to an int array so the value 
+ * could be changed.
  * @param  node_counter keeps counter of the node to know which here_doc 
  * is associated with each node.
  * @retval -1 if invalid file 0 if not.
  */
-int	check_for_invalid_file_before_infile(char **array,
-											int **error_here_docs,
-											int node_counter);
+int					check_for_invalid_file_before_infile(char **array,
+						int **error_here_docs,
+						int node_counter);
 
 // exec_path
 /**
@@ -387,7 +391,7 @@ char				*ft_get_exec_path(t_vec env, char *cmd);
  * @param  cmd	string.
  * @retval returns them joined. 
  */
-char			*ft_full_path(char *path, char *cmd);
+char				*ft_full_path(char *path, char *cmd);
 /**
  * @brief  Uses perror for errno error message and exits.
  * @note   
@@ -426,7 +430,7 @@ t_node				*new_node(char ***array, t_vec env, int *error_here_docs,
 char				**get_node_cmd(char ***array);
 /**
 	* @brief  Checks if the current arguemnts until the pipe have
-	any cmds that are not redirections.
+	any tokens that are not redirections.
  * @note  get_node_cmd subfunction. EXAMPLES < infile > outfile
 	- returns 0. echo hi returns - 2
  * @param  array 2D string array.
@@ -441,10 +445,12 @@ int					cmd_len(char **array);
  */
 void				case_only_redirections(char ***array);
 /**
-	* @brief Case of having an empthy token after parsing. Moves the pointer to be NULL. 
-	* @note get_node_cmd subfunction. EXAMPLE : $asdas becomes an empthy token after parsing. 
- * @param  array Takes a pointer to a 2D array so it could be changed.
- * @retval None
+	* @brief Case of having an empty token after parsing. Moves the pointer 
+	* to be NULL. 
+	* @note get_node_cmd subfunction. EXAMPLE : $asdas becomes an empthy token 
+	* after parsing. 
+  * @param  array Takes a pointer to a 2D array so it could be changed.
+  * @retval None
  */
 void				case_empty_cmd(char ***array);
 /**
@@ -457,7 +463,9 @@ void				free_nodes(t_node *node);
 
 // piper
 /**
-	* @brief Creates 2D int array of allocated pipes. Loops through the nodes and changes the infile and outfile to be the IN end and OUT end of the pipe if needed.
+ * @brief Creates 2D int array of allocated pipes. Loops through the nodes 
+ * and changes the infile and outfile to be the IN end and OUT end of 
+ * the pipe if needed.
  * @note   
  * @param  array string 
  * @param  node t_node pointer. node list head. 
@@ -479,15 +487,17 @@ int					**allocate_pipes(char *array);
  */
 int					num_of_pipes(char *array);
 /**
-	* @brief Loops through the nodes and checks if a pipe is needed for the processes,
-	if it does it changes the infile and outfile to the in end and out end of the pipe. 
+ * @brief Loops through the nodes and checks if a pipe is needed for
+ * the processes,
+ * if it does it changes the infile and outfile to the in end and out end 
+ * of the pipe. 
  * @note piper subfunction. IN OUT macros for read and write ends of the pipe.
  * @param  node t_node pointer. node list head.
  * @param  pipe_nbr 2D int array
  * @retval None
  */
-void	change_infile_outfile_to_pipes(t_node *node,
-									int **pipe_nbr);
+void				change_infile_outfile_to_pipes(t_node *node,
+						int **pipe_nbr);
 /**
  * @brief Frees the allocated pipes. 
  * @note  piper subfunction. 

@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 08:23:40 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 15:40:47 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	split_operators_len(char **array)
 	return (num_of_tokens);
 }
 
-//Splits the token if there is operators attached to new tokens
+//Splits the token if there is operators attached in the token
 
 char	**ft_split_operators(char **array)
 {

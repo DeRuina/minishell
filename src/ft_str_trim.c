@@ -6,13 +6,13 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:43:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/07 13:43:43 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:19:08 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Sets the quote to 0 if pair is found. returns without the quotes
+// Trims the token and returns it without the quotes
 
 char	*trim_token(char *str, char *answer, int i, char quote)
 {
@@ -46,6 +46,7 @@ int	token_is_double_quotes(char *str)
 		return (1);
 	return (0);
 }
+
 // Checks if trim is needed, 0 if not.
 
 int	is_trim_needed(char *str)

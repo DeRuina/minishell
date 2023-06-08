@@ -6,11 +6,13 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/07 16:42:39 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:09:01 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Changing directories with only a relative or absolute path
 
 void	ft_cd(char **full_cmd, t_vec *envs)
 {
@@ -30,6 +32,8 @@ void	ft_cd(char **full_cmd, t_vec *envs)
 	ft_putenv_key(envs, "PWD", pwd);
 }
 
+// Returns the current full path
+
 char	*get_path(void)
 {
 	char	path[PATH_MAX];
@@ -38,6 +42,8 @@ char	*get_path(void)
 		perror("PWD :");
 	return (ft_strdup(path));
 }
+
+// Prints the current path when called
 
 void	ft_pwd(void)
 {
@@ -48,10 +54,14 @@ void	ft_pwd(void)
 	free(pwd);
 }
 
+// Exits the program when called
+
 void	ft_exit(void)
 {
 	exit(EXIT_SUCCESS);
 }
+
+// Prints the arguments on the screen
 
 void	ft_echo(char **full_cmd)
 {

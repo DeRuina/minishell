@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 16:18:22 by druina            #+#    #+#             */
-/*   Updated: 2023/05/19 08:20:10 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:18:46 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*no_operator(char *array)
 {
 	return (ft_strdup(array));
 }
+
 //Checks for the number of operators in the string
 
 int	check_operators_num_in_string(char *array)

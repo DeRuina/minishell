@@ -6,12 +6,14 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/07 16:26:46 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:28:37 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
+
+// Gets the node full_cmd
 
 char	**get_node_cmd(char ***array)
 {
@@ -42,6 +44,8 @@ char	**get_node_cmd(char ***array)
 	return (answer);
 }
 
+// Creates all the nodes recursively, adds full_cmd, infile, outfile, node.next
+
 t_node	*new_node(char ***array, t_vec env, int *error_here_docs,
 		int node_counter)
 {
@@ -62,6 +66,8 @@ t_node	*new_node(char ***array, t_vec env, int *error_here_docs,
 		node->next = new_node(array, env, error_here_docs, ++node_counter);
 	return (node);
 }
+
+// Parses the line and assigins the information to each node
 
 t_node	*ft_parse_args(char *line, t_vec env)
 {

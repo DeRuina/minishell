@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/02 23:47:32 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:21:27 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Checks if the command is a builtin
 
 int	is_builtin(char *cmd)
 {
@@ -36,6 +38,8 @@ int	is_builtin(char *cmd)
 	return (NONE);
 }
 
+// Loops through the nodes and frees them
+
 void	free_nodes(t_node *node)
 {
 	t_node	*temp;
@@ -53,6 +57,8 @@ void	free_nodes(t_node *node)
 	free(node);
 }
 
+// DO WE NEED THIS?
+
 // int	ft_max(int a, int b)
 // {
 // 	if (a > b)
@@ -60,11 +66,15 @@ void	free_nodes(t_node *node)
 // 	return (b);
 // }
 
+// Uses perror with error_msg and exits
+
 void	ft_pexit(char *error_msg)
 {
 	perror(error_msg);
 	exit(EXIT_FAILURE);
 }
+
+// SAME FUNCTION ??
 
 int	ft_perror(char *error_msg)
 {

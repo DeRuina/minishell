@@ -6,11 +6,13 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 23:06:41 by druina            #+#    #+#             */
-/*   Updated: 2023/06/06 23:08:02 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:27:16 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Case of having only redirections without any executables
 
 void	case_only_redirections(char ***array)
 {
@@ -19,6 +21,9 @@ void	case_only_redirections(char ***array)
 	if (*(*array))
 		(*array)++;
 }
+
+// Checks if the current arguemnts until the pipe have
+//	any tokens that are not redirections.
 
 int	cmd_len(char **array)
 {
@@ -40,6 +45,8 @@ int	cmd_len(char **array)
 	}
 	return (len);
 }
+
+// Case of having an empty token after parsing. Moves the pointer to be NULL.
 
 void	case_empty_cmd(char ***array)
 {

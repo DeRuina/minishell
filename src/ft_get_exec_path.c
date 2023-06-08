@@ -6,11 +6,13 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:58:42 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/07 13:06:34 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:17:14 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Adds the path and the cmd together
 
 char	*ft_full_path(char *path, char *cmd)
 {
@@ -26,6 +28,7 @@ char	*ft_full_path(char *path, char *cmd)
 }
 
 // Checks if cmd is accessible and returns the full path of the executable
+
 char	*ft_get_exec_path(t_vec env, char *cmd)
 {
 	char	*path;

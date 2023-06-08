@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:25:33 by druina            #+#    #+#             */
-/*   Updated: 2023/06/07 11:26:16 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:10:31 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
+
+// Prints the declare list when export is called with no arguments
 
 void	export_no_arg(t_vec *envs)
 {
@@ -28,12 +30,16 @@ void	export_no_arg(t_vec *envs)
 	free_2d(temp);
 }
 
+// Adds a variable to the environment
+
 void	ft_export(char **full_cmd, t_vec *envs)
 {
 	if (!full_cmd[1])
 		return (export_no_arg(envs));
 	ft_putenv(envs, full_cmd[1]);
 }
+
+// Prints the environment
 
 void	ft_env(t_vec envs)
 {
@@ -49,6 +55,8 @@ void	ft_env(t_vec envs)
 	}
 	free_2d(temp);
 }
+
+// Takes the variable and deletes it from the environment
 
 void	ft_unset(t_vec *envs, char *key)
 {

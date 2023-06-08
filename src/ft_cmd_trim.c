@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/06/06 22:29:33 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 15:39:10 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	find_closing_quote(char *quote, int *closing_quote, char **line)
 	return (0);
 }
 
-// setting the pointer of line to the address of where the token ends
+// Handles the case of mutliple words covered in quotes = one token.
+// moves the pointer to the end of the closing quote.
 
 void	handle_quotes(char **line)
 {

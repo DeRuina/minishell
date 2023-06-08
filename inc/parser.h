@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:32:22 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/07 14:13:36 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:29:13 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-#include "libft.h"
-#include "minishell.h"
+# include "libft.h"
+# include "minishell.h"
 
 // Expand utils
 void	ft_tmp_to_result(char **result, char **tmp);
@@ -23,7 +23,7 @@ char	*ft_var_end(char *str);
 char	*ft_var_expand(t_vec env_vars, char *str);
 char	*ft_varible(t_vec env_vars, char **result, char *token);
 char	*ft_tilde(t_vec env_vars, char **result, char *token);
-char	*ft_noexpand(char **result, char *token);;
+char	*ft_noexpand(char **result, char *token);
 
 // Env utils
 char	*ft_getkey(char *str);

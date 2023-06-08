@@ -6,11 +6,13 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 10:06:54 by druina            #+#    #+#             */
-/*   Updated: 2023/06/05 09:34:30 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:27:58 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Frees the allocated pipes
 
 void	free_pipes(int **pipe_nbr, char *array)
 {
@@ -28,6 +30,9 @@ void	free_pipes(int **pipe_nbr, char *array)
 	}
 	free(pipe_nbr);
 }
+
+// Loops through the nodes and checks if a pipe is needed for the processes,
+// changes the infile and outfile to the in end and out end of the pipe. 
 
 void	change_infile_outfile_to_pipes(t_node *node, int **pipe_nbr)
 {
@@ -55,6 +60,8 @@ void	change_infile_outfile_to_pipes(t_node *node, int **pipe_nbr)
 		node->infile = pipe_nbr[i - 1][IN];
 }
 
+// Indexes the strings and checks for number of pipes
+
 int	num_of_pipes(char *array)
 {
 	int	i;
@@ -70,6 +77,8 @@ int	num_of_pipes(char *array)
 	}
 	return (len);
 }
+
+// Allocates 2D int array for the number of pipes needed
 
 int	**allocate_pipes(char *array)
 {
@@ -97,6 +106,9 @@ int	**allocate_pipes(char *array)
 	}
 	return (pipe_nbr);
 }
+
+// Creates 2D int array of allocated pipes. Loops through the nodes and changes 
+// the infile and outfile to be the IN end and OUT end of the pipe if needed.
 
 int	**piper(char *array, t_node *node)
 {

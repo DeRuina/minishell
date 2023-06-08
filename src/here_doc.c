@@ -6,11 +6,13 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:21:48 by druina            #+#    #+#             */
-/*   Updated: 2023/06/02 21:27:36 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:05:16 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// Reopens the here_doc to reset file "cursor"
 
 int	reopen_file_and_check(char *name)
 {
@@ -25,7 +27,7 @@ int	reopen_file_and_check(char *name)
 	return (infile);
 }
 
-// creates and closes here_docs in case of invalid infile
+// creates here_docs before error message in case of invalid infile
 
 int	here_doc_invalid_infile(char **array, int i, int **error_here_docs,
 		int node_counter)

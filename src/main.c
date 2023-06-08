@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/07 14:44:25 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:22:56 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// builtin without pipe is executed in the parent and not in a child 
 
 static int	call_buildin(t_node *head, t_vec *envs)
 {
@@ -33,6 +35,7 @@ static int	call_buildin(t_node *head, t_vec *envs)
 	}
 	return (0);
 }
+// Parsing and executing builtins/commands
 
 static void	minishell(char *line, t_vec *envs)
 {
@@ -52,6 +55,8 @@ static void	minishell(char *line, t_vec *envs)
 	ft_executor(head, *envs);
 	free_nodes(head);
 }
+
+// Looping our shell
 
 int	main(int argc, char *argv[], char *env[])
 {
