@@ -6,13 +6,14 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:29:47 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/05 16:37:01 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 15:59:14 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 
+// Finds and returns the address of given key in the envs list
 t_env	*ft_envfind(t_vec *envs_vec, char *key)
 {
 	size_t	i;

@@ -6,18 +6,20 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 07:07:11 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/07 11:51:43 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 15:58:40 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 
+// Gets the key out of env string
 char	*ft_getkey(char *str)
 {
 	return (ft_substr(str, 0, ft_strchr(str, '=') - str));
 }
 
+// Gets the value out of env string
 char	*ft_getvalue(char *str)
 {
 	char	*value_start;
@@ -28,6 +30,7 @@ char	*ft_getvalue(char *str)
 	return (ft_substr(str, value_start - str + 1, ft_strlen(value_start)));
 }
 
+// Checks if key exists in the envs list and updates it's value
 int	ft_env_update(t_env *envs, t_env env, int len)
 {
 	int		i;
@@ -45,10 +48,9 @@ int	ft_env_update(t_env *envs, t_env env, int len)
 		if (!ft_strncmp(envs[i].key, env.key, env_key_len))
 		{
 			if (envs[i].key)
-				free(envs[i].key);
+				free(env.key);
 			if (envs[i].value)
 				free(envs[i].value);
-			envs[i].key = env.key;
 			envs[i].value = env.value;
 			return (1);
 		}
@@ -57,6 +59,7 @@ int	ft_env_update(t_env *envs, t_env env, int len)
 	return (0);
 }
 
+// Combines key and value to a string
 char	*ft_env_to_str(t_env env)
 {
 	char	*env_str;

@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:32:22 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:29:13 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:54:40 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "minishell.h"
 
 // Expand utils
-void	ft_tmp_to_result(char **result, char **tmp);
 int		ft_should_expand_tilde(char *token, char *token_init);
 char	*ft_var_end(char *str);
 char	*ft_var_expand(t_vec env_vars, char *str);

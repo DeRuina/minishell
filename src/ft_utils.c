@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:21:27 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:52:59 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,6 @@ void	free_nodes(t_node *node)
 		free_2d(node->full_cmd);
 	free(node);
 }
-
-// DO WE NEED THIS?
-
-// int	ft_max(int a, int b)
-// {
-// 	if (a > b)
-// 		return (a);
-// 	return (b);
-// }
-
-// Uses perror with error_msg and exits
 
 void	ft_pexit(char *error_msg)
 {

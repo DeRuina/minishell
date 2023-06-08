@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:51:32 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:55:39 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ char				**ft_strenv(t_vec envs_vec);
 // expand
 
 void				ft_expand(t_vec env_vars, char **arr);
-// char			*ft_var_end(char *str);
-// char			*ft_var_expand(t_vec env_vars, char *str);
 char				*ft_expand_token(t_vec env_vars, char *str);
 
 // expand utils
