@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:52:59 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:53:49 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,10 @@ void	free_nodes(t_node *node)
 	free(node);
 }
 
+// Uses perror with the message and exits
+
 void	ft_pexit(char *error_msg)
 {
 	perror(error_msg);
 	exit(EXIT_FAILURE);
-}
-
-// SAME FUNCTION ??
-
-int	ft_perror(char *error_msg)
-{
-	perror(error_msg);
-	return (EXIT_FAILURE);
 }
