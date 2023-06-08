@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 11:45:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 15:53:41 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 17:14:18 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 // Gets env string (eg. "HOME=/Users/tspoof") and stores it in an array as
 // key value pair (eg key = "HOME", value = "/Users/tspoof").
+
 int	ft_putenv(t_vec *envs_vec, char *str)
 {
 	t_env	*envs;
@@ -36,6 +37,7 @@ int	ft_putenv(t_vec *envs_vec, char *str)
 
 // Gets key (eg. "HOME") and value (eg. "/Users/tspoof") and stores it in an
 // array as key value pair (eg key = "HOME", value = "/Users/tspoof").
+
 int	ft_putenv_key(t_vec *envs_vec, char *key, char *value)
 {
 	t_env	*envs;
@@ -55,6 +57,7 @@ int	ft_putenv_key(t_vec *envs_vec, char *key, char *value)
 
 // Returns the keys value
 // eg. "HOME" will return "/Users/tspoof"
+
 char	*ft_getenv(t_vec envs_vec, char *key)
 {
 	t_env	*envs;
@@ -66,6 +69,7 @@ char	*ft_getenv(t_vec envs_vec, char *key)
 }
 
 // Copies the env given from main to our own env vector
+
 t_vec	ft_copyenv(char *env[])
 {
 	t_vec	envs;
@@ -82,6 +86,7 @@ t_vec	ft_copyenv(char *env[])
 }
 
 // Turns env vector to array of env strings (HOME=/Users/tspoof).
+
 char	**ft_strenv(t_vec envs_vec)
 {
 	t_env	*envs;

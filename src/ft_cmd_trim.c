@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 13:21:59 by druina            #+#    #+#             */
-/*   Updated: 2023/06/08 15:39:10 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 17:13:15 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ char	*next_token_from_line(char **line)
 	handle_quotes(line);
 	return (allocate_token(token_start, (*line)));
 }
+
 // Gets the number of tokens to be allocated (len)
 
 int	cmd_trim_len(char *line)

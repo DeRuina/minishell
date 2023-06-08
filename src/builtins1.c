@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/08 16:09:01 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 17:11:52 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_cd(char **full_cmd, t_vec *envs)
 
 char	*get_path(void)
 {
-	char	path[PATH_MAX];
+	char	path[4096];
 
 	if (getcwd(path, sizeof(path)) == NULL)
 		perror("PWD :");

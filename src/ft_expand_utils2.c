@@ -6,12 +6,14 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:12:47 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:57:21 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 17:15:03 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
+
+// Global variable for exit status
 
 extern int	g_exit_status;
 

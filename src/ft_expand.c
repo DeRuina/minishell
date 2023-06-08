@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:12:37 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 17:15:19 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "parser.h"
 
 // Adds the $ or ~ plus extra to result if the $ or ~ should not be expanded
+
 static char	*ft_handle_nonexpand(char **result, char *token)
 {
 	char	*sub_str;
@@ -37,6 +38,7 @@ static char	*ft_handle_nonexpand(char **result, char *token)
 
 // Checks what type of expand it is or is it even expandable
 // Returns the address of a next character to be checked by the ft_expand_token
+
 char	*ft_handle_expand(t_vec env_vars, char **result, char *token,
 		char *token_first_char)
 {
@@ -52,6 +54,7 @@ char	*ft_handle_expand(t_vec env_vars, char **result, char *token,
 // Loops the characters in the token and puts those to result string.
 // If there is exand tokens ($ or ~) it will try to expand those.
 // Return the expanded token as a string.
+
 char	*ft_expand_token(t_vec env_vars, char *token)
 {
 	char	*result;
@@ -72,6 +75,7 @@ char	*ft_expand_token(t_vec env_vars, char *token)
 }
 
 // Loops all tokens and checks if it contains expandable characters
+
 void	ft_expand(t_vec env_vars, char **token_arr)
 {
 	char	*tmp;

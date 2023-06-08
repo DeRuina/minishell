@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:55:39 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 17:12:00 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <string.h>
 /* #include <sys/syslimits.h>*/
 # include <limits.h> // this should be enough
-// # include <linux/limits.h> // need it for PATH_MAX in linux. Only for the highlighter.
 # include <sys/wait.h> // for linux
 # include <unistd.h>
 

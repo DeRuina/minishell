@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 07:07:11 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 15:58:40 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 17:13:56 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 #include "parser.h"
 
 // Gets the key out of env string
+
 char	*ft_getkey(char *str)
 {
 	return (ft_substr(str, 0, ft_strchr(str, '=') - str));
 }
 
 // Gets the value out of env string
+
 char	*ft_getvalue(char *str)
 {
 	char	*value_start;
@@ -31,6 +33,7 @@ char	*ft_getvalue(char *str)
 }
 
 // Checks if key exists in the envs list and updates it's value
+
 int	ft_env_update(t_env *envs, t_env env, int len)
 {
 	int		i;
@@ -60,6 +63,7 @@ int	ft_env_update(t_env *envs, t_env env, int len)
 }
 
 // Combines key and value to a string
+
 char	*ft_env_to_str(t_env env)
 {
 	char	*env_str;
@@ -76,6 +80,8 @@ char	*ft_env_to_str(t_env env)
 	ft_strlcpy(&(env_str[key_len + 1]), env.value, val_len + 1);
 	return (env_str);
 }
+
+// Frees the envs
 
 void	free_envs(t_vec envs)
 {

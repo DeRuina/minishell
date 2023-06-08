@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 17:26:23 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:20:24 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 17:14:35 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "parser.h"
 
 // gets the address of the character after the end of the variable
+
 char	*ft_var_end(char *str)
 {
 	if (*str == '$')
@@ -29,6 +30,7 @@ char	*ft_var_end(char *str)
 
 // Expands the $variable. Also handles that the $ is the only character or that
 // the token is $$
+
 char	*ft_var_expand(t_vec env_vars, char *str)
 {
 	char	*key;
@@ -51,6 +53,7 @@ char	*ft_var_expand(t_vec env_vars, char *str)
 // Returns true if:
 // - ~ is the first char in the token and next char is an empty space or a NULL
 // - The next char is ' ' or a NULL and previus char is an empty space.
+
 int	ft_should_expand_tilde(char *token, char *token_first_char)
 {
 	if (token == token_first_char

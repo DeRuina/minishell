@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:29:47 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 15:59:14 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 17:14:01 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "parser.h"
 
 // Finds and returns the address of given key in the envs list
+
 t_env	*ft_envfind(t_vec *envs_vec, char *key)
 {
 	size_t	i;

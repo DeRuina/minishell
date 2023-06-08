@@ -6,16 +6,16 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:44:06 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 17:12:46 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 
-// builtin without pipe is executed in the parent and not in a child 
+// builtin without pipe is executed in the parent and not in a child
 
-static int	call_buildin(t_node *head, t_vec *envs)
+static int	call_builtin(t_node *head, t_vec *envs)
 {
 	if (head->full_cmd)
 	{
@@ -41,6 +41,7 @@ static int	call_buildin(t_node *head, t_vec *envs)
 	}
 	return (0);
 }
+
 // Parsing and executing builtins/commands
 
 static void	minishell(char *line, t_vec *envs)
@@ -67,26 +68,19 @@ static void	minishell(char *line, t_vec *envs)
 int	main(int argc, char *argv[], char *env[])
 {
 	char	*line;
-	// int		wait_times;
-	// int		i;
 	t_vec	envs;
 
 	(void)argv;
 	if (argc != 1)
 		return (ft_putstr_fd("Error: Arguments invalid\n", 0), 1);
 	envs = ft_copyenv(env);
-	// i = -1;
 	while (1)
 	{
 		line = readline("RuiSpo: ");
 		if (strlen(line) > 0)
 			add_history(line);
 		minishell(line, &envs);
-		// wait_times = num_of_pipes(line);
 		free(line);
-		// while (++i <= wait_times)
-		// 	wait(NULL);
-		// i = -1;
 	}
 	return (0);
 }
