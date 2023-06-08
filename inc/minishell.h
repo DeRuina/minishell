@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/07 13:56:52 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 14:04:55 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <stdlib.h> // getenv
 # include <string.h>
 /* #include <sys/syslimits.h>*/
-# include <limits.h>       // this should work in linux
+# include <limits.h>       // this should work in linux -IT DOESN'T!!
 # include <linux/limits.h> // need it for PATH_MAX in linux
 # include <sys/wait.h>     // for linux
 # include <unistd.h>
@@ -57,12 +57,6 @@ enum				e_builtins
 	EXIT
 };
 
-// exec
-t_node				*ft_parse_args(char *line, t_vec env);
-int					ft_child(t_node *node, t_vec envv);
-int					ft_executor(t_node *node, t_vec envv);
-int					builtin_commands(char **cmd, t_vec envv);
-
 // Env
 int					ft_putenv(t_vec *envs_vec, char *str);
 int					ft_putenv_key(t_vec *envs_vec, char *key, char *str);
@@ -82,24 +76,156 @@ char				*ft_expand_token(t_vec env_vars, char *str);
 // void			ft_tmp_to_result(char **result, char **tmp);
 // int				ft_should_expand_tilde(char *token, char *token_init);
 
+// PARSE ARGS
+/**
+ * @brief parses the line and sets each node to have the information needed for each proccess. 
+ * @note   
+ * @param  line string. line from user. 
+ * @param  env t_vec.
+ * @retval The head node of the node list.
+ */
+t_node				*ft_parse_args(char *line, t_vec env);
+/**
+ * @brief Changes the STDIN & STDOUT of the process to be the infile and outfile.
+ * executes the commands using execve.
+ * @note if execve is successful the whole process is overwritten. 
+ * @param  node pointer to t_node. 
+ * @param  envv t_ved 
+ * @retval 0
+ */
+int					ft_child(t_node *node, t_vec envv);
+/**
+ * @brief loops through the nodes, forks and enters child processes. 
+ * @note  exits if fork fails.
+ * @param  node pointer to t_node. Head of list.
+ * @param  envv t_ved 
+ * @retval returns 0.
+ */
+int					ft_executor(t_node *node, t_vec envv);
+/**
+ * @brief If the command if one of the builtins we call the specific one. 
+ * @note   
+ * @param  cmd 2D array
+ * @param  envv t_vec  
+ * @retval Exits the process after executing the command.
+ */
+int					builtin_commands(char **cmd, t_vec envv);
 
 // cmd_trim
+/**
+ * @brief Takes the line and seperates it to tokens.
+ * @note   
+ * @param  line string.
+ * @retval 2D array of tokens. 
+ */
 char				**ft_cmd_trim(char *line);
+/**
+ * @brief Allocates and copies the token. 
+ * @note  subfunction of ft_cmd_trim.  
+ * @param  token_start pointer to beggining of the token.
+ * @param  token_end pointer to the end of the token.
+ * @retval New allocated token.
+ */
 char				*allocate_token(char *token_start, char *token_end);
+/**
+ * @brief Finds the closing quote and moves the pointer to there. 
+ * changes the value of closing_quote if found to 1.
+ * changes quote to 0 if found attached double quotes.
+ * @note  subfunction of ft_cmd_trim.  
+ * @param  quote pointer to char
+ * @param  closing_quote pointer to char
+ * @param  line pointer to string.
+ * @retval 1 if found the closing quote, 0 if not.
+ */
 int					find_closing_quote(char *quote, int *closing_quote,
 						char **line);
+/**
+ * @brief Handles the case of a token with quotes.
+ * moves the pointer to the end of the closing quote.
+ * EXAMPLE "somthing this that" - this is one token
+ * @note  subfunction of ft_cmd_trim. 
+ * @param  line pointer to a string.
+ * @retval None
+ */
 void				handle_quotes(char **line);
+/**
+ * @brief Gets the next token from the line, handles token 
+ * as multiple words under quotes. moves the pointer hence 
+ * changing the value of the string.
+ * @note subfunction of ft_cmd_trim.   
+ * @param  line pointer to a string.
+ * @retval returns the next token from the line allocated. 
+ */
 char				*next_token_from_line(char **line);
+/**
+ * @brief Gets the number of tokens to be  allocated.
+ * @note  subfunction of ft_cmd_trim. 
+ * @param  line string. 
+ * @retval number of tokens to be allocated.
+ */
 int					cmd_trim_len(char *line);
 
 // split_operators
+/**
+ * @brief  Splits the tokens if there's operators attached together.
+ * @note   
+ * @param  array 2D array.
+ * @retval 2D array of tokens after being splited.
+ */
 char				**ft_split_operators(char **array);
+/**
+ * @brief Creates the new array of tokens after they're splitted if they're together.
+ * @note subfunction of ft_split_operators.  
+ * @param  array 2D array.
+ * @param  answer 2D array.
+ * @retval 2D array of tokens after being splited.
+ */
 char				**divide_into_array(char **array, char **answer);
+/**
+ * @brief returns malloced token if there is no operator inside.
+ * @note  subfunction of ft_split_operators.  
+ * @param  array string.
+ * @retval malloced token.
+ */
 char				*no_operator(char *array);
+/**
+ * @brief Gets the next token, mallocs it and returns it.
+ * @note  subfunction of ft_split_operators. 
+ * @param  array pointer to a string. 
+ * @retval returns the token.
+ */
 char				*malloc_new_token(char **array);
+/**
+ * @brief Gets the next token by moving the pointer of the string. 
+ * EXAMPLE: "<Makefile|" first call - return 1, modified string "Makefile|".
+ * second call - return 8, modified string "|".
+ * third call - return 1, modified string "".
+ * @note subfunction of ft_split_operators.   
+ * @param  string pointer to a string.
+ * @retval the lenght of the token.
+ */
 int					get_next_token(char **string);
+/**
+ * @brief Checks if there is any operators in the string.
+ * @note subfunction of ft_split_operators.   
+ * @param  array string.
+ * @retval returns the number of operators. 0 if none.
+ */
 int					check_operators_num_in_string(char *array);
+/**
+ * @brief  Checks the lenght of the new 2D array after splitting the toekns.
+ * Doing it by moving the pointer of the array token by token.
+ * @note subfunction of ft_split_operators.  
+ * @param  array 2D string array. 
+ * @retval lenght of number of tokens for new array.
+ */
 int					split_operators_len(char **array);
+/**
+ * @brief Checks if the token is an operator and moves the pointer accordinly.
+ * @note subfunction of ft_split_operators. chnages the value of str.
+ * @param  str pointer to a string
+ * @retval 2 if its <<  >>, 1 if its <  |  > and 0 if not.
+ */
 int					is_token_an_operator(char **str);
 
 // str_trim
@@ -371,7 +497,7 @@ void	change_infile_outfile_to_pipes(t_node *node,
  */
 void				free_pipes(int **pipe_nbr, char *array);
 
-// Builtinså
+// Builtins
 
 /**
  * @brief  prints the arguments on the screen. 
