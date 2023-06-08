@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 17:12:46 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 18:07:17 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	main(int argc, char *argv[], char *env[])
 	(void)argv;
 	if (argc != 1)
 		return (ft_putstr_fd("Error: Arguments invalid\n", 0), 1);
+	welcome_message();
 	envs = ft_copyenv(env);
 	while (1)
 	{

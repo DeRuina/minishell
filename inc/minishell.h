@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 17:12:00 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 18:08:02 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -592,5 +592,12 @@ void				export_no_arg(t_vec *envs);
  * @retval None
  */
 void				ft_unset(t_vec *envs, char *key);
+
+/**
+ * @brief  welcome message to our shell
+ * @note   
+ * @retval None
+ */
+void				welcome_message(void);
 
 #endif
