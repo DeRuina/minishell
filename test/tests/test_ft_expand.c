@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/07 14:53:48 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 13:58:14 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void test_ft_var_expand_3(void)
 	char *result = ft_var_expand(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, result);
 	free(val);
-	// free(result);
+	free(result);
 }
 void test_ft_var_expand_4(void)
 {
@@ -120,6 +120,7 @@ void test_ft_var_expand_6(void)
 	char *val = ft_strdup("$ ");
 	char *result = ft_var_expand(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, result);
+	free(result);
 	free(val);
 }
 
@@ -152,7 +153,7 @@ void test_ft_expand_token_2(void)
 	char *actual = ft_expand_token(vars, val);
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
 	free(val);
-	// free(actual);
+	free(actual);
 }
 
 void test_ft_expand_token_3(void)
@@ -214,8 +215,7 @@ void test_ft_expand_$2(void)
 	ft_expand(vars, line);
 	TEST_ASSERT_EQUAL_STRING_ARRAY(expected, line, 2);
 	free(expected);
-	// free(line[0]);
-	free(line);
+	free_2d(line);
 }
 
 void test_ft_expand_$3(void)

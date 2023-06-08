@@ -1,5 +1,6 @@
 #include "unity.h"
 #include "minishell.h"
+#include "parser.h"
 
 t_vec	env;
 
@@ -14,9 +15,10 @@ void	set_env(void)
 void test_ft_get_exec_path_0(void)
 {
 	char *expected = "/bin/ls";
-	char *actual = ft_get_exec_path(env, "ls");
+	char *actual = ft_get_exec_path(env, ft_strdup("ls"));
 
 	TEST_ASSERT_EQUAL_STRING(expected, actual);
+	free(actual);
 }
 
 int test_ft_get_exec_path(void)
@@ -24,5 +26,7 @@ int test_ft_get_exec_path(void)
 	UNITY_BEGIN();
 	set_env();
 	RUN_TEST(test_ft_get_exec_path_0);
+	free_envs(env);
+	vec_free(&env);
 	return UNITY_END();
 }

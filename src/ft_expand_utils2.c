@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:12:47 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/07 14:30:35 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 14:27:50 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 extern int	g_exit_status;
 
-char	*ft_handle_dollar(t_vec env_vars, char *line, char *token)
+char	*ft_handle_dollar(t_vec env_vars, char *result, char *token)
 {
 	char	*expanded_var;
 
@@ -24,8 +24,8 @@ char	*ft_handle_dollar(t_vec env_vars, char *line, char *token)
 	else
 		expanded_var = ft_var_expand(env_vars, token);
 	if (!expanded_var)
-		return (ft_strdup(line));
-	return (ft_strjoin(line, expanded_var));
+		return (ft_strdup(result));
+	return (ft_strjoin(result, expanded_var));
 }
 
 // returns the address after the last char of the variable
@@ -47,7 +47,7 @@ char	*ft_tilde(t_vec env_vars, char **result, char *token)
 {
 	char	*tmp;
 
-	tmp = ft_strjoin(*result, ft_var_expand(env_vars, ft_strdup("HOME")));
+	tmp = ft_strjoin(*result, ft_var_expand(env_vars, "HOME"));
 	if (tmp)
 	{
 		free(*result);

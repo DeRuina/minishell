@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/07 14:30:20 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 14:32:12 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	*ft_expand_token(t_vec env_vars, char *token)
 
 void	ft_expand(t_vec env_vars, char **token_arr)
 {
+	char	*tmp;
+
 	while (*token_arr)
 	{
 		if (!ft_strchr(*token_arr, '$') && !ft_strchr(*token_arr, '~'))
@@ -74,7 +76,9 @@ void	ft_expand(t_vec env_vars, char **token_arr)
 			token_arr++;
 			continue ;
 		}
+		tmp = *token_arr;
 		*token_arr = ft_expand_token(env_vars, *token_arr);
+		free(tmp);
 		token_arr++;
 	}
 }
