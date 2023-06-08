@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:12:47 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/07 14:30:35 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 13:54:53 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_tilde(t_vec env_vars, char **result, char *token)
 {
 	char	*tmp;
 
-	tmp = ft_strjoin(*result, ft_var_expand(env_vars, ft_strdup("HOME")));
+	tmp = ft_strjoin(*result, ft_var_expand(env_vars, "HOME"));
 	if (tmp)
 	{
 		free(*result);
