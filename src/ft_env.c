@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 11:45:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/06 13:07:12 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 15:53:41 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	ft_putenv_key(t_vec *envs_vec, char *key, char *value)
 }
 
 // Returns the keys value
+// eg. "HOME" will return "/Users/tspoof"
 char	*ft_getenv(t_vec envs_vec, char *key)
 {
 	t_env	*envs;
@@ -64,7 +65,7 @@ char	*ft_getenv(t_vec envs_vec, char *key)
 	return (envs->value);
 }
 
-// Copies the env from main to our own env vector
+// Copies the env given from main to our own env vector
 t_vec	ft_copyenv(char *env[])
 {
 	t_vec	envs;

@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/02 23:47:32 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:28:20 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,6 @@ void	free_nodes(t_node *node)
 		free_2d(node->full_cmd);
 	free(node);
 }
-
-// int	ft_max(int a, int b)
-// {
-// 	if (a > b)
-// 		return (a);
-// 	return (b);
-// }
 
 void	ft_pexit(char *error_msg)
 {

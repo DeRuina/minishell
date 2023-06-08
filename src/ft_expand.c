@@ -6,13 +6,14 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 14:32:12 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:12:37 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 
+// Adds the $ or ~ plus extra to result if the $ or ~ should not be expanded
 static char	*ft_handle_nonexpand(char **result, char *token)
 {
 	char	*sub_str;
@@ -34,24 +35,29 @@ static char	*ft_handle_nonexpand(char **result, char *token)
 	return (token);
 }
 
+// Checks what type of expand it is or is it even expandable
+// Returns the address of a next character to be checked by the ft_expand_token
 char	*ft_handle_expand(t_vec env_vars, char **result, char *token,
-		char *token_init)
+		char *token_first_char)
 {
 	if (*token == '$' && (ft_isalnum(*(token + 1)) || *(token + 1) == '?'))
 		token = ft_varible(env_vars, result, token);
-	if (*token == '~' && ft_should_expand_tilde(token, token_init))
+	if (*token == '~' && ft_should_expand_tilde(token, token_first_char))
 		token = ft_tilde(env_vars, result, token);
 	if ((*token == '$' && !ft_isalnum(*(token + 1))) || *token == '~')
 		token = ft_noexpand(result, token);
 	return (token);
 }
 
+// Loops the characters in the token and puts those to result string.
+// If there is exand tokens ($ or ~) it will try to expand those.
+// Return the expanded token as a string.
 char	*ft_expand_token(t_vec env_vars, char *token)
 {
 	char	*result;
-	char	*token_init_adrs;
+	char	*token_first_c;
 
-	token_init_adrs = token;
+	token_first_c = token;
 	result = ft_strdup("");
 	if (!result)
 		ft_pexit("ft_expand_token: ft_strdup");
@@ -60,11 +66,12 @@ char	*ft_expand_token(t_vec env_vars, char *token)
 		if (*token != '$' && *token != '~')
 			token = ft_handle_nonexpand(&result, token);
 		if (*token == '$' || *token == '~')
-			token = ft_handle_expand(env_vars, &result, token, token_init_adrs);
+			token = ft_handle_expand(env_vars, &result, token, token_first_c);
 	}
 	return (result);
 }
 
+// Loops all tokens and checks if it contains expandable characters
 void	ft_expand(t_vec env_vars, char **token_arr)
 {
 	char	*tmp;

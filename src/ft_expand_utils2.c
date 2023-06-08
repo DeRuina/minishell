@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:12:47 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 14:27:50 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:27:47 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 extern int	g_exit_status;
 
+// Expands and returns the expanded token
 char	*ft_handle_dollar(t_vec env_vars, char *result, char *token)
 {
 	char	*expanded_var;
@@ -28,6 +29,7 @@ char	*ft_handle_dollar(t_vec env_vars, char *result, char *token)
 	return (ft_strjoin(result, expanded_var));
 }
 
+// Expands and adds to result.
 // returns the address after the last char of the variable
 char	*ft_varible(t_vec env_vars, char **result, char *token)
 {
@@ -43,6 +45,8 @@ char	*ft_varible(t_vec env_vars, char **result, char *token)
 	return (token);
 }
 
+// Expands ~ and adds it to result
+// returns address after the ~
 char	*ft_tilde(t_vec env_vars, char **result, char *token)
 {
 	char	*tmp;
@@ -56,7 +60,8 @@ char	*ft_tilde(t_vec env_vars, char **result, char *token)
 	token++;
 	return (token);
 }
-
+// If $ is not expanded it will be joined to result by this function.
+// Returns the address of the next character in the token.
 char	*ft_noexpand(char **result, char *token)
 {
 	char	*tmp;
