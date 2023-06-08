@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:49:05 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/08 16:51:32 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,8 @@ int					token_is_double_quotes(char *str);
 
 // fd_handler
 /**
- * @brief takes the current node and returns it with the infile and outfile of the process
+ * @brief takes the current node and returns it with the infile 
+ * and outfile of the process
  * @note if pipes are needed piper function will change them later.
  * @param   array 2D string array.
  * @brief takes the current node and returns it with 
@@ -328,12 +329,12 @@ int					here_doc_invalid_infile(char **array, int i,
 int					reopen_file_and_check(char *name);
 /**
  * @brief Opens the infile, crates a here_doc if that's the infile.
- * If there was an invalid infile in any other node and here_doc was already created
- * it gets it from error_here_doc
+ * If there was an invalid infile in any other node and here_doc was already 
+ * created it gets it from error_here_doc
  * @note  subfunction of ft_fd_handler.
  * @param  array 2D string array.
- * @param  error_here_doc here_doc fd for associated node if there was invalid file.
- * If there was an invalid infile in any other node and here_doc 
+ * @param  error_here_doc here_doc fd for associated node if there was invalid 
+ * file. If there was an invalid infile in any other node and here_doc 
  * was already created it gets it from error_here_doc
  * @note  subfunction of ft_fd_handler.  
  * @param  array 2D string array. 
@@ -367,11 +368,14 @@ char				*find_last_infile(char **array);
 char				*find_last_outfile(char **array);
 /**
  * @brief Check if there is any invalid file before the infile or
- * if the infile is invalid and then opening all the here_docs before the error.
- * @note subfunction of ft_fd_handler. uses the function here_doc_invalid_infile to keep
- * all the here_docs opened before the error in error_here_docs int array.
+ * if the infile is invalid and then opening all the here_docs before
+ * the error.
+ * @note subfunction of ft_fd_handler. uses the function
+ * here_doc_invalid_infile to keep all the here_docs opened before the error
+ * in error_here_docs int array.
  * @param  array 2D string array.
- * @param  error_here_docs a pointer to an int array so the value could be changed.
+ * @param  error_here_docs a pointer to an int array so the value could 
+ * be changed.
  * @param  node_counter keeps counter of the node to know which here_doc
  * @brief Check if there is any invalid file before the infile 
  * or if the infile is invalid and then opening all the here_docs 
