@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 18:08:02 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/09 12:27:07 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@
 # include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <stdio.h>
-# include <stdlib.h> 
+# include <stdlib.h>
 # include <string.h>
-/* #include <sys/syslimits.h>*/
 # include <limits.h> // this should be enough
 # include <sys/wait.h> // for linux
 # include <unistd.h>
+# include <signal.h>
 
 # define IN 0
 # define OUT 1
@@ -63,21 +62,21 @@ char				*ft_getenv(t_vec envs_vec, char *key);
 t_vec				ft_copyenv(char *env[]);
 char				**ft_strenv(t_vec envs_vec);
 
-// expand
+// Expand
 
 void				ft_expand(t_vec env_vars, char **arr);
 char				*ft_expand_token(t_vec env_vars, char *str);
 
-// expand utils
-// void			ft_tmp_to_result(char **result, char **tmp);
-// int				ft_should_expand_tilde(char *token, char *token_init);
+// Signals
+void				sig_ctrl_c(int signal);
+void				sig_ctrl_bksl(int signal);
 
 // PARSE ARGS
 /**
- * @brief parses the line and sets each node to have the information 
- * needed for each proccess. 
- * @note   
- * @param  line string. line from user. 
+ * @brief parses the line and sets each node to have the information
+ * needed for each proccess.
+ * @note
+ * @param  line string. line from user.
  * @param  env t_vec.
  * @retval The head node of the node list.
  */
@@ -85,25 +84,25 @@ t_node				*ft_parse_args(char *line, t_vec env);
 /**
  * @brief Changes the STDIN & STDOUT of the process to be the infile and outfile.
  * executes the commands using execve.
- * @note if execve is successful the whole process is overwritten. 
- * @param  node pointer to t_node. 
- * @param  envv t_ved 
+ * @note if execve is successful the whole process is overwritten.
+ * @param  node pointer to t_node.
+ * @param  envv t_ved
  * @retval 0
  */
 int					ft_child(t_node *node, t_vec envv);
 /**
- * @brief loops through the nodes, forks and enters child processes. 
+ * @brief loops through the nodes, forks and enters child processes.
  * @note  exits if fork fails.
  * @param  node pointer to t_node. Head of list.
- * @param  envv t_ved 
+ * @param  envv t_ved
  * @retval returns 0.
  */
 int					ft_executor(t_node *node, t_vec envv);
 /**
- * @brief If the command if one of the builtins we call the specific one. 
- * @note   
+ * @brief If the command if one of the builtins we call the specific one.
+ * @note
  * @param  cmd 2D array
- * @param  envv t_vec  
+ * @param  envv t_vec
  * @retval Exits the process after executing the command.
  */
 int					builtin_commands(char **cmd, t_vec envv);
@@ -111,24 +110,24 @@ int					builtin_commands(char **cmd, t_vec envv);
 // cmd_trim
 /**
  * @brief Takes the line and seperates it to tokens.
- * @note   
+ * @note
  * @param  line string.
- * @retval 2D array of tokens. 
+ * @retval 2D array of tokens.
  */
 char				**ft_cmd_trim(char *line);
 /**
- * @brief Allocates and copies the token. 
- * @note  subfunction of ft_cmd_trim.  
+ * @brief Allocates and copies the token.
+ * @note  subfunction of ft_cmd_trim.
  * @param  token_start pointer to beggining of the token.
  * @param  token_end pointer to the end of the token.
  * @retval New allocated token.
  */
 char				*allocate_token(char *token_start, char *token_end);
 /**
- * @brief Finds the closing quote and moves the pointer to there. 
+ * @brief Finds the closing quote and moves the pointer to there.
  * changes the value of closing_quote if found to 1.
  * changes quote to 0 if found attached double quotes.
- * @note  subfunction of ft_cmd_trim.  
+ * @note  subfunction of ft_cmd_trim.
  * @param  quote pointer to char
  * @param  closing_quote pointer to char
  * @param  line pointer to string.
@@ -140,24 +139,24 @@ int					find_closing_quote(char *quote, int *closing_quote,
  * @brief Handles the case of a token with quotes.
  * moves the pointer to the end of the closing quote.
  * EXAMPLE "somthing this that" - this is one token
- * @note  subfunction of ft_cmd_trim. 
+ * @note  subfunction of ft_cmd_trim.
  * @param  line pointer to a string.
  * @retval None
  */
 void				handle_quotes(char **line);
 /**
- * @brief Gets the next token from the line, handles token 
- * as multiple words under quotes. moves the pointer hence 
+ * @brief Gets the next token from the line, handles token
+ * as multiple words under quotes. moves the pointer hence
  * changing the value of the string.
- * @note subfunction of ft_cmd_trim.   
+ * @note subfunction of ft_cmd_trim.
  * @param  line pointer to a string.
- * @retval returns the next token from the line allocated. 
+ * @retval returns the next token from the line allocated.
  */
 char				*next_token_from_line(char **line);
 /**
  * @brief Gets the number of tokens to be  allocated.
- * @note  subfunction of ft_cmd_trim. 
- * @param  line string. 
+ * @note  subfunction of ft_cmd_trim.
+ * @param  line string.
  * @retval number of tokens to be allocated.
  */
 int					cmd_trim_len(char *line);
@@ -165,15 +164,15 @@ int					cmd_trim_len(char *line);
 // split_operators
 /**
  * @brief  Splits the tokens if there's operators attached together.
- * @note   
+ * @note
  * @param  array 2D array.
  * @retval 2D array of tokens after being splited.
  */
 char				**ft_split_operators(char **array);
 /**
- * @brief Creates the new array of tokens after they're 
+ * @brief Creates the new array of tokens after they're
  * splitted if they're together.
- * @note subfunction of ft_split_operators.  
+ * @note subfunction of ft_split_operators.
  * @param  array 2D array.
  * @param  answer 2D array.
  * @retval 2D array of tokens after being splited.
@@ -181,31 +180,31 @@ char				**ft_split_operators(char **array);
 char				**divide_into_array(char **array, char **answer);
 /**
  * @brief returns malloced token if there is no operator inside.
- * @note  subfunction of ft_split_operators.  
+ * @note  subfunction of ft_split_operators.
  * @param  array string.
  * @retval malloced token.
  */
 char				*no_operator(char *array);
 /**
  * @brief Gets the next token, mallocs it and returns it.
- * @note  subfunction of ft_split_operators. 
- * @param  array pointer to a string. 
+ * @note  subfunction of ft_split_operators.
+ * @param  array pointer to a string.
  * @retval returns the token.
  */
 char				*malloc_new_token(char **array);
 /**
- * @brief Gets the next token by moving the pointer of the string. 
+ * @brief Gets the next token by moving the pointer of the string.
  * EXAMPLE: "<Makefile|" first call - return 1, modified string "Makefile|".
  * second call - return 8, modified string "|".
  * third call - return 1, modified string "".
- * @note subfunction of ft_split_operators.   
+ * @note subfunction of ft_split_operators.
  * @param  string pointer to a string.
  * @retval the lenght of the token.
  */
 int					get_next_token(char **string);
 /**
  * @brief Checks if there is any operators in the string.
- * @note subfunction of ft_split_operators.   
+ * @note subfunction of ft_split_operators.
  * @param  array string.
  * @retval returns the number of operators. 0 if none.
  */
@@ -213,8 +212,8 @@ int					check_operators_num_in_string(char *array);
 /**
  * @brief  Checks the lenght of the new 2D array after splitting the toekns.
  * Doing it by moving the pointer of the array token by token.
- * @note subfunction of ft_split_operators.  
- * @param  array 2D string array. 
+ * @note subfunction of ft_split_operators.
+ * @param  array 2D string array.
  * @retval lenght of number of tokens for new array.
  */
 int					split_operators_len(char **array);
@@ -232,8 +231,8 @@ int					is_token_an_operator(char **str);
  * @note
  * @param  array pointer to a string. so the value could be changed.
  * @brief takes the tokens and trims them from any unnecessary quotes
- * @note   
- * @param  array pointer to a string. so the value could be changed. 
+ * @note
+ * @param  array pointer to a string. so the value could be changed.
  * @retval 2D array of tokens, trimmed if needed.
  */
 char				**ft_str_trim(char **array);
@@ -271,14 +270,14 @@ int					token_is_double_quotes(char *str);
 
 // fd_handler
 /**
- * @brief takes the current node and returns it with the infile 
+ * @brief takes the current node and returns it with the infile
  * and outfile of the process
  * @note if pipes are needed piper function will change them later.
  * @param   array 2D string array.
- * @brief takes the current node and returns it with 
- * the infile and outfile of the process  
- * @note if pipes are needed piper function will change them later.  
- * @param   array 2D string array. 
+ * @brief takes the current node and returns it with
+ * the infile and outfile of the process
+ * @note if pipes are needed piper function will change them later.
+ * @param   array 2D string array.
  * @param  node t_node pointer.
  * @param  error_here_docs int array to keep here_docs if invalid file,
  * they need to be opened before the error message
@@ -326,15 +325,15 @@ int					here_doc_invalid_infile(char **array, int i,
 int					reopen_file_and_check(char *name);
 /**
  * @brief Opens the infile, crates a here_doc if that's the infile.
- * If there was an invalid infile in any other node and here_doc was already 
+ * If there was an invalid infile in any other node and here_doc was already
  * created it gets it from error_here_doc
  * @note  subfunction of ft_fd_handler.
  * @param  array 2D string array.
- * @param  error_here_doc here_doc fd for associated node if there was invalid 
- * file. If there was an invalid infile in any other node and here_doc 
+ * @param  error_here_doc here_doc fd for associated node if there was invalid
+ * file. If there was an invalid infile in any other node and here_doc
  * was already created it gets it from error_here_doc
- * @note  subfunction of ft_fd_handler.  
- * @param  array 2D string array. 
+ * @note  subfunction of ft_fd_handler.
+ * @param  array 2D string array.
  * @param  error_here_doc here_doc fd for associated node if invalid file.
  * @param  infile string, last infile from find_last_infile
  * @retval fd of infile.
@@ -371,19 +370,19 @@ char				*find_last_outfile(char **array);
  * here_doc_invalid_infile to keep all the here_docs opened before the error
  * in error_here_docs int array.
  * @param  array 2D string array.
- * @param  error_here_docs a pointer to an int array so the value could 
+ * @param  error_here_docs a pointer to an int array so the value could
  * be changed.
  * @param  node_counter keeps counter of the node to know which here_doc
- * @brief Check if there is any invalid file before the infile 
- * or if the infile is invalid and then opening all the here_docs 
+ * @brief Check if there is any invalid file before the infile
+ * or if the infile is invalid and then opening all the here_docs
  * before the error.
- * @note subfunction of ft_fd_handler. uses the function 
- * here_doc_invalid_infile to keep all the here_docs opened before 
+ * @note subfunction of ft_fd_handler. uses the function
+ * here_doc_invalid_infile to keep all the here_docs opened before
  * the error in error_here_docs int array.
- * @param  array 2D string array. 
- * @param  error_here_docs a pointer to an int array so the value 
+ * @param  array 2D string array.
+ * @param  error_here_docs a pointer to an int array so the value
  * could be changed.
- * @param  node_counter keeps counter of the node to know which here_doc 
+ * @param  node_counter keeps counter of the node to know which here_doc
  * is associated with each node.
  * @retval -1 if invalid file 0 if not.
  */
@@ -465,10 +464,10 @@ int					cmd_len(char **array);
  */
 void				case_only_redirections(char ***array);
 /**
-	* @brief Case of having an empty token after parsing. Moves the pointer 
-	* to be NULL. 
-	* @note get_node_cmd subfunction. EXAMPLE : $asdas becomes an empthy token 
-	* after parsing. 
+	* @brief Case of having an empty token after parsing. Moves the pointer
+	* to be NULL.
+	* @note get_node_cmd subfunction. EXAMPLE : $asdas becomes an empthy token
+	* after parsing.
   * @param  array Takes a pointer to a 2D array so it could be changed.
   * @retval None
  */
@@ -483,12 +482,12 @@ void				free_nodes(t_node *node);
 
 // piper
 /**
- * @brief Creates 2D int array of allocated pipes. Loops through the nodes 
- * and changes the infile and outfile to be the IN end and OUT end of 
+ * @brief Creates 2D int array of allocated pipes. Loops through the nodes
+ * and changes the infile and outfile to be the IN end and OUT end of
  * the pipe if needed.
- * @note   
- * @param  array string 
- * @param  node t_node pointer. node list head. 
+ * @note
+ * @param  array string
+ * @param  node t_node pointer. node list head.
  * @retval 2D int array with allocated pipes.
  */
 int					**piper(char *array, t_node *node);
@@ -509,7 +508,7 @@ int					num_of_pipes(char *array);
 /**
  * @brief Loops through the nodes and checks if a pipe is needed for
  * the processes,
- * if it does it changes the infile and outfile to the in end and out end 
+ * if it does it changes the infile and outfile to the in end and out end
  * of the pipe.
  * @note piper subfunction. IN OUT macros for read and write ends of the pipe.
  * @param  node t_node pointer. node list head.
@@ -595,7 +594,7 @@ void				ft_unset(t_vec *envs, char *key);
 
 /**
  * @brief  welcome message to our shell
- * @note   
+ * @note
  * @retval None
  */
 void				welcome_message(void);

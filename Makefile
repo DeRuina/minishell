@@ -19,7 +19,7 @@ $S/ft_split_operators.c	$S/ft_split_operators_utils.c	$S/ft_str_trim.c	$S/ft_uti
 $S/ft_fd_handler.c	$S/here_doc.c	$S/ft_expand_utils.c	$S/ft_parse_args.c						\
 $S/ft_get_exec_path.c	$S/ft_executor.c	$S/ft_env_utils.c	$S/ft_fd_handler_utils.c		\
 $S/piper.c	$S/builtins1.c	$S/builtins2.c	$S/ft_env_utils2.c $S/ft_parse_args_utils.c	\
-$S/ft_expand_utils2.c
+$S/ft_expand_utils2.c	$S/signals.c
 
 OBJ			= $(SRC:$S%=$O%.o)
 
@@ -41,10 +41,10 @@ $O:
 $(OBJ): | $O
 
 $(OBJ): $O%.o: $S%
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -I ~/.brew/opt/readline/include -c $< -o $@
 
 $(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(OBJ) $(LIBRARIES) -o $(NAME) -lreadline
+	$(CC) $(OBJ) $(LIBRARIES) -o $(NAME) -lreadline -L ~/.brew/opt/readline/lib
 
 $(LIBFT):
 	make FLAGS=$(LIBFT_FLAGS) -C $(LIBFT_DIR)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 18:07:17 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/09 12:27:10 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,15 @@ int	main(int argc, char *argv[], char *env[])
 	if (argc != 1)
 		return (ft_putstr_fd("Error: Arguments invalid\n", 0), 1);
 	welcome_message();
+	signal(SIGINT, sig_ctrl_c);
+	signal(SIGQUIT, sig_ctrl_bksl);
 	envs = ft_copyenv(env);
 	while (1)
 	{
 		line = readline("RuiSpo: ");
-		if (strlen(line) > 0)
+		if (!line)
+			exit (0);
+		if (ft_strlen(line) > 0)
 			add_history(line);
 		minishell(line, &envs);
 		free(line);
