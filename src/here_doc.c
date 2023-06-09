@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:21:48 by druina            #+#    #+#             */
-/*   Updated: 2023/06/08 16:05:16 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/09 13:46:00 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,24 +59,24 @@ int	here_doc(char *delimiter)
 	int		infile;
 	char	*line;
 
-	infile = open("here_doc", O_CREAT | O_RDWR | O_TRUNC, 0664);
+	infile = open(".here_doc.tmp", O_CREAT | O_RDWR | O_TRUNC, 0664);
 	if (infile == -1)
 		perror("here_doc file opening problem");
 	while (1)
 	{
-		write(1, "heredoc> ", 10);
-		line = get_next_line(0);
-		if (line == NULL)
-			return (-1);
+		line = readline("> ");
+		if (!line)
+			break ;
 		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
 			break ;
-		if (write(infile, line, ft_strlen(line)) == -1)
+		if (write(infile, line, ft_strlen(line)) == -1
+			|| write(infile, "\n", 1) == -1)
 			perror("here_doc writing");
 		free(line);
 	}
 	free(line);
 	close(infile);
-	infile = reopen_file_and_check("here_doc");
-	unlink("here_doc");
+	infile = reopen_file_and_check(".here_doc.tmp");
+	unlink(".here_doc.tmp");
 	return (infile);
 }
