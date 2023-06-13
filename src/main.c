@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/09 12:27:10 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/13 16:22:45 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,24 @@ static int	call_builtin(t_node *head, t_vec *envs)
 {
 	if (head->full_cmd)
 	{
-		if (is_builtin(head->full_cmd[0]) == EXIT && head->next == NULL)
+		if (is_builtin(head->full_cmd[0]) == FT_EXIT && head->next == NULL)
 		{
 			free_nodes(head);
 			free_envs(*envs);
 			vec_free(envs);
 			exit(EXIT_SUCCESS);
 		}
-		if (is_builtin(head->full_cmd[0]) == CD && head->next == NULL)
+		if (is_builtin(head->full_cmd[0]) == FT_CD && head->next == NULL)
 			return (ft_cd(head->full_cmd, envs), 1);
-		if (is_builtin(head->full_cmd[0]) == EXPORT && head->next == NULL)
+		if (is_builtin(head->full_cmd[0]) == FT_EXPORT && head->next == NULL)
 			return (ft_export(head->full_cmd, envs), 1);
-		if (is_builtin(head->full_cmd[0]) == UNSET && head->next == NULL)
+		if (is_builtin(head->full_cmd[0]) == FT_UNSET && head->next == NULL)
 			return (ft_unset(envs, head->full_cmd[1]), 1);
-		if (is_builtin(head->full_cmd[0]) == ENV && head->next == NULL)
+		if (is_builtin(head->full_cmd[0]) == FT_ENV && head->next == NULL)
 			return (ft_env(*envs), 1);
-		if (is_builtin(head->full_cmd[0]) == PWD && head->next == NULL)
+		if (is_builtin(head->full_cmd[0]) == FT_PWD && head->next == NULL)
 			return (ft_pwd(), 1);
-		if (is_builtin(head->full_cmd[0]) == ECHO && head->next == NULL)
+		if (is_builtin(head->full_cmd[0]) == FT_ECHO && head->next == NULL)
 			return (ft_echo(head->full_cmd), 1);
 	}
 	return (0);
@@ -63,23 +63,37 @@ static void	minishell(char *line, t_vec *envs)
 	free_nodes(head);
 }
 
-// Looping our shell
+void	close_echo_ctrl(struct termios *termios)
+{
+	termios->c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, termios);
+}
+
+void	open_echo_ctrl(struct termios *termios)
+{
+	termios->c_lflag |= ECHOCTL;
+	tcsetattr(0, TCSANOW, termios);
+}
 
 int	main(int argc, char *argv[], char *env[])
 {
-	char	*line;
-	t_vec	envs;
+	char		*line;
+	t_vec		envs;
+	struct termios	termios;
 
 	(void)argv;
 	if (argc != 1)
 		return (ft_putstr_fd("Error: Arguments invalid\n", 0), 1);
 	welcome_message();
 	signal(SIGINT, sig_ctrl_c);
-	signal(SIGQUIT, sig_ctrl_bksl);
+	signal(SIGQUIT, SIG_IGN);
 	envs = ft_copyenv(env);
+	tcgetattr(0, &termios);
 	while (1)
 	{
+		close_echo_ctrl(&termios);
 		line = readline("RuiSpo: ");
+		open_echo_ctrl(&termios);
 		if (!line)
 			exit (0);
 		if (ft_strlen(line) > 0)
