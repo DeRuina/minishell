@@ -6,23 +6,25 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:21:48 by druina            #+#    #+#             */
-/*   Updated: 2023/06/09 13:46:00 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/13 15:34:59 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+extern int	g_exit_status;
+
 // Reopens the here_doc to reset file "cursor"
 
-int	reopen_file_and_check(char *name)
+int	reset_cursor(char *name)
 {
 	int	infile;
 
 	infile = open(name, O_RDWR);
 	if (infile == -1)
 	{
-		unlink("here_doc");
-		perror("here_doc");
+		unlink(".here_doc.tmp");
+		perror(".here_doc.tmp");
 	}
 	return (infile);
 }
@@ -56,27 +58,29 @@ int	here_doc_invalid_infile(char **array, int i, int **error_here_docs,
 
 int	here_doc(char *delimiter)
 {
-	int		infile;
+	int		fd;
 	char	*line;
 
-	infile = open(".here_doc.tmp", O_CREAT | O_RDWR | O_TRUNC, 0664);
-	if (infile == -1)
+	fd = open(".here_doc.tmp", O_CREAT | O_RDWR | O_TRUNC, 0664);
+	if (fd == -1)
 		perror("here_doc file opening problem");
-	while (1)
+	g_exit_status = 0;
+	while (g_exit_status != 1)
 	{
+		printf("exit status: %d\n", g_exit_status);
 		line = readline("> ");
-		if (!line)
+		if (!line || g_exit_status)
 			break ;
 		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
 			break ;
-		if (write(infile, line, ft_strlen(line)) == -1
-			|| write(infile, "\n", 1) == -1)
+		if (write(fd, line, ft_strlen(line)) == -1 || write(fd, "\n", 1) == -1)
 			perror("here_doc writing");
 		free(line);
+		line = NULL;
 	}
 	free(line);
-	close(infile);
-	infile = reopen_file_and_check(".here_doc.tmp");
+	close(fd);
+	fd = reset_cursor(".here_doc.tmp");
 	unlink(".here_doc.tmp");
-	return (infile);
+	return (fd);
 }
