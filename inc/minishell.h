@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/09 12:27:07 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/13 16:22:45 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <sys/wait.h> // for linux
 # include <unistd.h>
 # include <signal.h>
+# include <sys/ioctl.h>
+# include <termios.h>
 
 # define IN 0
 # define OUT 1
@@ -45,14 +47,14 @@ typedef struct s_env
 
 enum				e_builtins
 {
-	NONE,
-	ECHO,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT
+	FT_NONE,
+	FT_ECHO,
+	FT_CD,
+	FT_PWD,
+	FT_EXPORT,
+	FT_UNSET,
+	FT_ENV,
+	FT_EXIT
 };
 
 // Env
@@ -322,7 +324,7 @@ int					here_doc_invalid_infile(char **array, int i,
  * @param  name string, here_doc name
  * @retval fd if valid, -1 if not
  */
-int					reopen_file_and_check(char *name);
+int					reset_cursor(char *name);
 /**
  * @brief Opens the infile, crates a here_doc if that's the infile.
  * If there was an invalid infile in any other node and here_doc was already
