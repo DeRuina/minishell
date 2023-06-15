@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/15 13:30:51 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/15 13:42:32 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include <unistd.h>
 # include <signal.h>
 # include <sys/ioctl.h>
-
 
 # define IN 0
 # define OUT 1
@@ -602,7 +601,20 @@ void				ft_unset(t_vec *envs, char *key);
  * @retval None
  */
 void				welcome_message(void);
+/**
+ * @brief Loops through the node list and checks if any of them has infile
+ * set as REDIRECTION_NO_FILE.
+ * @note   
+ * @param  head t_node. Head of the list
+ * @retval 1 if found in the list, 0 if not
+ */
 int					redirection_no_file_in_nodes(t_node *head);
+/**
+ * @brief Checks if the redirection has no file name.
+ * @note   
+ * @param  array 2D string array
+ * @retval 1 if it has no file name, 0 if everything is good
+ */
 int					check_for_redirection_no_file_name(char **array);
 
 #endif
