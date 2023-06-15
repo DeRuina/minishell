@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/15 13:32:03 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/15 13:36:45 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static void	minishell(char *line, t_vec *envs)
 	head = ft_parse_args(line, *envs);
 	if (!head)
 		return ;
-	if (call_builtin(head, envs) != 0 || redirection_no_file_in_nodes(head) == 1)
+	if (call_builtin(head, envs) != 0
+		|| redirection_no_file_in_nodes(head) == 1)
 	{
 		free_nodes(head);
 		return ;
@@ -77,8 +78,8 @@ void	open_echo_ctrl(struct termios *termios)
 
 int	main(int argc, char *argv[], char *env[])
 {
-	char		*line;
-	t_vec		envs;
+	char			*line;
+	t_vec			envs;
 	struct termios	termios;
 
 	(void)argv;
@@ -95,7 +96,7 @@ int	main(int argc, char *argv[], char *env[])
 		line = readline("RuiSpo: ");
 		open_echo_ctrl(&termios);
 		if (!line)
-			exit (0);
+			exit(0);
 		if (ft_strlen(line) > 0)
 			add_history(line);
 		minishell(line, &envs);

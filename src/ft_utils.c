@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/15 13:28:49 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/15 13:36:20 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,11 @@ int	redirection_no_file_in_nodes(t_node *head)
 {
 	while (head->next != NULL)
 	{
-			if (head->infile == REDIRECTION_NO_FILE)
-				return (1);
-			head = head->next;
+		if (head->infile == REDIRECTION_NO_FILE)
+			return (1);
+		head = head->next;
 	}
 	if (head->next == NULL && head->infile == REDIRECTION_NO_FILE)
-		return(1);
+		return (1);
 	return (0);
 }

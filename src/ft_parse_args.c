@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/15 13:30:40 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/15 13:35:06 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int	check_for_redirection_no_file_name(char **array)
 	if (array[1] == NULL || *array[1] == '|')
 	{
 		if (ft_strncmp(array[0], "<", 1) && ft_strlen(array[0]) == 1)
-			return(1);
+			return (1);
 		if (ft_strncmp(array[0], ">", 1) && ft_strlen(array[0]) == 1)
-			return(1);
+			return (1);
 		if (ft_strncmp(array[0], ">>", 2) && ft_strlen(array[0]) == 2)
-			return(1);
+			return (1);
 		if (ft_strncmp(array[0], "<<", 2) && ft_strlen(array[0]) == 2)
-			return(1);
+			return (1);
 	}
 	return (0);
 }
