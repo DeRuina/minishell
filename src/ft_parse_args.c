@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:28:37 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/15 13:30:40 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,23 @@ char	**get_node_cmd(char ***array)
 		(*array)++;
 	return (answer);
 }
+// Checks if there is a redirection with no file afterwards
+
+int	check_for_redirection_no_file_name(char **array)
+{
+	if (array[1] == NULL || *array[1] == '|')
+	{
+		if (ft_strncmp(array[0], "<", 1) && ft_strlen(array[0]) == 1)
+			return(1);
+		if (ft_strncmp(array[0], ">", 1) && ft_strlen(array[0]) == 1)
+			return(1);
+		if (ft_strncmp(array[0], ">>", 2) && ft_strlen(array[0]) == 2)
+			return(1);
+		if (ft_strncmp(array[0], "<<", 2) && ft_strlen(array[0]) == 2)
+			return(1);
+	}
+	return (0);
+}
 
 // Creates all the nodes recursively, adds full_cmd, infile, outfile, node.next
 
@@ -56,6 +73,12 @@ t_node	*new_node(char ***array, t_vec env, int *error_here_docs,
 	node = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (!node)
 		return (NULL);
+	if (check_for_redirection_no_file_name((*array)) == 1)
+	{
+		node->infile = REDIRECTION_NO_FILE;
+		printf("RuiSpo: syntax error near unexpected token\n");
+		return (node);
+	}
 	node = ft_fd_handler((*array), node, error_here_docs, node_counter);
 	node->full_cmd = get_node_cmd(array);
 	if (node->full_cmd != NULL && is_builtin(node->full_cmd[0]) == 0)

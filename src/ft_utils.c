@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/13 16:22:45 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/15 13:28:49 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,19 @@ void	welcome_message(void)
 	printf("                   ╔╦╗┌─┐┌─┐┌┐┌  ╦═╗┬ ┬┬┌┐┌┌─┐ \n");
 	printf("                    ║║├┤ ├─┤│││  ╠╦╝│ │││││├─┤ \n");
 	printf("                   ═╩╝└─┘┴ ┴┘└┘  ╩╚═└─┘┴┘└┘┴ ┴ \n");
+}
+
+// loops through the nodes and checks if there is redirection with no file
+
+int	redirection_no_file_in_nodes(t_node *head)
+{
+	while (head->next != NULL)
+	{
+			if (head->infile == REDIRECTION_NO_FILE)
+				return (1);
+			head = head->next;
+	}
+	if (head->next == NULL && head->infile == REDIRECTION_NO_FILE)
+		return(1);
+	return (0);
 }

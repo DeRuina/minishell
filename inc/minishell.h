@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/13 16:30:42 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/15 13:30:51 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <termios.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdlib.h>
@@ -25,10 +26,11 @@
 # include <unistd.h>
 # include <signal.h>
 # include <sys/ioctl.h>
-# include <termios.h>
+
 
 # define IN 0
 # define OUT 1
+# define REDIRECTION_NO_FILE -5
 
 typedef struct s_node
 {
@@ -600,5 +602,7 @@ void				ft_unset(t_vec *envs, char *key);
  * @retval None
  */
 void				welcome_message(void);
+int					redirection_no_file_in_nodes(t_node *head);
+int					check_for_redirection_no_file_name(char **array);
 
 #endif

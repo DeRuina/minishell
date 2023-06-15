@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/13 16:22:45 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/15 13:32:03 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	minishell(char *line, t_vec *envs)
 	head = ft_parse_args(line, *envs);
 	if (!head)
 		return ;
-	if (call_builtin(head, envs) != 0)
+	if (call_builtin(head, envs) != 0 || redirection_no_file_in_nodes(head) == 1)
 	{
 		free_nodes(head);
 		return ;
