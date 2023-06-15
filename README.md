@@ -1,4 +1,6 @@
-# minishell
+![](img/minishell.png)
+
+# Minishell
 
 ## Description ##
 
