@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/15 13:42:32 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/18 16:04:37 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -535,9 +535,10 @@ void				free_pipes(int **pipe_nbr, char *array);
  * @brief  prints the arguments on the screen.
  * @note option -n prints without newline. no args prints only newline.
  * @param  full_cmd 2D array.
+ * @param outfile int
  * @retval None
  */
-void				ft_echo(char **full_cmd);
+void				ft_echo(char **full_cmd, int outfile);
 /**
  * @brief  Exits the program when called
  * @note Exits the process if used with pipes

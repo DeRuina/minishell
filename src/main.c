@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/15 13:36:45 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/18 15:52:33 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	call_builtin(t_node *head, t_vec *envs)
 		if (is_builtin(head->full_cmd[0]) == FT_PWD && head->next == NULL)
 			return (ft_pwd(), 1);
 		if (is_builtin(head->full_cmd[0]) == FT_ECHO && head->next == NULL)
-			return (ft_echo(head->full_cmd), 1);
+			return (ft_echo(head->full_cmd, head->outfile), 1);
 	}
 	return (0);
 }
