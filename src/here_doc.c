@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:21:48 by druina            #+#    #+#             */
-/*   Updated: 2023/06/13 15:34:59 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/19 15:12:08 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ int	here_doc(char *delimiter)
 	g_exit_status = 0;
 	while (g_exit_status != 1)
 	{
-		printf("exit status: %d\n", g_exit_status);
 		line = readline("> ");
 		if (!line || g_exit_status)
 			break ;
-		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
+		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0
+			&& ft_strlen(line) == ft_strlen(delimiter))
 			break ;
 		if (write(fd, line, ft_strlen(line)) == -1 || write(fd, "\n", 1) == -1)
 			perror("here_doc writing");

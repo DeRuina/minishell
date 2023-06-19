@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 14:03:37 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/19 15:27:46 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_node	*new_node(char ***array, t_vec env, int *error_here_docs,
 {
 	t_node	*node;
 
-	if (array == NULL)
+	if (*array == NULL)
 		return (NULL);
 	node = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (!node)
@@ -110,7 +110,8 @@ t_node	*ft_parse_args(char *line, t_vec env)
 	tokens = ft_str_trim(tokens);
 	temp = tokens;
 	head = new_node(&tokens, env, error_here_docs, 0);
-	free_2d(temp);
+	if (temp)
+		free_2d(temp);
 	free(error_here_docs);
 	return (head);
 }
