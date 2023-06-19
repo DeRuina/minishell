@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/18 16:05:22 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/19 12:47:09 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// Global variable for exit status
 
 int			g_exit_status = 0;
 
@@ -96,6 +94,7 @@ int	ft_executor(t_node *node, t_vec envv)
 	t_node	*head;
 
 	head = node;
+	signal(SIGINT, sig_ctrl_c_exec);
 	while (node)
 	{
 		node->pid = fork();
@@ -108,5 +107,6 @@ int	ft_executor(t_node *node, t_vec envv)
 			node = node->next;
 	}
 	ft_wait(head);
+	signal(SIGINT, sig_ctrl_c);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/18 16:04:37 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/19 12:50:34 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char				*ft_expand_token(t_vec env_vars, char *str);
 
 // Signals
 void				sig_ctrl_c(int signal);
-// void				sig_ctrl_bksl(int signal);
+void				sig_ctrl_c_exec(int signal);
 
 // PARSE ARGS
 /**
@@ -605,14 +605,14 @@ void				welcome_message(void);
 /**
  * @brief Loops through the node list and checks if any of them has infile
  * set as REDIRECTION_NO_FILE.
- * @note   
+ * @note
  * @param  head t_node. Head of the list
  * @retval 1 if found in the list, 0 if not
  */
 int					redirection_no_file_in_nodes(t_node *head);
 /**
  * @brief Checks if the redirection has no file name.
- * @note   
+ * @note
  * @param  array 2D string array
  * @retval 1 if it has no file name, 0 if everything is good
  */
