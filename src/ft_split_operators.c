@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_operators.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 15:40:47 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/19 16:03:55 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,9 @@ char	**ft_split_operators(char **array)
 	if (array == NULL)
 		return (NULL);
 	len = split_operators_len(array);
-	answer = (char **)malloc(sizeof(char *) * (len + 1));
+	answer = ft_calloc(len + 1, sizeof(char *));
 	if (!answer)
 		return (NULL);
-	answer[len] = 0;
 	answer = divide_into_array(array, answer);
 	free_2d(array);
 	return (answer);
