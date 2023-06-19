@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 16:24:45 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/19 16:55:37 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	ft_wait(t_node *head)
 
 	while (head)
 	{
-		wait(&stat_loc);
+		waitpid(head->pid, &stat_loc, WUNTRACED);
 		if (WIFEXITED(stat_loc))
 			g_exit_status = WEXITSTATUS(stat_loc);
 		head = head->next;
