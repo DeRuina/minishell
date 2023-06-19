@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 12:47:09 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/19 16:24:45 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,14 @@ int	builtin_commands(char **cmd, t_vec envv)
 	if (is_builtin(cmd[0]) == FT_ENV)
 		ft_env(envv);
 	if (is_builtin(cmd[0]) == FT_EXIT)
-		ft_exit();
+	{
+		if (cmd[1] && cmd[2])
+		{
+			g_exit_status = 1;
+			ft_putstr_fd("RuiSpo: ft_exit: too many arguments", 2);
+		}
+		ft_exit(cmd[1]);
+	}
 	exit(EXIT_SUCCESS);
 }
 

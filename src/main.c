@@ -6,12 +6,14 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 14:03:44 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/19 16:18:38 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "utils.h"
+
+extern int	g_exit_status;
 
 // builtin without pipe is executed in the parent and not in a child
 
@@ -21,10 +23,16 @@ static int	call_builtin(t_node *head, t_vec *envs)
 	{
 		if (is_builtin(head->full_cmd[0]) == FT_EXIT && head->next == NULL)
 		{
-			free_nodes(head);
+			// free_nodes(head);
 			free_envs(*envs);
 			vec_free(envs);
-			exit(EXIT_SUCCESS);
+			if (head->full_cmd[1] && head->full_cmd[2])
+			{
+				g_exit_status = 1;
+				ft_putendl_fd("RuiSpo: ft_exit: too many arguments", 2);
+				return (1);
+			}
+			ft_exit(head->full_cmd[1]);
 		}
 		if (is_builtin(head->full_cmd[0]) == FT_CD && head->next == NULL)
 			return (ft_cd(head->full_cmd, envs), 1);

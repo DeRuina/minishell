@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/19 10:23:07 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/19 16:22:42 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+extern int	g_exit_status;
 // Changing directories with only a relative or absolute path
 
 void	ft_cd(char **full_cmd, t_vec *envs)
@@ -56,9 +57,30 @@ void	ft_pwd(void)
 
 // Exits the program when called
 
-void	ft_exit(void)
+void	ft_exit(char *status)
 {
-	exit(EXIT_SUCCESS);
+	int		stat_int;
+	char	*stat_str;
+	int		compare;
+
+
+	if (!status)
+		exit(EXIT_SUCCESS);
+	stat_int = ft_atoi(status);
+	stat_str = ft_itoa(stat_int);
+	compare = ft_strncmp(status, stat_str, ft_strlen(status));
+	free(stat_str);
+	if (compare)
+	{
+		g_exit_status = 255;
+		ft_putstr_fd("RuiSpo: ft_exit: ", 2);
+		ft_putstr_fd(status, 2);
+		ft_putendl_fd(" numeric argument required", 2);
+		exit(255);
+	}
+		// print error and return;
+	g_exit_status = ft_atoi(status);
+	exit(ft_atoi(status));
 }
 
 // Prints the arguments on the screen

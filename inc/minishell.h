@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 13:43:24 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/19 15:14:03 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -578,7 +578,7 @@ void				ft_echo(char **full_cmd, int outfile);
  * @note Exits the process if used with pipes
  * @retval None
  */
-void				ft_exit(void);
+void				ft_exit(char *status);
 /**
  * @brief prints the current path when called
  * @note
