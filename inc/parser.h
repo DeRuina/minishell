@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:32:22 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:54:40 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/18 15:47:55 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ t_env	*ft_envfind(t_vec *envs_vec, char *key);
 
 // Utils
 int		ft_perror(char *error_msg);
-int		is_builtin(char *cmd);
+// int		is_builtin(char *cmd);
 
 #endif

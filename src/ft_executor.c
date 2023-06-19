@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/13 16:22:45 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/18 16:05:22 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			g_exit_status = 0;
 int	builtin_commands(char **cmd, t_vec envv)
 {
 	if (is_builtin(cmd[0]) == FT_ECHO)
-		ft_echo(cmd);
+		ft_echo(cmd, STDOUT_FILENO);
 	if (is_builtin(cmd[0]) == FT_CD)
 		ft_cd(cmd, &envv);
 	if (is_builtin(cmd[0]) == FT_PWD)

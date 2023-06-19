@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/08 17:11:52 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/19 10:23:07 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_cd(char **full_cmd, t_vec *envs)
 	char	*old_pwd;
 
 	old_pwd = get_path();
-	ft_putenv_key(envs, "OLDPWD", old_pwd);
+	ft_putenv_key(envs, ft_strdup("OLDPWD"), old_pwd);
 	if (!full_cmd[1])
 	{
 		if (chdir(ft_expand_token(*envs, "~")) == -1)
@@ -29,7 +29,7 @@ void	ft_cd(char **full_cmd, t_vec *envs)
 	else if (chdir(full_cmd[1]) == -1)
 		perror(full_cmd[1]);
 	pwd = get_path();
-	ft_putenv_key(envs, "PWD", pwd);
+	ft_putenv_key(envs, ft_strdup("PWD"), pwd);
 }
 
 // Returns the current full path
@@ -63,7 +63,7 @@ void	ft_exit(void)
 
 // Prints the arguments on the screen
 
-void	ft_echo(char **full_cmd)
+void	ft_echo(char **full_cmd, int outfile)
 {
 	int	i;
 	int	flag_n;
@@ -72,7 +72,7 @@ void	ft_echo(char **full_cmd)
 	flag_n = 0;
 	if (!full_cmd[1])
 	{
-		printf("\n");
+		write(outfile, "\n", 1);
 		return ;
 	}
 	if (ft_strncmp(full_cmd[1], "-n", 2) == 0 && ft_strlen(full_cmd[1]) == 2
@@ -81,13 +81,13 @@ void	ft_echo(char **full_cmd)
 	while (1)
 	{
 		if (full_cmd[i] && *full_cmd[i] != '\0')
-			printf("%s", full_cmd[i]);
+			write(outfile, full_cmd[i], ft_strlen(full_cmd[i]));
 		i++;
 		if (full_cmd[i] == 0)
 			break ;
 		if (*full_cmd[i] != '\0')
-			printf(" ");
+			write(outfile, " ", 1);
 	}
 	if (flag_n != 1)
-		printf("\n");
+		write(outfile, "\n", 1);
 }
