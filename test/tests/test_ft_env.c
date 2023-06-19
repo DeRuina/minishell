@@ -6,13 +6,13 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 16:46:45 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/07 11:49:23 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/19 14:03:51 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unity.h"
 #include "minishell.h"
-#include "parser.h"
+#include "utils.h"
 
 char **env_vars;
 t_vec	env_envs;

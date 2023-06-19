@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 12:50:34 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/19 13:43:24 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,44 @@ enum				e_builtins
 };
 
 // Env
+/**
+ * @brief Adds env string to envs_vec
+ *
+ * @param envs_vec
+ * @param str
+ * @return int
+ */
 int					ft_putenv(t_vec *envs_vec, char *str);
+/**
+ * @brief Adds str tp envs_vec based on the key
+ *
+ * @param envs_vec
+ * @param key
+ * @param str
+ * @return int
+ */
 int					ft_putenv_key(t_vec *envs_vec, char *key, char *str);
+/**
+ * @brief Gets env value
+ *
+ * @param envs_vec
+ * @param key
+ * @return char*
+ */
 char				*ft_getenv(t_vec envs_vec, char *key);
+/**
+ * @brief Copies the given environment variables to to envs_vec
+ *
+ * @param env
+ * @return t_vec
+ */
 t_vec				ft_copyenv(char *env[]);
+/**
+ * @brief Turns envs_vec to string array
+ *
+ * @param envs_vec
+ * @return char**
+ */
 char				**ft_strenv(t_vec envs_vec);
 
 // Expand

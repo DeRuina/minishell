@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/18 15:52:33 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/19 14:03:44 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser.h"
+#include "utils.h"
 
 // builtin without pipe is executed in the parent and not in a child
 
@@ -64,17 +64,7 @@ static void	minishell(char *line, t_vec *envs)
 	free_nodes(head);
 }
 
-void	close_echo_ctrl(struct termios *termios)
-{
-	termios->c_lflag &= ~ECHOCTL;
-	tcsetattr(0, TCSANOW, termios);
-}
 
-void	open_echo_ctrl(struct termios *termios)
-{
-	termios->c_lflag |= ECHOCTL;
-	tcsetattr(0, TCSANOW, termios);
-}
 
 int	main(int argc, char *argv[], char *env[])
 {
@@ -86,9 +76,9 @@ int	main(int argc, char *argv[], char *env[])
 	if (argc != 1)
 		return (ft_putstr_fd("Error: Arguments invalid\n", 0), 1);
 	welcome_message();
-	signal(SIGINT, sig_ctrl_c);
-	signal(SIGQUIT, SIG_IGN);
+	init_signals();
 	envs = ft_copyenv(env);
+	increase_shlvl(&envs);
 	tcgetattr(0, &termios);
 	while (1)
 	{

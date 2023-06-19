@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 11:45:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 17:14:18 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/19 14:03:08 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser.h"
+#include "utils.h"
 
-// Gets env string (eg. "HOME=/Users/tspoof") and stores it in an array as
-// key value pair (eg key = "HOME", value = "/Users/tspoof").
+// Gets env string (eg. "HOME=/Users/tspoof") as a parameter and stores it in
+// an array as key value pair (eg key = "HOME", value = "/Users/tspoof").
 
 int	ft_putenv(t_vec *envs_vec, char *str)
 {

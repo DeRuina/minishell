@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 16:29:47 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 17:14:01 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/19 14:03:00 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser.h"
+#include "utils.h"
 
 // Finds and returns the address of given key in the envs list
 

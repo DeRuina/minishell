@@ -6,14 +6,14 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 12:06:24 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/02 13:28:04 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/19 14:04:10 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "unity.h"
 #include "minishell.h"
-#include "parser.h"
+#include "utils.h"
 
 void test_ft_utils_0(void)
 {
