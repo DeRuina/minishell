@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/19 16:22:42 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/20 15:01:52 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,35 +81,4 @@ void	ft_exit(char *status)
 		// print error and return;
 	g_exit_status = ft_atoi(status);
 	exit(ft_atoi(status));
-}
-
-// Prints the arguments on the screen
-
-void	ft_echo(char **full_cmd, int outfile)
-{
-	int	i;
-	int	flag_n;
-
-	i = 1;
-	flag_n = 0;
-	if (!full_cmd[1])
-	{
-		write(outfile, "\n", 1);
-		return ;
-	}
-	if (ft_strncmp(full_cmd[1], "-n", 2) == 0 && ft_strlen(full_cmd[1]) == 2
-		&& i++)
-		flag_n = 1;
-	while (1)
-	{
-		if (full_cmd[i] && *full_cmd[i] != '\0')
-			write(outfile, full_cmd[i], ft_strlen(full_cmd[i]));
-		i++;
-		if (full_cmd[i] == 0)
-			break ;
-		if (*full_cmd[i] != '\0')
-			write(outfile, " ", 1);
-	}
-	if (flag_n != 1)
-		write(outfile, "\n", 1);
 }

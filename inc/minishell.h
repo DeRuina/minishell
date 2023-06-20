@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 15:14:03 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:23:10 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 typedef struct s_node
 {
 	char			**full_cmd;
+	char			*filename;
 	int				pid;
 	int				infile;
 	int				outfile;
@@ -140,9 +141,10 @@ int					ft_executor(t_node *node, t_vec envv);
  * @note
  * @param  cmd 2D array
  * @param  envv t_vec
+ * @param  filename string
  * @retval Exits the process after executing the command.
  */
-int					builtin_commands(char **cmd, t_vec envv);
+int					builtin_commands(char **cmd, t_vec envv, char *filename);
 
 // cmd_trim
 /**
@@ -382,9 +384,11 @@ int					get_infile_fd(char **array, int error_here_doc,
  * @note   subfunction of ft_fd_handler.
  * @param  array 2D string array.
  * @param  outfile string, last outfile from find_last_outfile
+ * @param  node  pointer to t_node.
  * @retval fd of outfile.
  */
-int					get_outfile_fd(char **array, char *outfile);
+int					get_outfile_fd(char **array, char *outfile,
+						t_node *node);
 /**
  * @brief  finds the last redirection which is the infile.
  * @note  subfunction of ft_fd_handler.
@@ -570,9 +574,10 @@ void				free_pipes(int **pipe_nbr, char *array);
  * @note option -n prints without newline. no args prints only newline.
  * @param  full_cmd 2D array.
  * @param outfile int
+ * @param fiename string
  * @retval None
  */
-void				ft_echo(char **full_cmd, int outfile);
+void				ft_echo(char **full_cmd, int outfile, char *filename);
 /**
  * @brief  Exits the program when called
  * @note Exits the process if used with pipes

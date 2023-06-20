@@ -1,5 +1,0 @@
-- echo asd > somefile doesn't work properly
-- ls -l 2> testfile2 should we do these?
-- echo lol | exit 15 should change exit status to 15 and not exit
-- exit 1 2 3 should not exit and say error
-- should history print history?

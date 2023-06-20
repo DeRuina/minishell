@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 10:15:26 by druina            #+#    #+#             */
-/*   Updated: 2023/06/02 21:27:06 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:17:36 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // finds and return the outfile fd
 
-int	get_outfile_fd(char **array, char *outfile)
+int	get_outfile_fd(char **array, char *outfile , t_node *node)
 {
 	int	fd;
 	int	i;
@@ -25,10 +25,13 @@ int	get_outfile_fd(char **array, char *outfile)
 	{
 		if (outfile == array[i])
 		{
-			if (ft_strncmp(outfile, ">>", 1) == 0)
+			if (ft_strncmp(outfile, ">>", 2) == 0)
 				fd = open(array[i + 1], O_CREAT | O_RDWR | O_APPEND, 0664);
 			else
+			{
 				fd = open(array[i + 1], O_CREAT | O_RDWR | O_TRUNC, 0664);
+				node->filename = array[i + 1];
+			}
 			if (fd == -1)
 				return (perror(array[i + 1]), -1);
 			break ;
@@ -129,7 +132,7 @@ t_node	*ft_fd_handler(char **array, t_node *node, int *error_here_docs,
 	else
 		node->infile = get_infile_fd(array, error_here_docs[node_counter],
 				infile);
-	node->outfile = get_outfile_fd(array, outfile);
+	node->outfile = get_outfile_fd(array, outfile, node);
 	find_and_open_fds(array);
 	return (node);
 }

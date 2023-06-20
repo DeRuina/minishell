@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 16:18:38 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:25:13 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	call_builtin(t_node *head, t_vec *envs)
 		if (is_builtin(head->full_cmd[0]) == FT_PWD && head->next == NULL)
 			return (ft_pwd(), 1);
 		if (is_builtin(head->full_cmd[0]) == FT_ECHO && head->next == NULL)
-			return (ft_echo(head->full_cmd, head->outfile), 1);
+			return (ft_echo(head->full_cmd, head->outfile, head->filename), 1);
 	}
 	return (0);
 }
