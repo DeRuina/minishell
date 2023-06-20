@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:58:42 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:17:14 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/20 08:52:28 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_get_exec_path(t_vec env, char *cmd)
 	path = ft_getenv(env, "PATH");
 	path_arr = ft_split(path, ':');
 	if (!path_arr)
-		exit(1);
+		return (NULL);
 	if (access(cmd, X_OK | F_OK) == 0)
 		return (free_2d(path_arr), cmd);
 	i = 0;
