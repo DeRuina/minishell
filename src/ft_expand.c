@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/20 14:46:14 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/20 15:37:08 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*ft_handle_nonexpand(char **result, char *token)
 	char	*token_start;
 
 	token_start = token;
-	while (*token != '$' && *token != '~' && *token != '\0')
+	while (*token != '$' && *token != '~' && *token != '\0' && *token != '\'')
 		token++;
 	sub_str = ft_substr(token_start, 0, token - token_start);
 	if (!sub_str)
@@ -53,19 +53,26 @@ char	*ft_handle_expand(t_vec env_vars, char **result, char *token,
 // Loops to closing single quote, stores each character in the result
 // and returns tokens address after closing single quote.
 
-static char	*to_closing_singlequote(char *token, char *result)
+static char	*to_closing_singlequote(char **result, char *token)
 {
-	int	i;
+	int		i;
+	char	*substr;
+	char	*tmp;
 
-	result[0] = token[0];
 	i = 1;
 	while (token[i] && token[i] != '\'')
-	{
-		result[i] = token[i];
 		i++;
-	}
-	result[i] = token[i];
-	return (&token[i + 1]);
+	i++;
+	substr = ft_substr(token, 0, i);
+	if (!substr)
+		exit(EXIT_FAILURE);
+	tmp = *result;
+	*result = ft_strjoin(*result, substr);
+	free(substr);
+	if (!result)
+		exit (EXIT_FAILURE);
+	free(tmp);
+	return (&token[i]);
 }
 
 // Loops the characters in the token and puts those to result string.
@@ -84,7 +91,7 @@ char	*ft_expand_token(t_vec env_vars, char *token)
 	while (*token)
 	{
 		if (*token == '\'')
-			token = to_closing_singlequote(token, result);
+			token = to_closing_singlequote(&result, token);
 		if (*token != '$' && *token != '~')
 			token = ft_handle_nonexpand(&result, token);
 		if (*token == '$' || *token == '~')
