@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 14:03:22 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:46:14 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,23 @@ char	*ft_handle_expand(t_vec env_vars, char **result, char *token,
 		token = ft_noexpand(result, token);
 	return (token);
 }
+// Loops to closing single quote, stores each character in the result
+// and returns tokens address after closing single quote.
+
+static char	*to_closing_singlequote(char *token, char *result)
+{
+	int	i;
+
+	result[0] = token[0];
+	i = 1;
+	while (token[i] && token[i] != '\'')
+	{
+		result[i] = token[i];
+		i++;
+	}
+	result[i] = token[i];
+	return (&token[i + 1]);
+}
 
 // Loops the characters in the token and puts those to result string.
 // If there is exand tokens ($ or ~) it will try to expand those.
@@ -66,6 +83,8 @@ char	*ft_expand_token(t_vec env_vars, char *token)
 		ft_pexit("ft_expand_token: ft_strdup");
 	while (*token)
 	{
+		if (*token == '\'')
+			token = to_closing_singlequote(token, result);
 		if (*token != '$' && *token != '~')
 			token = ft_handle_nonexpand(&result, token);
 		if (*token == '$' || *token == '~')
@@ -88,7 +107,7 @@ void	ft_expand(t_vec env_vars, char **token_arr)
 			continue ;
 		}
 		tmp = *token_arr;
-		*token_arr = ft_expand_token(env_vars, *token_arr);
+ 		*token_arr = ft_expand_token(env_vars, *token_arr);
 		free(tmp);
 		token_arr++;
 	}
