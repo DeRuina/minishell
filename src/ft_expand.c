@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/20 14:46:14 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/21 08:57:28 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_expand(t_vec env_vars, char **token_arr)
 			continue ;
 		}
 		tmp = *token_arr;
- 		*token_arr = ft_expand_token(env_vars, *token_arr);
+		*token_arr = ft_expand_token(env_vars, *token_arr);
 		free(tmp);
 		token_arr++;
 	}

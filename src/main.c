@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/20 14:25:13 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/21 09:11:15 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,19 @@
 
 extern int	g_exit_status;
 
+static int	run_ft_exit(t_node *head, t_vec *envs)
+{
+	free_envs(*envs);
+	vec_free(envs);
+	if (head->full_cmd[1] && head->full_cmd[2])
+	{
+		g_exit_status = 1;
+		ft_putendl_fd("RuiSpo: ft_exit: too many arguments", 2);
+		return (1);
+	}
+	return (ft_exit(head->full_cmd[1]));
+}
+
 // builtin without pipe is executed in the parent and not in a child
 
 static int	call_builtin(t_node *head, t_vec *envs)
@@ -22,18 +35,7 @@ static int	call_builtin(t_node *head, t_vec *envs)
 	if (head->full_cmd)
 	{
 		if (is_builtin(head->full_cmd[0]) == FT_EXIT && head->next == NULL)
-		{
-			// free_nodes(head);
-			free_envs(*envs);
-			vec_free(envs);
-			if (head->full_cmd[1] && head->full_cmd[2])
-			{
-				g_exit_status = 1;
-				ft_putendl_fd("RuiSpo: ft_exit: too many arguments", 2);
-				return (1);
-			}
-			ft_exit(head->full_cmd[1]);
-		}
+			return (run_ft_exit(head, envs));
 		if (is_builtin(head->full_cmd[0]) == FT_CD && head->next == NULL)
 			return (ft_cd(head->full_cmd, envs), 1);
 		if (is_builtin(head->full_cmd[0]) == FT_EXPORT && head->next == NULL)
@@ -72,7 +74,7 @@ static void	minishell(char *line, t_vec *envs)
 	free_nodes(head);
 }
 
-
+// main function
 
 int	main(int argc, char *argv[], char *env[])
 {

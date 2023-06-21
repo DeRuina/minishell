@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/21 08:50:37 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/21 08:58:05 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_token_an_operator(char **str)
 
 // iterates until the closing quote to to make it one token
 
-void iterate_until_closing_quote(char quote, char **str, int *len)
+void	iterate_until_closing_quote(char quote, char **str, int *len)
 {
 	if (*(*str) == quote && quote != '\0')
 	{
