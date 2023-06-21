@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_operators.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 16:03:55 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/21 08:50:37 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,22 @@ int	is_token_an_operator(char **str)
 	return (0);
 }
 
+// iterates until the closing quote to to make it one token
+
+void iterate_until_closing_quote(char quote, char **str, int *len)
+{
+	if (*(*str) == quote && quote != '\0')
+	{
+		(*len)++;
+		(*str)++;
+		while (*(*str) && *(*str) != quote)
+		{
+			(*len)++;
+			(*str)++;
+		}
+	}
+}
+
 // gets the next token by moving the pointer,
 //returns the lenght of the token. example : "<Makefile|"
 //first call - return 1, modified string "Makefile|".
@@ -37,11 +53,17 @@ int	is_token_an_operator(char **str)
 
 int	get_next_token(char **str)
 {
-	int	len;
+	int		len;
+	char	quote;
 
 	len = is_token_an_operator(str);
 	if (len != 0)
 		return (len);
+	if (*(*str) == '\"')
+		quote = '\"';
+	if (*(*str) == '\'')
+		quote = '\'';
+	iterate_until_closing_quote(quote, str, &len);
 	while (!ft_strchr("<|>", *(*str)))
 	{
 		len++;

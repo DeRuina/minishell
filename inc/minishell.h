@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/20 14:23:10 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/21 08:39:51 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -656,5 +656,13 @@ int					redirection_no_file_in_nodes(t_node *head);
  * @retval 1 if it has no file name, 0 if everything is good
  */
 int					check_for_redirection_no_file_name(char **array);
+/**
+ * @brief moves the pointer and increases the lenght until closing quote is found
+ *
+ * @param quote " or '
+ * @param str 2D array
+ * @param len int
+ */
+void				iterate_until_closing_quote(char quote, char **str, int *len);
 
 #endif
