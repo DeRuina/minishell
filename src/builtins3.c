@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 15:01:07 by druina            #+#    #+#             */
-/*   Updated: 2023/06/20 15:02:08 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/21 08:56:30 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	trunc_file_if_needed(char *filename, int *outfile)
 	if (filename)
 	{
 		close ((*outfile));
-		(*outfile) =  open(filename, O_CREAT | O_RDWR | O_TRUNC, 0664);
+		(*outfile) = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0664);
 		if ((*outfile) == -1)
 			perror(filename);
 	}
@@ -34,7 +34,7 @@ static int	is_command(char *cmd, int outfile)
 		write(outfile, "\n", 1);
 		return (0);
 	}
-	return(1);
+	return (1);
 }
 
 // Prints the arguments on the screen

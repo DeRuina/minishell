@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:17 by druina            #+#    #+#             */
-/*   Updated: 2023/06/20 15:01:52 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/21 09:08:59 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,11 @@ void	ft_pwd(void)
 
 // Exits the program when called
 
-void	ft_exit(char *status)
+int	ft_exit(char *status)
 {
 	int		stat_int;
 	char	*stat_str;
 	int		compare;
-
 
 	if (!status)
 		exit(EXIT_SUCCESS);
@@ -78,7 +77,6 @@ void	ft_exit(char *status)
 		ft_putendl_fd(" numeric argument required", 2);
 		exit(255);
 	}
-		// print error and return;
 	g_exit_status = ft_atoi(status);
 	exit(ft_atoi(status));
 }

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:32:22 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 14:02:45 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/21 09:12:20 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef UTILS_H
+# define UTILS_H
 
 # include "libft.h"
 # include "minishell.h"
@@ -37,7 +37,7 @@ int		ft_perror(char *error_msg);
 void	close_echo_ctrl(struct termios *termios);
 void	open_echo_ctrl(struct termios *termios);
 void	increase_shlvl(t_vec *envs);
-void	init_signals();
+void	init_signals(void);
 // int		is_builtin(char *cmd);
 
 #endif

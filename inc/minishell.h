@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/20 14:23:10 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/21 09:12:04 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -583,7 +583,7 @@ void				ft_echo(char **full_cmd, int outfile, char *filename);
  * @note Exits the process if used with pipes
  * @retval None
  */
-void				ft_exit(char *status);
+int					ft_exit(char *status);
 /**
  * @brief prints the current path when called
  * @note
@@ -656,5 +656,14 @@ int					redirection_no_file_in_nodes(t_node *head);
  * @retval 1 if it has no file name, 0 if everything is good
  */
 int					check_for_redirection_no_file_name(char **array);
+/**
+ * @brief moves the pointer and increases the lenght until closing quote is found
+ *
+ * @param quote " or '
+ * @param str 2D array
+ * @param len int
+ */
+void				iterate_until_closing_quote(char quote, char **str,
+						int *len);
 
 #endif
