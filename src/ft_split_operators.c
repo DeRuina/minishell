@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/21 08:58:05 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/22 16:44:18 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ int	is_token_an_operator(char **str)
 {
 	if (*(*str) != '\0' && ft_strchr("<|>", *(*str)))
 	{
+		if (*(*str) == '|' && *(*str + 1) == '|')
+			return (-1);
+		if (*(*str) == '|' && ft_strchr("<>", *(*str + 1))
+			&& ft_strlen((*str)) == 2)
+		{
+			(*str)++;
+			return (1);
+		}
+		if (*(*str + 2) && ft_strchr("<|>", *(*str + 2)))
+			return (-1);
 		if (*(*str + 1) && ft_strchr("<>", *(*str + 1)))
 		{
 			(*str) += 2;
@@ -85,8 +95,13 @@ int	split_operators_len(char **array)
 	while (array[i] != 0)
 	{
 		temp = array[i];
-		while (get_next_token(&array[i]))
-			num_of_tokens++;
+		while (*array[i] != '\0')
+		{
+			if (get_next_token(&array[i]) < 0)
+				return (-1);
+			else
+				num_of_tokens++;
+		}
 		array[i] = temp;
 		if (*array[i] == '\0')
 			num_of_tokens++;
@@ -105,6 +120,12 @@ char	**ft_split_operators(char **array)
 	if (array == NULL)
 		return (NULL);
 	len = split_operators_len(array);
+	if (len == -1)
+	{
+		free_2d(array);
+		ft_putendl_fd("syntax error near unexpected token", 2);
+		return (NULL);
+	}
 	answer = ft_calloc(len + 1, sizeof(char *));
 	if (!answer)
 		return (NULL);
