@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:32:22 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/21 09:12:20 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/22 11:30:21 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ void	close_echo_ctrl(struct termios *termios);
 void	open_echo_ctrl(struct termios *termios);
 void	increase_shlvl(t_vec *envs);
 void	init_signals(void);
-// int		is_builtin(char *cmd);
 
 #endif

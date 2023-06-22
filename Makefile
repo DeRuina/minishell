@@ -27,7 +27,6 @@ RMDIR		= /bin/rm -rf
 
 LIBFT_DIR	= ./libft
 LIBFT		= $(LIBFT_DIR)/libft.a
-# LIBFT_FLAGS	= $(CFLAGS)
 LIBFT_FLAGS	=
 
 .PHONY: all clean fclean re

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/21 09:12:04 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/22 11:30:15 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <readline/readline.h>
 # include <stdlib.h>
 # include <string.h>
-# include <limits.h> // this should be enough
-# include <sys/wait.h> // for linux
+# include <limits.h>
+# include <sys/wait.h>
 # include <unistd.h>
 # include <signal.h>
 # include <sys/ioctl.h>
