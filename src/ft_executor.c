@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/22 14:58:04 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/22 15:20:40 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int	ft_executor(t_node *node, t_vec envv)
 
 	head = node;
 	signal(SIGINT, sig_ctrl_c_exec);
+	signal(SIGQUIT, sig_ctr_slash);
 	while (node)
 	{
 		node->pid = fork();
@@ -115,5 +116,6 @@ int	ft_executor(t_node *node, t_vec envv)
 	}
 	ft_wait(head);
 	signal(SIGINT, sig_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
 	return (0);
 }

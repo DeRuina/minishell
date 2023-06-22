@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/22 14:57:05 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/22 15:20:33 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ char				*ft_expand_token(t_vec env_vars, char *str);
 // Signals
 void				sig_ctrl_c(int signal);
 void				sig_ctrl_c_exec(int signal);
+void				sig_ctr_slash(int signal);
 
 // PARSE ARGS
 /**
