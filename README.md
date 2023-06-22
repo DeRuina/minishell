@@ -20,7 +20,7 @@ A miniature clone of bash.
 
 ## Functionality ##
 
-- Main calls ft_env to store the environment variables into and key value pair array.
+- Main calls ft_env to store the environment variables into key and value pair array.
 - Main has an eternal loop reading the input from the user and passing it to minishell.
 - Minishell parses the arguments into nodes that will be executed by the ft_executor.
 - Ft_executer forks and each node is executed in the child process.
