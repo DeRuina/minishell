@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_exec_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:58:42 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/20 08:52:28 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/22 15:52:17 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ char	*ft_get_exec_path(t_vec env, char *cmd)
 	char	**path_arr;
 	int		i;
 
+	path_arr = NULL;
 	path = ft_getenv(env, "PATH");
-	path_arr = ft_split(path, ':');
-	if (!path_arr)
-		return (NULL);
+	if (path)
+		path_arr = ft_split(path, ':');
 	if (access(cmd, X_OK | F_OK) == 0)
 		return (free_2d(path_arr), cmd);
 	i = 0;
-	while (path_arr[i] != 0)
+	while (path_arr && path_arr[i] != 0)
 	{
 		full_path = ft_full_path(path_arr[i], cmd);
 		if (access(full_path, X_OK | F_OK) == 0)
@@ -52,6 +52,7 @@ char	*ft_get_exec_path(t_vec env, char *cmd)
 			free(full_path);
 		i++;
 	}
-	free_2d(path_arr);
+	if (path_arr)
+		free_2d(path_arr);
 	return (cmd);
 }
