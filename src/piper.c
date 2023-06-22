@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piper.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 10:06:54 by druina            #+#    #+#             */
-/*   Updated: 2023/06/08 16:27:58 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:58:51 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_pipes(int **pipe_nbr, char *array)
 }
 
 // Loops through the nodes and checks if a pipe is needed for the processes,
-// changes the infile and outfile to the in end and out end of the pipe. 
+// changes the infile and outfile to the in end and out end of the pipe.
 
 void	change_infile_outfile_to_pipes(t_node *node, int **pipe_nbr)
 {
@@ -107,7 +107,7 @@ int	**allocate_pipes(char *array)
 	return (pipe_nbr);
 }
 
-// Creates 2D int array of allocated pipes. Loops through the nodes and changes 
+// Creates 2D int array of allocated pipes. Loops through the nodes and changes
 // the infile and outfile to be the IN end and OUT end of the pipe if needed.
 
 int	**piper(char *array, t_node *node)
@@ -124,7 +124,7 @@ int	**piper(char *array, t_node *node)
 	while (i < len)
 	{
 		if (pipe(pipe_nbr[i]) == -1)
-			ft_pexit("pipe :");
+			ft_pexit("pipe :", 42);
 		i++;
 	}
 	change_infile_outfile_to_pipes(node, pipe_nbr);

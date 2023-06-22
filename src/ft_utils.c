@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 14:03:31 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/20 14:38:39 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:56:38 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ void	free_nodes(t_node *node)
 
 // Uses perror with the message and exits
 
-void	ft_pexit(char *error_msg)
+void	ft_pexit(char *error_msg, int exit_status)
 {
 	perror(error_msg);
-	exit(EXIT_FAILURE);
+	exit(exit_status);
 }
 
 // Welcome message to our shell

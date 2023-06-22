@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 11:45:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 14:03:08 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:57:52 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_putenv(t_vec *envs_vec, char *str)
 	if (ft_env_update(envs, env, envs_vec->len))
 		return (1);
 	if (vec_push(envs_vec, &env) < 0)
-		ft_pexit("ft_putenv: vec_push");
+		ft_pexit("ft_putenv: vec_push", 42);
 	return (1);
 }
 
@@ -96,7 +96,7 @@ char	**ft_strenv(t_vec envs_vec)
 	envs = (t_env *)envs_vec.memory;
 	envs_str = ft_calloc(envs_vec.len + 1, sizeof(char *));
 	if (!envs_str)
-		ft_pexit("ft_calloc: ");
+		ft_pexit("ft_calloc: ", 42);
 	i = 0;
 	while (i < envs_vec.len)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/20 14:23:32 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:58:04 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ int	ft_child(t_node *node, t_vec envv)
 	env = ft_strenv(envv);
 	if (node->infile != 0)
 		if (dup2(node->infile, STDIN_FILENO) < 0)
-			ft_pexit("ft_child: dup2");
+			ft_pexit("ft_child: dup2", 42);
 	if (node->outfile != 1)
 		if (dup2(node->outfile, STDOUT_FILENO) < 0)
-			ft_pexit("ft_child: dup2");
+			ft_pexit("ft_child: dup2", 42);
 	if (node->infile != 0)
 		close(node->infile);
 	if (node->outfile != 1)
@@ -65,7 +65,7 @@ int	ft_child(t_node *node, t_vec envv)
 	if (is_builtin(node->full_cmd[0]) != FT_NONE)
 		builtin_commands(node->full_cmd, envv, node->filename);
 	if (execve(node->full_cmd[0], node->full_cmd, env) < 0)
-		ft_pexit(node->full_cmd[0]);
+		ft_pexit(node->full_cmd[0], 127);
 	return (1);
 }
 
@@ -106,7 +106,7 @@ int	ft_executor(t_node *node, t_vec envv)
 	{
 		node->pid = fork();
 		if (node->pid == -1)
-			ft_pexit("ft_executor: fork");
+			ft_pexit("ft_executor: fork", 42);
 		if (node->pid == 0)
 			ft_child(node, envv);
 		ft_close(node);

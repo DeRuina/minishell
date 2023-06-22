@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:05:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/21 13:59:04 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:58:11 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*ft_expand_token(t_vec env_vars, char *token)
 	token_first_c = token;
 	result = ft_strdup("");
 	if (!result)
-		ft_pexit("ft_expand_token: ft_strdup");
+		ft_pexit("ft_expand_token: ft_strdup", 42);
 	while (*token)
 	{
 		if (*token == '\'')

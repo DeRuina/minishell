@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/22 11:30:15 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:57:05 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -458,7 +458,7 @@ char				*ft_full_path(char *path, char *cmd);
  * @param  error_msg string for perror
  * @retval None
  */
-void				ft_pexit(char *error_msg);
+void				ft_pexit(char *error_msg, int exit_status);
 /**
  * @brief  Checks if the command is a builtin.
  * @note echo = 1, cd 2, pwd 3, export 4, unset 5, env 6, exit 7.

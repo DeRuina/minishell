@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 07:07:11 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 14:04:30 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/22 14:57:41 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*ft_env_to_str(t_env env)
 	val_len = ft_strlen(env.value);
 	env_str = ft_calloc(key_len + val_len + 2, sizeof(char));
 	if (!env_str)
-		ft_pexit("ft_calloc: ");
+		ft_pexit("ft_calloc: ", 42);
 	ft_strlcpy(env_str, env.key, key_len + 1);
 	ft_strlcpy(&(env_str[key_len]), "=", 2);
 	ft_strlcpy(&(env_str[key_len + 1]), env.value, val_len + 1);
