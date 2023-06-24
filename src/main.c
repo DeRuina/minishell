@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/21 09:11:15 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/24 15:19:22 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ extern int	g_exit_status;
 
 static int	run_ft_exit(t_node *head, t_vec *envs)
 {
-	free_envs(*envs);
-	vec_free(envs);
 	if (head->full_cmd[1] && head->full_cmd[2])
 	{
 		g_exit_status = 1;
 		ft_putendl_fd("RuiSpo: ft_exit: too many arguments", 2);
 		return (1);
 	}
+	free_envs(*envs);
+	vec_free(envs);
 	return (ft_exit(head->full_cmd[1]));
 }
 
