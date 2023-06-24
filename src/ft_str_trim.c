@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:43:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/08 16:19:08 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/24 16:05:22 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ char	*check_for_trim(char *str)
 	i = 0;
 	temp = str;
 	if (is_trim_needed(str) == 0)
-		return (str);
-	if (token_is_double_quotes(str) == 1)
 		return (str);
 	answer = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!answer)
