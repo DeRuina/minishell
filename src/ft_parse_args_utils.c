@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_args_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 23:06:41 by druina            #+#    #+#             */
-/*   Updated: 2023/06/08 16:27:16 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/24 16:26:27 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int	cmd_len(char **array)
 	i = 0;
 	while (array[i] && ft_strncmp(array[i], "|", 1) != 0)
 	{
-		if (ft_strncmp(array[i], "<", 1) == 0 || ft_strncmp(array[i], ">",
-				1) == 0)
+		if ((ft_strncmp(array[i], "<", 1) == 0
+			|| ft_strncmp(array[i], ">", 1) == 0)
+			&& ft_strlen(array[i]) > 1)
 			i += 2;
 		else
 		{

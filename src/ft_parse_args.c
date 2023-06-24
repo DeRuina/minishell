@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/19 15:27:46 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/24 16:25:08 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ char	**get_node_cmd(char ***array)
 		return (NULL);
 	while (*(*array) && **(*array) != '|')
 	{
-		if (ft_strncmp(*(*array), "<", 1) == 0 || ft_strncmp(*(*array), ">",
-				1) == 0)
+		if ((ft_strncmp(*(*array), "<", 1) == 0
+			|| ft_strncmp(*(*array), ">", 1) == 0)
+			&& ft_strlen(**array) > 1)
 			(*array) += 2;
 		else
 		{
