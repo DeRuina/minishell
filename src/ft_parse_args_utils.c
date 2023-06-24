@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 23:06:41 by druina            #+#    #+#             */
-/*   Updated: 2023/06/24 16:26:27 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/06/24 17:19:24 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	cmd_len(char **array)
 	while (array[i] && ft_strncmp(array[i], "|", 1) != 0)
 	{
 		if ((ft_strncmp(array[i], "<", 1) == 0
-			|| ft_strncmp(array[i], ">", 1) == 0)
+				|| ft_strncmp(array[i], ">", 1) == 0)
 			&& ft_strlen(array[i]) > 1)
 			i += 2;
 		else

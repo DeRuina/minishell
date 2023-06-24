@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/24 16:57:29 by druina           ###   ########.fr       */
+/*   Updated: 2023/06/24 17:19:04 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "utils.h"
+
+static int	is_redir(char ***array)
+{
+	if ((ft_strncmp(**array, "<", 1) == 0
+			|| ft_strncmp(**array, ">", 1) == 0)
+		&& *(*array + 1))
+		return (1);
+	return (0);
+}
 
 // Gets the node full_cmd
 
@@ -21,18 +30,16 @@ char	**get_node_cmd(char ***array)
 	int		i;
 
 	i = 0;
-	if (**(*array) == '\0')
+	if (***array == '\0')
 		return (case_empty_cmd(array), NULL);
 	if (cmd_len(*array) == 0)
 		return (case_only_redirections(array), NULL);
 	answer = ft_calloc((cmd_len(*array) + 1), sizeof(char *));
 	if (!answer)
 		return (NULL);
-	while (*(*array) && **(*array) != '|')
+	while (**array && ***array != '|')
 	{
-		if ((ft_strncmp(*(*array), "<", 1) == 0
-			|| ft_strncmp(*(*array), ">", 1) == 0)
-			&& *(*array + 1))
+		if (is_redir(array))
 			(*array) += 2;
 		else
 		{
@@ -40,7 +47,7 @@ char	**get_node_cmd(char ***array)
 			(*array)++;
 		}
 	}
-	if (*(*array))
+	if (**array)
 		(*array)++;
 	return (answer);
 }
