@@ -6,13 +6,13 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/22 15:20:40 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/07/06 14:49:36 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			g_exit_status = 0;
+extern int	g_exit_status;
 
 // If command is builtin, we execute
 

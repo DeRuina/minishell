@@ -6,14 +6,14 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:16:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/24 15:19:22 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/07/06 14:49:32 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "utils.h"
 
-extern int	g_exit_status;
+int	g_exit_status = 0;
 
 static int	run_ft_exit(t_node *head, t_vec *envs)
 {
