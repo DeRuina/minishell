@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/24 17:19:04 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/07/06 14:53:15 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	check_for_redirection_no_file_name(char **array)
 		if (ft_strncmp(array[0], ">>", 2) == 0 && ft_strlen(array[0]) == 2)
 			return (1);
 		if (ft_strncmp(array[0], "<<", 2) == 0 && ft_strlen(array[0]) == 2)
+			return (1);
+		if (ft_strncmp(array[0], "|", 1) == 0 && ft_strlen(array[0]) == 1)
 			return (1);
 	}
 	return (0);
