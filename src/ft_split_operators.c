@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_operators.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:07:30 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/22 16:44:18 by druina           ###   ########.fr       */
+/*   Updated: 2023/07/06 14:52:18 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 // Checks if there is an operator and if its here_doc or append
 
@@ -122,6 +124,7 @@ char	**ft_split_operators(char **array)
 	len = split_operators_len(array);
 	if (len == -1)
 	{
+		g_exit_status = 258;
 		free_2d(array);
 		ft_putendl_fd("syntax error near unexpected token", 2);
 		return (NULL);

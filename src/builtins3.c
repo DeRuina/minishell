@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 15:01:07 by druina            #+#    #+#             */
-/*   Updated: 2023/06/21 08:56:30 by druina           ###   ########.fr       */
+/*   Updated: 2023/07/06 14:53:10 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_exit_status;
 
 // closing and reopening file for truncing it
 
@@ -44,6 +46,7 @@ void	ft_echo(char **full_cmd, int outfile, char *filename)
 	int	i;
 	int	flag_n;
 
+	g_exit_status = 0;
 	i = 1;
 	flag_n = 0;
 	trunc_file_if_needed(filename, &outfile);

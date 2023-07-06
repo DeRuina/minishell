@@ -6,12 +6,14 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/07/06 14:53:15 by druina           ###   ########.fr       */
+/*   Updated: 2023/07/06 14:59:00 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "utils.h"
+
+extern int	g_exit_status;
 
 static int	is_redir(char ***array)
 {
@@ -85,6 +87,7 @@ t_node	*new_node(char ***array, t_vec env, int *error_here_docs,
 		return (NULL);
 	if (check_for_redirection_no_file_name((*array)) == 1)
 	{
+		g_exit_status = 258;
 		node->infile = REDIRECTION_NO_FILE;
 		printf("RuiSpo: syntax error near unexpected token\n");
 		return (node);
