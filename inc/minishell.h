@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/07/06 15:30:13 by druina           ###   ########.fr       */
+/*   Updated: 2023/07/06 16:16:03 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ char				*ft_expand_token(t_vec env_vars, char *str);
 // Signals
 void				sig_ctrl_c(int signal);
 void				sig_ctrl_c_exec(int signal);
-void				sig_ctr_slash(int signal);
 
 // PARSE ARGS
 /**

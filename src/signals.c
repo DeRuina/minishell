@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 08:31:50 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/22 15:22:52 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/07/06 16:18:05 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,4 @@ void	sig_ctrl_c_exec(int signal)
 		return ;
 	g_exit_status = 130;
 	write(1, "\n", 1);
-}
-
-void	sig_ctr_slash(int signal)
-{
-	if (signal != SIGQUIT)
-		return ;
-	g_exit_status = 131;
-	write(1, "Quit: 3\n", 9);
 }

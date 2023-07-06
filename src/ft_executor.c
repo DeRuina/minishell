@@ -6,7 +6,7 @@
 /*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:13:48 by tspoof            #+#    #+#             */
-/*   Updated: 2023/07/06 14:49:36 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/07/06 16:12:55 by tspoof           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,24 @@ static void	ft_close(t_node *node)
 static void	ft_wait(t_node *head)
 {
 	int	stat_loc;
+	int	signal;
+	int	once;
 
+	once = 0;
 	while (head)
 	{
 		waitpid(head->pid, &stat_loc, WUNTRACED);
 		if (WIFEXITED(stat_loc))
 			g_exit_status = WEXITSTATUS(stat_loc);
+		else if (WIFSIGNALED(stat_loc) && once == 0)
+		{
+			once++;
+			signal = WTERMSIG(stat_loc);
+			if (signal == 3)
+				printf("Quit: %d", signal);
+			printf("\n");
+			g_exit_status = signal + 128;
+		}
 		head = head->next;
 	}
 }
@@ -102,20 +114,23 @@ int	ft_executor(t_node *node, t_vec envv)
 
 	head = node;
 	signal(SIGINT, sig_ctrl_c_exec);
-	signal(SIGQUIT, sig_ctr_slash);
 	while (node)
 	{
+		signal(SIGINT, SIG_IGN);
 		node->pid = fork();
 		if (node->pid == -1)
 			ft_pexit("ft_executor: fork", 42);
 		if (node->pid == 0)
+		{
+			signal(SIGQUIT, SIG_DFL);
+			signal(SIGINT, SIG_DFL);
 			ft_child(node, envv);
+		}
 		ft_close(node);
 		if (node->pid > 0)
 			node = node->next;
 	}
 	ft_wait(head);
 	signal(SIGINT, sig_ctrl_c);
-	signal(SIGQUIT, SIG_IGN);
 	return (0);
 }
