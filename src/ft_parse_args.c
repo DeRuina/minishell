@@ -6,7 +6,7 @@
 /*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:03:56 by tspoof            #+#    #+#             */
-/*   Updated: 2023/07/06 14:59:00 by druina           ###   ########.fr       */
+/*   Updated: 2023/07/06 15:32:36 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 #include "utils.h"
 
 extern int	g_exit_status;
-
-static int	is_redir(char ***array)
-{
-	if ((ft_strncmp(**array, "<", 1) == 0
-			|| ft_strncmp(**array, ">", 1) == 0)
-		&& *(*array + 1))
-		return (1);
-	return (0);
-}
 
 // Gets the node full_cmd
 
@@ -53,11 +44,33 @@ char	**get_node_cmd(char ***array)
 		(*array)++;
 	return (answer);
 }
+
+// Finds the last token and checks if it's a redirection
+
+static	int	find_last_token(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+		i++;
+	i--;
+	if (ft_strncmp(array[i], "<", 1) == 0 && ft_strlen(array[i]) == 1)
+		return (1);
+	if (ft_strncmp(array[i], ">", 1) == 0 && ft_strlen(array[i]) == 1)
+		return (1);
+	if (ft_strncmp(array[i], ">>", 2) == 0 && ft_strlen(array[i]) == 2)
+		return (1);
+	if (ft_strncmp(array[i], "<<", 2) == 0 && ft_strlen(array[i]) == 2)
+		return (1);
+	return (0);
+}
+
 // Checks if there is a redirection with no file afterwards
 
 int	check_for_redirection_no_file_name(char **array)
 {
-	if (array[1] == NULL || *array[1] == '|')
+	if (array[1] == NULL || *array[0] == '|')
 	{
 		if (ft_strncmp(array[0], "<", 1) == 0 && ft_strlen(array[0]) == 1)
 			return (1);
@@ -70,6 +83,8 @@ int	check_for_redirection_no_file_name(char **array)
 		if (ft_strncmp(array[0], "|", 1) == 0 && ft_strlen(array[0]) == 1)
 			return (1);
 	}
+	if (find_last_token(array) == 1)
+		return (1);
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_args_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 23:06:41 by druina            #+#    #+#             */
-/*   Updated: 2023/06/24 17:19:24 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/07/06 15:29:40 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,15 @@ void	case_empty_cmd(char ***array)
 		(*array) += 2;
 	else
 		(*array)++;
+}
+
+// Checks if it's a redirection
+
+int	is_redir(char ***array)
+{
+	if ((ft_strncmp(**array, "<", 1) == 0
+			|| ft_strncmp(**array, ">", 1) == 0)
+		&& *(*array + 1))
+		return (1);
+	return (0);
 }

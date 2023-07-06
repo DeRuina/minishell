@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tspoof <tspoof@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: druina <druina@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 12:17:26 by tspoof            #+#    #+#             */
-/*   Updated: 2023/06/22 15:20:33 by tspoof           ###   ########.fr       */
+/*   Updated: 2023/07/06 15:30:13 by druina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -666,5 +666,11 @@ int					check_for_redirection_no_file_name(char **array);
  */
 void				iterate_until_closing_quote(char quote, char **str,
 						int *len);
+/**
+ * @brief Checks if its a redirection
+ * @param array pointer to a 2D array
+ * @retval 1 if it is, 0 if not
+ */
+int					is_redir(char ***array);
 
 #endif
